@@ -5,8 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title></title>
 </head>
 <body class="m-1">
@@ -15,13 +14,18 @@
             <div class="col">
                 <div class="nav">
                     <div class="nav-item me-2">
-                        <a class="nav-link text-uppercase" href="">home</a>
+                        <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
                     </div>
-                    <div class="nav-item me-2">
-                        <a class="nav-link text-uppercase" href="">register</a>
-                    </div>
-                    <div class="nav-item me-2">
-                        <a class="nav-link text-uppercase" href="">login</a>
+                    <div class="ms-auto d-flex">
+                        <div class="nav-item me-2">
+                            <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
+                        </div>
+                        <div class="nav-item me-2">
+                            <a class="nav-link text-uppercase" href="">register</a>
+                        </div>
+                        <div class="nav-item me-2">
+                            <a class="nav-link text-uppercase" href="">login</a>
+                        </div>
                     </div>
                 </div>
             </div>
