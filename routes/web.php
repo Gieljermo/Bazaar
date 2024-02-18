@@ -15,8 +15,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/register',[UserController::class, 'register'])->name('register-user');
 
+Route::post('/logout', [MainController::class, 'logout'])->name('logout');
 
 Route::resources([
     'users' => UserController::class

@@ -83,8 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
-
+    'locale' => 'nl',
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -96,7 +95,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'nl',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +167,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class
     ])->toArray(),
 
     /*
