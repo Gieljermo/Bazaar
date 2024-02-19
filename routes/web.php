@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +23,5 @@ Route::post('/logout', [MainController::class, 'logout'])->name('logout')->middl
 Route::resources([
     'users' => UserController::class
 ]);
+
+Route::resource('listings', ListingController::class);

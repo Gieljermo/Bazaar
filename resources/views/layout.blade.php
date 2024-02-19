@@ -18,7 +18,18 @@
             <div class="col">
                 <div class="nav">
                     <div class="nav-item me-2">
-                        <a class="nav-link text-uppercase" href="{{route('home')}}">home</a>
+                        <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
+                    </div>
+                    <div class="ms-auto d-flex">
+                        <div class="nav-item me-2">
+                            <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
+                        </div>
+                        <div class="nav-item me-2">
+                            <a class="nav-link text-uppercase" href="">register</a>
+                        </div>
+                        <div class="nav-item me-2">
+                            <a class="nav-link text-uppercase" href="">login</a>
+                        </div>
                     </div>
                     @guest()
                         <div class="nav-item me-2">
