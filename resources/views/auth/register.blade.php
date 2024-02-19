@@ -69,20 +69,20 @@
                 </small>
             </div>
             <div class="form-check mt-1">
-                <input class="form-check-input" type="radio" name="type_user" id="type_user" required checked>
-                <label class="form-check-label" for="type_user">
+                <input class="form-check-input" type="radio" name="type_user" id="type_user_none_advertiser" required checked>
+                <label class="form-check-label" for="type_user_none_advertiser">
                     Geen adverteerder
                 </label>
             </div>
             <div class="form-check mt-1">
-                <input class="form-check-input" type="radio" name="type_user" id="type_user" value="particuliere adverteerder">
-                <label class="form-check-label" for="type_user">
+                <input class="form-check-input" type="radio" name="type_user" id="type_user_proprietary_advertiser" value="particuliere adverteerder">
+                <label class="form-check-label" for="type_user_proprietary_advertiser">
                     Particuliere adverteerder
                 </label>
             </div>
             <div class="form-check mb-4">
-                <input class="form-check-input" type="radio" name="type_user" id="type_user" value="zakelijke adverteerder">
-                <label class="form-check-label" for="type_user">
+                <input class="form-check-input" type="radio" name="type_user" id="type_user_commercial_advertiser" value="zakelijke adverteerder">
+                <label class="form-check-label" for="type_user_commercial_advertiser">
                     Zakelijke adverteerder
                 </label>
             </div>
