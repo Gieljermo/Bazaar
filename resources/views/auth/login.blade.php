@@ -25,8 +25,15 @@
                 <input type="password" class="form-control border-black" id="wachtwoord" name="password"  placeholder="Wachtwoord">
             </div>
             <div class=text-center>
-                <button type="submit" class="btn btn-primary text-uppercase">Inloggen</button>
+                <button type="submit" class="btn btn-primary text-uppercase">Log in</button>
             </div>
+            @if (session('message'))
+                <div class="alert alert-success mt-2">
+                    <li>
+                        {{ session('message') }}
+                    </li>
+                </div>
+            @endif
         </form>
     </div>
     <div class="col-5"></div>

@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 
-Route::post('/logout', [MainController::class, 'logout'])->name('logout');
+Route::post('/logout', [MainController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::resources([
     'users' => UserController::class

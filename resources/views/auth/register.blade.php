@@ -64,7 +64,15 @@
                 @enderror
             </div>
             <div>
-                <small>* Als je niks aanvinkt ben je gewoon een standaard gebruiker.</small>
+                <small>
+                    * Hieronder kies of je een particulier of zakelijke adverteerder bent.
+                </small>
+            </div>
+            <div class="form-check mt-1">
+                <input class="form-check-input" type="radio" name="type_user" id="type_user" required checked>
+                <label class="form-check-label" for="type_user">
+                    Geen adverteerder
+                </label>
             </div>
             <div class="form-check mt-1">
                 <input class="form-check-input" type="radio" name="type_user" id="type_user" value="particuliere adverteerder">
@@ -78,7 +86,6 @@
                     Zakelijke adverteerder
                 </label>
             </div>
-            <input hidden class="form-check-input" type="radio" name="type_user" id="type_user" checked>
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">Bevestigen</button>
             </div>
