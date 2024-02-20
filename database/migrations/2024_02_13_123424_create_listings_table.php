@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('type');
             $table->unsignedBigInteger('purchase_id')->nullable();
             $table->foreign('purchase_id')->references('id')->on('purchases');
-            $table->foreignId('biddings_id')->nullable();
             $table->timestamps();
         });
     }
