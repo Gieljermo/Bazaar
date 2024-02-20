@@ -3,6 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProprietaryController;
+use App\Http\Controllers\CommercialController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +21,28 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-
 Route::post('/logout', [MainController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('auth');
+
+Route::middleware('admin')->group(function (){
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
+
+
+Route::middleware('customer')->group(function (){
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+});
+
+Route::middleware('proprietary')->group(function (){
+    Route::get('/proprietary', [ProprietaryController::class, 'index'])->name('proprietary.index');
+});
+
+
+Route::middleware('commercial')->group(function (){
+    Route::get('/commercial', [CommercialController::class, 'index'])->name('commercial.index');
+});
+
 
 Route::resources([
     'users' => UserController::class

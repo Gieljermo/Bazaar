@@ -13,12 +13,15 @@ class MainController extends Controller
     public function index()
     {
         //
-        return view('index', ['heading' => 'Home']);
+        if (Auth::check()){
+            return redirect()->route('user.index');
+        }
+        return view('index', ['heading' => 'Welkom bij de Bazaar']);
     }
 
     public function logout(Request $request){
         Auth::logout();;
-         return redirect('/login')->with('message', 'Je bent uitgeleogd');
+         return redirect('/login')->with('message', 'Je bent uitgelogd');
     }
 
 }
