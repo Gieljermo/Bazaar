@@ -1,5 +1,5 @@
 @extends('layout', [
-      'title' => 'inloggen'
+      'title' => 'Inloggen'
 ])
 
 @section('content')

@@ -1,9 +1,7 @@
 @extends('layout', [
-        'title' => 'Bazaar'
-    ])
+    'title' => 'Bazaar admin'
+ ])
 
 @section('content')
 
 @endsection
-
-

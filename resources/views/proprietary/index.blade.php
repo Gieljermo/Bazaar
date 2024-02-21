@@ -1,9 +1,7 @@
 @extends('layout', [
-        'title' => 'Bazaar'
-    ])
+    'title' => 'Bazaar proprietary'
+ ])
 
 @section('content')
 
 @endsection
-
-

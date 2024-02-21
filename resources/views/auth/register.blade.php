@@ -1,5 +1,5 @@
 @extends('layout', [
-    'title' => 'registeren'
+    'title' => 'Registeren'
 ])
 
 @section('content')
