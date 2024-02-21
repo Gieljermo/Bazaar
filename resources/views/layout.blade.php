@@ -24,12 +24,6 @@
                         <div class="nav-item me-2">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="">register</a>
-                        </div>
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="">login</a>
-                        </div>
                     </div>
                     @guest()
                         <div class="nav-item me-2">
