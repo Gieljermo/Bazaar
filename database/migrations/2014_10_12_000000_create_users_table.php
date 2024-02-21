@@ -28,16 +28,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('users')->insert([
-            'name' => 'admin',
-            'lastname' => '-',
-            'street' => '-',
-            'house_number' => '-',
-            'postal_code' => '-',
-            'email' => 'admin@live.nl',
-            'password' => Hash::make('admin'),
-            'role_id' => 4
-        ]);
+
     }
 
     /**

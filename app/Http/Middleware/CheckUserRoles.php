@@ -6,20 +6,19 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-
-class UserIsAdmin
+use App\Models\Role;
+class CheckUserRoles
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $roleName): Response
     {
-        if (Auth::check())
-        {
-            if(Auth::user()->IsAdmin())
-            {
+        if (Auth::check()){
+
+            if ((Role::find(Auth::user()->role_id))->role_name == $roleName){
                 return $next($request);
             }
         }

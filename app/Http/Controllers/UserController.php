@@ -16,7 +16,7 @@ class UserController extends Controller
         //
         switch (Auth::user()->role_id){
             case 1:
-                    return redirect()->route('customer.index.index');
+                    return redirect()->route('customer.index');
                 break;
             case 2:
                     return redirect()->route('proprietary.index');

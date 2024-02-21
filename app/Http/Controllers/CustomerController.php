@@ -11,6 +11,6 @@ class CustomerController extends Controller
     public function index()
     {
         //
-        return view('customer.index', ['heading' => 'Welkom '. Auth::user()->name]);
+        return view('index', ['heading' => 'Welkom '. Auth::user()->name]);
     }
 }
