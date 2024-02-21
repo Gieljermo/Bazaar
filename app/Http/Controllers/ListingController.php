@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -16,7 +17,10 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view("Listings.index");
+        $listings = Listing::All();
+        return view("Listings.index", [
+            "listings" => $listings,
+        ]);
     }
 
     /**
@@ -35,23 +39,35 @@ class ListingController extends Controller
         $validated = $request->validate([
             'product.name' => 'required|string',
             'product.description' => 'string',
-            'product.price' => 'exclude_if:listing,bidding|required|numeric',
-            'listing' => 'required',
-            'product.amount' => 'required'
+            'listing.price' => 'sometimes|required|numeric',
+            'listing.bid-price' => 'sometimes|required|numeric',
+            'listing.rent-price' => 'sometimes|required|numeric',
+            'listing.amount' => 'required',
+            'listing.type' => 'required',
         ]);
 
         $product = Product::create([
             'product_name' => $request->input('product.name'),
             'description' => $request->input('product.description'),
-            'price' => $request->input('product.price'),
-            'amount' => $request->input('product.amount'),
         ]);
 
-        Listing::create([
-            'product_id' => $product->id,
-            'user_id' => 1, //Zet dit op ingelogde user
-            'type' => $request->input('listing')
-        ]);
+        $listing = new Listing();
+        $listing->product_id = $product->id;
+        $listing->user_id = Auth::user()->id;
+        $listing->type = $request->input('listing.type');
+
+        if ($request->has('listing.bid-price')) {
+            $listing->price_from = $request->input('listing.bid-price');
+        } else if ($request->has('listing.price')) {
+            $listing->price = $request->input('listing.price');
+        } else if ($request->has('listing.rent-price')) {
+            $listing->price = $request->input('listing.rent-price');
+        }
+
+        $listing->amount = $request->input('listing.amount');
+        $listing->save();
+
+        return view('Listings.index')->with('message', 'Advertentie succesvol toegevoegd.');
     }
 
     /**
@@ -59,7 +75,9 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        //
+        return view('Listings.show', [
+            'listing' => $listing
+        ]);
     }
 
     /**

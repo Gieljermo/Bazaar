@@ -10,7 +10,7 @@
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
     <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
-    <title>{{$heading}}</title>
+    <title>{{$title}}</title>
 </head>
 <body class="m-1">
     <div class="container m-0 mw-100">
@@ -24,40 +24,34 @@
                         <div class="nav-item me-2">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="">register</a>
-                        </div>
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="">login</a>
-                        </div>
-                    </div>
-                    @guest()
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="/register">register</a>
-                        </div>
-                        <div class="nav-item me-2">
-                            <a class="nav-link text-uppercase" href="/login">login</a>
-                        </div>
-                    @endguest
+                        @guest()
+                            <div class="nav-item me-2">
+                                <a class="nav-link text-uppercase" href="/register">register</a>
+                            </div>
+                            <div class="nav-item me-2">
+                                <a class="nav-link text-uppercase" href="/login">login</a>
+                            </div>
+                        @endguest
 
-                    @auth()
-                        <div class="nav-item me-2">
-                            <form id="logout_page" action="{{route('logout')}}" method="post">
-                                @csrf
-                            </form>
-                            <a class="nav-link text-uppercase" href="javascript:document.getElementById('logout_page').submit()">
-                                uitloggen
-                            </a>
+                        @auth()
+                            <div class="nav-item me-2">
+                                <form id="logout_page" action="{{route('logout')}}" method="post">
+                                    @csrf
+                                </form>
+                                <a class="nav-link text-uppercase" href="javascript:document.getElementById('logout_page').submit()">
+                                    uitloggen
+                                </a>
+                            </div>
+                        @endauth
+                        <div class="col text-end">
+                            @auth()
+                                <div class="mt-1 me-lg-5">
+                                    <span class="" style="font-size: 1.5em">{{Auth::user()->name}}</span>
+                                </div>
+                            @endauth
                         </div>
-                    @endauth
-                </div>
-            </div>
-            <div class="col text-end">
-                @auth()
-                    <div class="mt-1 me-lg-5">
-                        <span class="" style="font-size: 1.5em">{{Auth::user()->name}}</span>
                     </div>
-                @endauth
+                </div>
             </div>
         </div>
         <div class="row ">
