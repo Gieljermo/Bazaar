@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProprietaryController;
 use App\Http\Controllers\CommercialController;
-
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,5 @@ Route::middleware('role:commercial')->group(function (){
 Route::resources([
     'users' => UserController::class
 ]);
+
+Route::resource('listings', ListingController::class);
