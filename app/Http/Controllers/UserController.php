@@ -59,15 +59,30 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('auth.profile',
+            [
+                'heading' => 'Welkom '. Auth::user()->name,
+                'user' => $user
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
+        $user = User::find($id)->fill($request->all());
+        $user->role_id =
+            ($request->input('type_user') == 'on') ?    1 : (($request->input('type_user') == 'particuliere adverteerder') ? 2 : 3);
+
+        $user->save();
+
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('success_message', 'Het profiel is succesvol geüpdated');
+
+
     }
 
     /**

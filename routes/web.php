@@ -28,6 +28,7 @@ Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
 Route::middleware('role:admin')->group(function (){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('admin/{id}', [AdminController::class, 'filterUsers'])->name('admin.filter');
 });
 
 Route::middleware('role:customer')->group(function (){
@@ -42,9 +43,12 @@ Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial', [CommercialController::class, 'index'])->name('commercial.index');
 });
 
+Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
+    Route::resources([
+        'users' => UserController::class,
+    ]);
+});
 
-Route::resources([
-    'users' => UserController::class
-]);
+
 
 Route::resource('listings', ListingController::class);

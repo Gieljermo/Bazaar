@@ -16,12 +16,10 @@ class CheckUserRoles
      */
     public function handle(Request $request, Closure $next, string $roleName): Response
     {
-        if (Auth::check()){
-
-            if ((Role::find(Auth::user()->role_id))->role_name == $roleName){
-                return $next($request);
-            }
+        if (Auth::check() && (Role::find(Auth::user()->role_id))->role_name == $roleName) {
+            return $next($request);
         }
+
         return redirect('login');
     }
 }

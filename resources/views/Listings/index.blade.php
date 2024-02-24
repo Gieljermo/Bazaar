@@ -1,4 +1,6 @@
-@extends('layout')
+@extends('layout', [
+        'heading' => 'listing'
+    ])
 
 @section('content')
     <div class="card" style="width: 18rem;">
