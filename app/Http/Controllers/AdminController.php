@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -18,10 +19,10 @@ class AdminController extends Controller
         $roles = Role::all()->except(Auth::user()->role_id);
 
         return view('admin.index', [
-            'heading' => 'Welkom '. Auth::user()->name,
-            'users' => $users,
-            'roles' => $roles,
-            'roleActive' => 0
+                'heading' => 'Welkom '. Auth::user()->name,
+                'users' => $users,
+                'roles' => $roles,
+                'roleActive' => 0
             ]);
     }
 
@@ -43,5 +44,13 @@ class AdminController extends Controller
             return redirect('admin.index');
         }
 
+    }
+
+    public function exportContractPdf($user){
+        $chosenUser = User::find($user);
+        $pdf = Pdf::loadView('admin.contract', [
+            'user' => $chosenUser
+        ]);
+        return $pdf->download("contract_".$chosenUser->name.".pdf");
     }
 }

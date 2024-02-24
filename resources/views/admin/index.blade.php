@@ -49,28 +49,25 @@
             </thead>
             <tbody class="text-center">
             <?php $count = 1; ?>
-            @foreach($users as $user)
-                <tr>
-                    <th scope="row">{{$count++}}</th>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->lastname}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>
-                        {{$roleDescriptions[(\App\Models\Role::find($user->role_id))->role_name] ?? '' }}
-                    </td>
-                    <td>
-                        <form action="{{route('users.edit', $user)}}" method="GET" style="display:inline;">
-                            <button type="submit" class="btn btn-primary">Profiel</button>
-                        </form>
-                        @if($user->role_id === 3)
-                            <form action="/pdf" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-secondary">Export contract</button>
+                @foreach($users as $user)
+                    <tr>
+                        <th scope="row">{{$count++}}</th>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->lastname}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>
+                            {{$roleDescriptions[(\App\Models\Role::find($user->role_id))->role_name] ?? '' }}
+                        </td>
+                        <td>
+                            <form action="{{route('users.edit', $user)}}" method="GET" style="display:inline;">
+                                <button type="submit" class="btn btn-primary">Profiel</button>
                             </form>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
+                            @if($user->role_id === 3)
+                                <a  class="btn btn-secondary" href="{{route('admin.export.pdf', $user)}}">Export contract</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

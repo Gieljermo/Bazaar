@@ -20,13 +20,6 @@
                 </span>
             @endif
         </div>
-        <div class="mt-5">
-            @if(session('error_message'))
-                <span class="alert alert-danger">
-                    {{session('error_message')}}
-                </span>
-            @endif
-        </div>
         <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-4">
             @csrf
             @method('PUT')

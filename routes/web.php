@@ -29,6 +29,7 @@ Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::middleware('role:admin')->group(function (){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('admin/{id}', [AdminController::class, 'filterUsers'])->name('admin.filter');
+    Route::get('/admin/export/{id}', [AdminController::class, 'exportContractPdf'])->name('admin.export.pdf');
 });
 
 Route::middleware('role:customer')->group(function (){
