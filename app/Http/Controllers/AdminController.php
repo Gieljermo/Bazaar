@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,22 +27,22 @@ class AdminController extends Controller
             ]);
     }
 
-
-    public function filterUsers($role){
+    public function filterUsers($roleName){
         try {
+            $role_id = Role::where('role_name', $roleName)->value('id');
+            $users = User::whereRaw('role_id = ?', $role_id)->get();
 
-            $users = User::whereRaw('role_id = ?', $role)->get();
             $roles = Role::all()->except(Auth::user()->role_id);
 
             return view('admin.index', [
                 'heading' => 'Welkom '. Auth::user()->name,
                 'users' => $users,
                 'roles' => $roles,
-                'roleActive' => (int)$role
+                'roleActive' => $roleName
             ]);
         }
         catch (\Exception $e){
-            return redirect('admin.index');
+            return redirect()->route('admin.index');
         }
 
     }
@@ -52,5 +53,28 @@ class AdminController extends Controller
             'user' => $chosenUser
         ]);
         return $pdf->download("contract_".$chosenUser->name.".pdf");
+    }
+
+    public function uploadContract(Request $request, $id){
+        try {
+            $request->validate([
+                'contract' => 'required|file|mimes:pdf|'
+            ]);
+
+            $file = $request->file('contract');
+            $fileData = file_get_contents($file);
+
+            $contract = new Contract();
+            $contract->user_id = $id;
+            $contract->file = $fileData;
+            $contract->Accepted = 1;
+
+            $contract->save();
+
+            return redirect()->back()->with('success_message', 'Bestand succesvol geupload');
+        }
+        catch (\Exception $e){
+            return redirect()->back()->with('error_message', 'Bestand kon niet geupload worden');
+        }
     }
 }

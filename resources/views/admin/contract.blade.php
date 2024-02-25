@@ -39,33 +39,31 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="contract-content">
-        <h1>Bazaar</h1>
-        <h2>Zakelijk Adverteerder Contract</h2>
+    <div class="container">
+        <div class="contract-content">
+            <h1>Bazaar</h1>
+            <h2>Zakelijk Adverteerder Contract</h2>
 
-        <h3>Partijen</h3>
-        <p>Dit contract wordt gesloten tussen {{$user->name." ".$user->lastname}},
-            hierna aangeduid als " Zakelijke adverteerder", en Bazaar.</p>
+            <h3>Partijen</h3>
+            <p>Dit contract wordt gesloten tussen {{$user->name." ".$user->lastname}},
+                hierna aangeduid als " Zakelijke adverteerder", en Bazaar.</p>
 
-        <h3>Doel</h3>
-        <p>Het doel van dit contract is om de voorwaarden en overeenkomsten vast te leggen met betrekking tot de advertentiediensten die door de Adverteerder worden afgenomen van Bazaar.</p>
+            <h3>Doel</h3>
+            <p>Het doel van dit contract is om de voorwaarden en overeenkomsten vast te leggen met betrekking tot de advertentiediensten die door de Adverteerder worden afgenomen van Bazaar.</p>
 
-        <!-- Voeg hier meer secties toe zoals 'Verplichtingen van de Adverteerder', 'Verplichtingen van Bazaar', 'Betaling', enzovoort. -->
+            <h3>Ondertekening</h3>
+            <p>Dit contract treedt in werking op {{ date('d-m-Y')}}. Beide partijen verklaren dat zij de inhoud van dit contract hebben begrepen en ermee akkoord gaan.</p>
 
-        <h3>Ondertekening</h3>
-        <p>Dit contract treedt in werking op {{ date('d-m-Y')}}. Beide partijen verklaren dat zij de inhoud van dit contract hebben begrepen en ermee akkoord gaan.</p>
+            <p>Getekend voor en namens Adverteerder:</p>
+            <p>[Naam van de vertegenwoordiger van de Adverteerder]</p>
+            <p>Handtekening: ___________________________</p>
+            <p>Datum: ___________________________</p>
 
-        <p>Getekend voor en namens Adverteerder:</p>
-        <p>[Naam van de vertegenwoordiger van de Adverteerder]</p>
-        <p>Handtekening: ___________________________</p>
-        <p>Datum: ___________________________</p>
-
-        <p>Getekend voor en namens Bazaar:</p>
-        <p>[Naam van de vertegenwoordiger van Bazaar]</p>
-        <p>Handtekening: ___________________________</p>
-        <p>Datum: ___________________________</p>
+            <p>Getekend voor en namens Bazaar:</p>
+            <p>[Naam van de vertegenwoordiger van Bazaar]</p>
+            <p>Handtekening: ___________________________</p>
+            <p>Datum: ___________________________</p>
+        </div>
     </div>
-</div>
 </body>
 </html>

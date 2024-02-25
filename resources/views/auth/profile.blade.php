@@ -2,6 +2,10 @@
     'title' => 'Profiel bewerken'
 ])
 
+@php
+    use App\Models\Role;
+@endphp
+
 @section('content')
     <div class="col">
 
@@ -17,6 +21,12 @@
             @if(session('success_message'))
                 <span class="alert alert-success">
                     {{session('success_message')}}
+                </span>
+            @endif
+
+            @if(session('error_message'))
+                <span class="alert alert-danger">
+                    {{session('error_message')}}
                 </span>
             @endif
         </div>
@@ -87,9 +97,22 @@
                 </label>
             </div>
             <div class="text-end">
-                <button type="submit" class="btn btn-primary">Bevestigen</button>
+                <button type="submit" class="btn btn-primary text-uppercase">Bevestigen</button>
             </div>
         </form>
+        <div class="mt-3">
+                @if((Role::find($user->role_id))->role_name === 'commercial'
+                    && (Role::find(Auth::user()->role_id))->role_name === 'admin' )
+                <form action="{{route('admin.upload', $user->id)}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label class="mb-2" for="upload-contract">Upload de contract voor zakelijk adverteerder</label>
+                        <input type="file" id="upload-contract" name="contract">
+                        <button type="submit" class="btn btn-dark text-uppercase">Upload</button>
+                    </div>
+                </form>
+                @endif
+        </div>
     </div>
     <div class="col">
 
