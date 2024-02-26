@@ -55,7 +55,7 @@ class AdminController extends Controller
         return $pdf->download("contract_".$chosenUser->name.".pdf");
     }
 
-    public function uploadContract(Request $request, $id){
+    public function uploadContract(Request $request, $user){
         try {
             $request->validate([
                 'contract' => 'required|file|mimes:pdf|'
@@ -64,11 +64,8 @@ class AdminController extends Controller
             $file = $request->file('contract');
             $fileData = file_get_contents($file);
 
-            $contract = new Contract();
-            $contract->user_id = $id;
+            $contract = Contract::where('user_id', $user)->first();
             $contract->file = $fileData;
-            $contract->Accepted = 1;
-
             $contract->save();
 
             return redirect()->back()->with('success_message', 'Bestand succesvol geupload');

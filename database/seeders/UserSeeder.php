@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,8 @@ class UserSeeder extends Seeder
                 'postal_code' => '-',
                 'email' => 'admin@live.nl',
                 'password' => Hash::make('admin'),
-                'role_id' => 4
+                'role_id' => 4,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
                 'name' => 'Jan',
@@ -35,7 +37,8 @@ class UserSeeder extends Seeder
                 'postal_code' => '1234AB',
                 'email' => 'maas@live.nl',
                 'password' => Hash::make('password'),
-                'role_id' => 1
+                'role_id' => 1,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
                 'name' => 'Kira',
@@ -45,7 +48,8 @@ class UserSeeder extends Seeder
                 'postal_code' => '1234AB',
                 'email' => 'molen@live.nl',
                 'password' => Hash::make('password'),
-                'role_id' => 2
+                'role_id' => 2,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
                 'name' => 'Lilian',
@@ -55,8 +59,15 @@ class UserSeeder extends Seeder
                 'postal_code' => '1234AB',
                 'email' => 'akkers@live.nl',
                 'password' => Hash::make('password'),
-                'role_id' => 3
+                'role_id' => 3,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
+        ]);
+
+        DB::table('contracts')->insert([
+            'user_id' => 4,
+            'file' => null,
+            'accepted' => 0
         ]);
     }
 }

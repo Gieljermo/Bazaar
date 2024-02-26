@@ -103,7 +103,7 @@
         <div class="mt-3">
                 @if((Role::find($user->role_id))->role_name === 'commercial'
                     && (Role::find(Auth::user()->role_id))->role_name === 'admin' )
-                <form action="{{route('admin.upload', $user->id)}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.upload', $user)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="mb-2" for="upload-contract">Upload de contract voor zakelijk adverteerder</label>

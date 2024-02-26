@@ -55,9 +55,9 @@
             <p>Dit contract treedt in werking op {{ date('d-m-Y')}}. Beide partijen verklaren dat zij de inhoud van dit contract hebben begrepen en ermee akkoord gaan.</p>
 
             <p>Getekend voor en namens Adverteerder:</p>
-            <p>[Naam van de vertegenwoordiger van de Adverteerder]</p>
-            <p>Handtekening: ___________________________</p>
-            <p>Datum: ___________________________</p>
+            <p>{{$user->name." ".$user->lastname}}</p>
+            <p>Handtekening: {{$user->name}}</p>
+            <p>Datum: {{$user->created_at->toDateString('d-m-Y')}}</p>
 
             <p>Getekend voor en namens Bazaar:</p>
             <p>[Naam van de vertegenwoordiger van Bazaar]</p>

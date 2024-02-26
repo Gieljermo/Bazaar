@@ -10,4 +10,10 @@ class Contract extends Model
     use HasFactory;
 
     protected $table = "contracts";
+
+    protected $fillable = [
+        'user_id',
+        'file',
+        'accepted',
+    ];
 }

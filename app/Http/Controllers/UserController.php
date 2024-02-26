@@ -70,10 +70,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
-        $user = User::find($id)->fill($request->all());
+        $user = User::find($user->id)->fill($request->all());
         $user->role_id =
             ($request->input('type_user') == 'on') ?    1 : (($request->input('type_user') == 'particuliere adverteerder') ? 2 : 3);
 

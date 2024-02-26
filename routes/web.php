@@ -43,12 +43,11 @@ Route::middleware('role:proprietary')->group(function (){
 
 Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial', [CommercialController::class, 'index'])->name('commercial.index');
+    Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.contract');
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
-    Route::resources([
-        'users' => UserController::class,
-    ]);
+    Route::resources(['users' => UserController::class]);
 });
 
 
