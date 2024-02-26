@@ -70,7 +70,9 @@ class ListingController extends Controller
         $listing->amount = $request->input('listing.amount');
         $listing->save();
 
-        return view('Listings.index')->with('message', 'Advertentie succesvol toegevoegd.');
+
+        $allListings = Listing::All();
+        return view('Listings.index', ["listings" => $allListings])->with('message', 'Advertentie succesvol toegevoegd.');
     }
 
     /**
@@ -127,20 +129,18 @@ class ListingController extends Controller
 
     public function buy(Request $request){
 
-        $listing = Listing::where('id', $request->listing)->first();
-
-        $validated = $request->validate([
-            'bid' => "required|numeric|min:$listing->price_from",
-        ]);
-
-        Bid::create([
+        $purchase = Purchase::create([
             'user_id' => Auth::user()->id,
-            'listing_id' => $listing->id,
             'date' => Carbon::now(),
-            'price' => $request->bid
         ]);
 
-        return back()->with('succes', 'Bod succesvol geplaatst');
+        $listing = Listing::where('id', $request->listing)->first();
+        $listing->purchase_id = $purchase->id;
+
+        $listing->save();
+
+
+        return view("index");
     }
 
     public function rent(Request $request){

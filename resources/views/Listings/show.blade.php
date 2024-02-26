@@ -31,6 +31,7 @@
         @elseif ($listing->type == "rental")
             <form method="POST" action="{{Route('listing.rent')}}">
                 @csrf
+                <input type="hidden" name="listing" value="{{$listing->id}}"/>
                 <div class="form-group mb-4">
                     <label for="rent_from">Start datum</label>
                     <input class="form-control" type="date" name="rent_from"/>
@@ -47,6 +48,7 @@
             <p>&euro;{{$listing->price}}</p>
             <form method="POST" action="{{Route('listing.buy')}}">
                 @csrf
+                <input type="hidden" name="listing" value="{{$listing->id}}"/>
                 <input class="btn btn-primary" type="submit" value="Product Kopen"/>
             </form>
         @endif
