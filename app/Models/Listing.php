@@ -18,4 +18,9 @@ class Listing extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class)->orderBy('price', 'desc');;
+    }
 }

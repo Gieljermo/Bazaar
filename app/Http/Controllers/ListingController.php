@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Bid;
+use App\Models\Rental;
+use App\Models\Purchase;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Carbon; 
 
 
 class ListingController extends Controller
@@ -76,7 +79,7 @@ class ListingController extends Controller
     public function show(Listing $listing)
     {
         return view('Listings.show', [
-            'listing' => $listing
+            'listing' => $listing,
         ]);
     }
 
@@ -102,5 +105,58 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         //
+    }
+
+    public function bid(Request $request){
+
+        $listing = Listing::where('id', $request->listing)->first();
+
+        $validated = $request->validate([
+            'bid' => "required|numeric|min:$listing->price_from",
+        ]);
+
+        Bid::create([
+            'user_id' => Auth::user()->id,
+            'listing_id' => $listing->id,
+            'date' => Carbon::now(),
+            'price' => $request->bid
+        ]);
+
+        return back()->with('succes', 'Bod succesvol geplaatst');
+    }
+
+    public function buy(Request $request){
+
+        $listing = Listing::where('id', $request->listing)->first();
+
+        $validated = $request->validate([
+            'bid' => "required|numeric|min:$listing->price_from",
+        ]);
+
+        Bid::create([
+            'user_id' => Auth::user()->id,
+            'listing_id' => $listing->id,
+            'date' => Carbon::now(),
+            'price' => $request->bid
+        ]);
+
+        return back()->with('succes', 'Bod succesvol geplaatst');
+    }
+
+    public function rent(Request $request){
+
+        $validated = $request->validate([
+            'rent_from' => "required|date",
+            'rent_until' => "required|date",
+        ]);
+
+        Rental::create([
+            'user_id' => Auth::user()->id,
+            'listing_id' => $request->listing,
+            'from' => Carbon::now(),
+            'until' => $request->bid
+        ]);
+
+        return back()->with('succes', 'Bod succesvol geplaatst');
     }
 }

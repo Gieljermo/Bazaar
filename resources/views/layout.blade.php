@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="row ">
+        <div class="row justify-content-center">
             <h1 class="text-center text-uppercase mt-4">{{$title}}</h1>
             @yield('content')
         </div>

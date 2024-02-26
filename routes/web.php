@@ -25,3 +25,6 @@ Route::resources([
 ]);
 
 Route::resource('listings', ListingController::class);
+Route::post('/listings/bid', [ListingController::class, 'bid'])->name('listing.bid');
+Route::post('/listings/buy', [ListingController::class, 'bid'])->name('listing.buy');
+Route::post('/listings/rent', [ListingController::class, 'bid'])->name('listing.rent');
