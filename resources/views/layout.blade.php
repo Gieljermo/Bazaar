@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
     <title>{{$title}}</title>
 </head>
+
+@php
+    use App\Models\Role;
+@endphp
 <body class="m-1">
     <div class="container m-0 mw-100">
         <div class="row pb-2 border-bottom border-primary">
@@ -46,11 +50,25 @@
                     @endauth
                 </div>
             </div>
-            <div class="col text-end">
-                @auth()
-                    <div class="mt-1 me-lg-5">
-                        <span class="text-uppercase" style="font-size: 1.5em">{{Auth::user()->name}}</span>
-                    </div>
+            <div class="col">
+                @auth
+                    <nav class="d-flex justify-content-end">
+                        <div class="nav-item me-3 mt-2">
+                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                <a href="{{route('commercial.contract')}}" class="text-uppercase" style="text-decoration: none">Contract</a>
+                            @endif
+                        </div>
+                        <div class="nav-item me-3 mt-1">
+                            <form action="{{ route('users.edit', Auth::user()->id) }}" method="GET">
+                                <button type="submit" class="btn btn-primary">Profiel</button>
+                            </form>
+                        </div>
+                        <div class="nav-item ms-3 mt-1">
+                            <div class="me-lg-5">
+                                <span class="text-uppercase" style="font-size: 1.5em">{{ Auth::user()->name }}</span>
+                            </div>
+                        </div>
+                    </nav>
                 @endauth
             </div>
         </div>

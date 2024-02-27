@@ -30,7 +30,7 @@
                 </span>
             @endif
         </div>
-        <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-4">
+        <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-3">
             @csrf
             @method('PUT')
             <div class="form-group mb-4">

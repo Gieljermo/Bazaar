@@ -43,7 +43,9 @@ Route::middleware('role:proprietary')->group(function (){
 
 Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial', [CommercialController::class, 'index'])->name('commercial.index');
-    Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.contract');
+    Route::get('/commercial/contract', [CommercialController::class, 'getContract'])->name('commercial.contract');
+    Route::get('/commercial/contract/download/{id}',[CommercialController::class, 'downloadContract'])->name('commercial.download.contract');
+    Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.accept.contract');
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){

@@ -49,7 +49,7 @@ class AdminController extends Controller
 
     public function exportContractPdf($user){
         $chosenUser = User::find($user);
-        $pdf = Pdf::loadView('admin.contract', [
+        $pdf = Pdf::loadView('admin.contract_template', [
             'user' => $chosenUser
         ]);
         return $pdf->download("contract_".$chosenUser->name.".pdf");

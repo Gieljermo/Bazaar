@@ -23,21 +23,24 @@
         @unless($contract->accepted == 1)
             @if($contract->file === null)
                 <div class="text-center">
-                    <h3>Jouw contract moet nog gecontroleerd en geupload worden door de administratie</h3>
+                    <h3>Jouw contract moet nog gecontroleerd worden en geupload worden door de administratie</h3>
                 </div>
             @else
-                <h3 class="text-uppercase">Hieronder is jouw contract</h3>
-                <span></span>
-                <embed src="data:application/pdf;base64,{{ base64_encode($contract->file) }}" type="application/pdf"
-                       width="100%" height="600px"/>
+                <h3 class="text-uppercase">Hieronder kan jouw contract downloaden</h3>
+                <span>
+                    <a href="{{route('commercial.download.contract', $contract->id)}}">download contract van {{Auth::user()->name." ". Auth::user()->lastname}}</a>
+                </span>
                 <div class="mt-2">
-                    <span class="mt-2">*Ga je akkoord met de voorwaarden, druk dan op deze knop </span>
-                    <a href="{{route('commercial.contract', $contract)}}" class="btn btn-success text-uppercase mt-2" type="submit">Contract accepteren</a>
+                    <span class="mt-2">*druk op deze knop om het accepteren, na het bekijken van het contract </span>
+                    <a href="{{route('commercial.accept.contract', $contract)}}" class="btn btn-success text-uppercase mt-2" type="submit">Contract accepteren</a>
                 </div>
             @endif
         @endunless
 
         @unless($contract->accepted == 0)
+            <div class="text-center">
+                <h3>Je hebt jouw contract geaccepteerd</h3>
+            </div>
         @endunless
     </div>
     <div class="col">

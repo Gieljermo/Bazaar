@@ -14,10 +14,12 @@ class CheckUserRoles
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $roleName): Response
+    public function handle(Request $request, Closure $next,  ...$roleNames): Response
     {
-        if (Auth::check() && (Role::find(Auth::user()->role_id))->role_name == $roleName) {
-            return $next($request);
+        foreach ($roleNames as $roleName) {
+            if (Auth::check() && (Role::find(Auth::user()->role_id))->role_name == $roleName) {
+                return $next($request);
+            }
         }
 
         return redirect('login');
