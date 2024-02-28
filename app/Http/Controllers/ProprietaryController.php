@@ -10,7 +10,6 @@ class ProprietaryController extends Controller
     //
     public function index()
     {
-        //
-        return view('index', ['heading' => 'Welkom '. Auth::user()->name]);
+
     }
 }

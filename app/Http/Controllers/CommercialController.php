@@ -13,10 +13,7 @@ class CommercialController extends Controller
     //
     public function index()
     {
-        //
-        return view('index', [
-            'heading' => 'Welkom '. Auth::user()->name,
-        ]);
+
     }
 
     public function getContract()
@@ -45,7 +42,7 @@ class CommercialController extends Controller
             $userContract->accepted = 1;
             $userContract->save();
 
-            return redirect()->back()->with('success_message', 'Het contract is accepteerd');
+            return redirect()->back();
         }
         catch (\Exception $e){
             return redirect()->back()->with('error_message', 'Ging iets fout met deze actie');

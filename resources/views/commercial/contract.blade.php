@@ -8,12 +8,6 @@
     </div>
     <div class="col mt-2 text-center">
         <div class="mt-5">
-            @if(session('success_message'))
-                <span class="alert alert-success">
-                    {{session('success_message')}}
-                </span>
-            @endif
-
             @if(session('error_message'))
                 <span class="alert alert-danger">
                     {{session('error_message')}}
