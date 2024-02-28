@@ -11,30 +11,30 @@
             @csrf
             <div class="form-group mb-4">
                 <label for="name" class="mb-3 text-uppercase fw-bold">Voornaam:</label>
-                <input type="text" class="form-control border-black" id="name" name="name" value="{{old('voornaam')}}" placeholder="Voornaam">
+                <input type="text" class="form-control border-black" id="name" name="name" value="{{old('name')}}" placeholder="Voornaam">
                 @error('name')
                     <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group mb-4">
                 <label for="lastname" class="mb-2 text-uppercase fw-bold">Achternaam:</label>
-                <input type="text" class="form-control border-black" id="lastname" name="lastname" value="{{old('achternaam')}}"  placeholder="Achternaam" >
+                <input type="text" class="form-control border-black" id="lastname" name="lastname" value="{{old('lastname')}}"  placeholder="Achternaam" >
                 @error('lastname')
                     <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group mb-4">
                 <label for="street" class="mb-2 text-uppercase fw-bold">Straat:</label>
-                <input type="text" class="form-control border-black" id="street" name="street" value="{{old('straat')}}" placeholder="Straatnaam">
+                <input type="text" class="form-control border-black" id="street" name="street" value="{{old('street')}}" placeholder="Straatnaam">
                 @error('street')
                     <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
                 @enderror
             </div>
             <div class="input-group mb-4">
                 <label for="house_number" class="mb-2 text-uppercase fw-bold  mt-2">Huisnummer:</label>
-                <input type="text" class="form-control border-black ms-3 me-3" style="max-width: 6vh; border-radius: 5px;text-align:center;" id="house_number" name="house_number" value="{{old('huisnummer')}}"  placeholder="0" >
+                <input type="text" class="form-control border-black ms-3 me-3" style="max-width: 6vh; border-radius: 5px;text-align:center;" id="house_number" name="house_number" value="{{old('house_number')}}"  placeholder="0" >
                 <label for="postal_code" class="mb-2 text-uppercase fw-bold ms-3 mt-2">Postcode:</label>
-                <input type="text" class="form-control border-black ms-3 " style="max-width: 10vh; border-radius: 5px"  id="postal_code" name="postal_code" placeholder="Postcode" value="{{old('postcode')}}" >
+                <input type="text" class="form-control border-black ms-3 " style="max-width: 10vh; border-radius: 5px"  id="postal_code" name="postal_code" placeholder="Postcode" value="{{old('postal_code')}}" >
             </div>
             <div>
                 @error('house_number')

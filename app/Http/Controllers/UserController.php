@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,20 +17,6 @@ class UserController extends Controller
     public function index()
     {
         //
-        switch (Auth::user()->role_id){
-            case 1:
-                    return redirect()->route('customer.index');
-                break;
-            case 2:
-                    return redirect()->route('proprietary.index');
-                break;
-            case 3:
-                 return redirect()->route('commercial.index');
-                break;
-            case 4:
-                    return redirect()->route('admin.index');
-                break;
-        }
     }
 
     /**
@@ -59,7 +48,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('auth.profile',
+            [
+                'heading' => 'Welkom '. Auth::user()->name,
+                'user' => $user
+            ]
+        );
     }
 
     /**
@@ -68,6 +62,24 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $user = User::find($user->id)->fill($request->all());
+
+        $user->role_id =
+            ($request->input('type_user') == 'on') ?    1 : (($request->input('type_user') == 'particuliere adverteerder') ? 2 : 3);
+
+        if((Role::find($user->role_id))->role_name === "commercial" && !(Contract::where('user_id', $user->id)->exists())){
+            Contract::insert([
+                'user_id' => $user->id,
+                'accepted' => false
+            ]);
+        }
+
+        $user->save();
+
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('success_message', 'Het profiel is succesvol geüpdate');
+
+
     }
 
     /**

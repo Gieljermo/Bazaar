@@ -16,7 +16,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view("Listings.index");
+        return view("Listings.index", ['title' =>  'listing']);
     }
 
     /**
@@ -24,7 +24,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return view("Listings.create");
+        return view("Listings.create", ['title' =>  'listing']);
     }
 
     /**

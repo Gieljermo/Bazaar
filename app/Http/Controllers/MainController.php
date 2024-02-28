@@ -13,8 +13,8 @@ class MainController extends Controller
     public function index()
     {
         //
-        if (Auth::check()){
-            return redirect()->route('user.index');
+        if (Auth::check() && Auth::user()->role_id === 4){
+            return redirect()->route('admin.index');
         }
         return view('index', ['heading' => 'Welkom bij de Bazaar']);
     }
