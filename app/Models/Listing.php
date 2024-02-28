@@ -21,6 +21,16 @@ class Listing extends Model
 
     public function bids()
     {
-        return $this->hasMany(Bid::class)->orderBy('price', 'desc');;
+        return $this->hasMany(Bid::class)->orderBy('price', 'desc');
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
+    }
+
+    public function highestBid()
+    {
+        return $this->bids()->first();
     }
 }

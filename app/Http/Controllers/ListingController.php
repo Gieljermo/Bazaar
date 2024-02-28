@@ -111,16 +111,22 @@ class ListingController extends Controller
     public function bid(Request $request){
 
         $listing = Listing::where('id', $request->listing)->first();
+        $highestBid = $listing->highestBid()->price;
 
         $validated = $request->validate([
-            'bid' => "required|numeric|min:$listing->price_from",
+            'bod' => "required|numeric|gt:$highestBid",
         ]);
+
+
+        if (Carbon::now()->gt(Carbon::parse($listing->bid_until))) {
+            return back()->with('error', 'Deze veiling is afgelopen');
+        }
 
         Bid::create([
             'user_id' => Auth::user()->id,
             'listing_id' => $listing->id,
             'date' => Carbon::now(),
-            'price' => $request->bid
+            'price' => $request->bod
         ]);
 
         return back()->with('succes', 'Bod succesvol geplaatst');

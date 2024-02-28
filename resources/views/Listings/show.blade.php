@@ -2,15 +2,24 @@
     'title' => ''
 ])
 @section('content')
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="d-flex justify-content-around flex-row g-5 w-50">
     <div class="left">
         <img href="#" alt="placeholder image">
     </div>
     <div class="right">
-        <p>{{$listing->product->product_name}}</p>
+        <h1>{{$listing->product->product_name}}</h1>
         <p>{{$listing->product->description}}</p>
         @if ($listing->type == "bidding")
-            <p>Bieden vanaf: &euro;{{$listing->price_from}}</p>
+            <p>Bieden vanaf: &euro;{{isset($listing->price_from) ? $listing->price_from : 0}}</p>
+            <div>
+                <p>Veiling loopt: </p>
+                <p id="timer"></p>
+            </div>
             <div class="card">
                 <div class="card-body">
                     @foreach ($listing->bids as $bid)
@@ -25,7 +34,10 @@
             <form method="POST" action="{{Route('listing.bid')}}">
                 @csrf
                 <input type="hidden" name="listing" value="{{$listing->id}}"/>
-                <input class="form-control border-black" name="bid" type="text" placeholder="0,00"/>
+                <input class="form-control border-black" name="bod" type="text" placeholder="0,00"/>
+                @error('bod')
+                    <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+                @enderror
                 <input class="btn btn-primary" type="submit" value="Bod plaatsen" required/>
             </form>
         @elseif ($listing->type == "rental")
@@ -34,11 +46,11 @@
                 <input type="hidden" name="listing" value="{{$listing->id}}"/>
                 <div class="form-group mb-4">
                     <label for="rent_from">Start datum</label>
-                    <input class="form-control" type="date" name="rent_from"/>
+                    <input class="form-control datepicker" type="date" name="rent_from"/>
                 </div>
                 <div class="form-group mb-4">
                     <label for="rent_until">Eind datum</label>
-                    <input class="form-control" type="date" name="rent_until"/>
+                    <input class="form-control datepicker" type="date" name="rent_until"/>
                 </div>
                 <div class="form-group mb-4">
                     <input class="btn btn-primary" type="submit" value="Product Huren"/>
@@ -54,4 +66,55 @@
         @endif
     </div>
 </div>
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("{{ $listing->bid_until }}").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get today's date and time
+        var now = new Date().getTime();
+        
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+        
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Display the result in the element with id="timer"
+        document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+        
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Veiling afgelopen.";
+        }
+    }, 1000);
+
+    var occupiedDates = @json($listing->rentals);
+
+    $(function() {
+        function disableDates(date) {
+            for (var i = 0; i < occupiedDates.length; i++) {
+                var start = new Date(occupiedDates[i].from);
+                var end = new Date(occupiedDates[i].until);
+
+                console.log(start);
+                console.log(end);
+                if (date >= start && date <= end) {
+                    return [false];
+                }
+            }
+            return [true];
+        }
+
+        $(".datepicker").datepicker({
+            beforeShowDay: disableDates
+        });
+    });
+</script>
 @endsection
