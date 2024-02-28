@@ -36,10 +36,20 @@
             <input class="form-control border-black" name="listing[price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
         </div>
         <div id="bidding" class="d-none price form-group mb-4">
-            <label class="mb-2 text-uppercase fw-bold" for="listing[bid-price]">
-                Bieden vanaf
-            </label>
-            <input class="form-control border-black" name="listing[bid-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label class="mb-2 text-uppercase fw-bold" for="listing[bid-price]">
+                        Bieden vanaf
+                    </label>
+                    <input class="form-control border-black" name="listing[bid-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+                </div>
+                <div class="mb-3">
+                    <label class="mb-2 text-uppercase fw-bold" for="listing[bid-until]">
+                        Bieden tot datum en tijd
+                    </label>
+                    <input class="form-control border-black" name="listing[bid-until]" type="datetime-local"/>
+                </div>
+            </div>
         </div>
         <div id="rental" class="d-none price form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="listing[rent-price]">
@@ -66,13 +76,18 @@
         let priceInputcontainers = document.querySelectorAll('.price');
         priceInputcontainers.forEach((container) => {
             container.classList.add('d-none')
-            let input = container.querySelector('input')
-            input.disabled = true;
+            let inputs = container.querySelectorAll('input');
+            inputs.forEach((input) => {
+                input.disabled = true;
+            })
         })
 
         let selectedInput = document.getElementById(event.target.value);
         selectedInput.classList.remove('d-none');
-        selectedInput.querySelector('input').disabled = false;
+        let inputs = selectedInput.querySelectorAll('input');
+        inputs.forEach((input) => {
+            input.disabled = false;
+        })
     })
 </script>
 @endsection

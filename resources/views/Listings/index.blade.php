@@ -8,8 +8,8 @@
             <div class="card-body">
                 <h5 class="card-title">{{$listing->product->product_name}}</h5>
                 <p class="card-text">{{$listing->product->description}}</p>
-                @if (isset($listing->price_from))
-                    <p class="card-text">Bieden vanaf: &euro;{{$listing->price_from}}</p>
+                @if ($listing->type == "bidding")
+                    <p class="card-text">Bieden tot: {{$listing->bid_until}}</p>
                 @else
                     <p class="card-text">&euro;{{$listing->price}}</p>
                 @endif

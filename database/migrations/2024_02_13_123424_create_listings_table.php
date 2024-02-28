@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
             $table->decimal('price')->nullable();;
             $table->decimal('price_from')->nullable();
+            $table->dateTime('bid_until')->nullable();
             $table->string('amount')->nullable();
         });
     }

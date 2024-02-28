@@ -20,7 +20,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listings = Listing::All();
+        $listings = Listing::Where('purchase_id', null)->get();
         return view("Listings.index", [
             "listings" => $listings,
         ]);
@@ -43,7 +43,7 @@ class ListingController extends Controller
             'product.name' => 'required|string',
             'product.description' => 'string',
             'listing.price' => 'sometimes|required|numeric',
-            'listing.bid-price' => 'sometimes|required|numeric',
+            'listing.bid-until' => 'sometimes|required',
             'listing.rent-price' => 'sometimes|required|numeric',
             'listing.amount' => 'required',
             'listing.type' => 'required',
@@ -61,6 +61,7 @@ class ListingController extends Controller
 
         if ($request->has('listing.bid-price')) {
             $listing->price_from = $request->input('listing.bid-price');
+            $listing->bid_until = $request->input('listing.bid-until');
         } else if ($request->has('listing.price')) {
             $listing->price = $request->input('listing.price');
         } else if ($request->has('listing.rent-price')) {
@@ -70,9 +71,7 @@ class ListingController extends Controller
         $listing->amount = $request->input('listing.amount');
         $listing->save();
 
-
-        $allListings = Listing::All();
-        return view('Listings.index', ["listings" => $allListings])->with('message', 'Advertentie succesvol toegevoegd.');
+        return redirect()->route('listings.index')->with('message', 'Advertentie succesvol toegevoegd.');
     }
 
     /**
@@ -140,7 +139,7 @@ class ListingController extends Controller
         $listing->save();
 
 
-        return view("index");
+        return redirect()->route('listings.index');
     }
 
     public function rent(Request $request){
@@ -157,6 +156,6 @@ class ListingController extends Controller
             'until' => $request->bid
         ]);
 
-        return back()->with('succes', 'Bod succesvol geplaatst');
+        return redirect()->route('listings.index');
     }
 }
