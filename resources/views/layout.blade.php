@@ -19,27 +19,27 @@
 <body class="m-1">
     <div class="container m-0 mw-100">
         <div class="row pb-2 border-bottom border-primary">
-            <div class="col">
+            <div class="col mt-1">
                 <div class="nav">
                     <div class="nav-item me-2">
                         <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
                     </div>
                     <div class="ms-auto d-flex">
-                        <div class="nav-item me-2">
+                        <div class="nav-item me-2 ">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
                     </div>
                     @guest()
-                        <div class="nav-item me-2">
+                        <div class="nav-item me-2 ">
                             <a class="nav-link text-uppercase" href="/register">registeren</a>
                         </div>
-                        <div class="nav-item me-2">
+                        <div class="nav-item me-2 ">
                             <a class="nav-link text-uppercase" href="/login">login</a>
                         </div>
                     @endguest
 
                     @auth()
-                        <div class="nav-item me-2">
+                        <div class="nav-item me-2 ">
                             <form id="logout_page" action="{{route('logout')}}" method="post">
                                 @csrf
                             </form>
@@ -53,20 +53,24 @@
             <div class="col">
                 @auth
                     <nav class="d-flex justify-content-end">
-                        <div class="nav-item me-3 mt-2">
-                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
-                                <a href="{{route('commercial.contract')}}" class="text-uppercase" style="text-decoration: none">Contract</a>
-                            @endif
-                        </div>
-                        <div class="nav-item me-3 mt-1">
-                            <form action="{{ route('users.edit', Auth::user()->id) }}" method="GET">
-                                <button type="submit" class="btn btn-primary">Profiel</button>
-                            </form>
-                        </div>
-                        <div class="nav-item ms-3 mt-1">
-                            <div class="me-lg-5">
-                                <span class="text-uppercase" style="font-size: 1.5em">{{ Auth::user()->name }}</span>
-                            </div>
+                        <div class="nav-item ms-3 mt-1 dropdown">
+                                <button class="btn dropdown-toggle" style="font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                    <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
+                                @endif
+                                @if(Role::find(Auth::user()->role_id)->role_name === "customer")
+                                        <li><a href="{{route('customer.favorite')}}"
+                                               class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a>
+                                        </li>
+                                        <li><a href="{{route('customer.favorite')}}"
+                                               class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a>
+                                        </li>
+                                @endif
+                                <li><a class="text-uppercase dropdown-item"  href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
+                            </ul>
                         </div>
                     </nav>
                 @endauth
