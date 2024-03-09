@@ -2,9 +2,33 @@
     'title' => 'favorieten'
 ])
 
-@section('content')
-    <div class="col">
+@php
+    $sortArray = [
+        'sortByAsc' => 'asc',
+        'sortByDesc' => 'desc'
+];
 
+@endphp
+
+@section('content')
+    <div class="col ms-5 mt-5">
+        <div>
+            <h3 class="text-uppercase">Het lijst sorteren</h3>
+            <div class="form-group">
+                <div>
+                    <input type="radio" id="sort-standard" onclick="javascript:window.location.href='{{route('customer.favorites')}}'; return false"
+                        {{($sortActive == 'standard') ? 'checked': ""}}>
+                    <label class="form-label" for="sort-standard" style="font-size: 1.5em">Ongedaan maken</label>
+                </div>
+                @foreach($sorts as $sort)
+                    <div>
+                        <input type="radio" id="sort-{{$sort}}" onclick="javascript:window.location.href='{{route('customer.sort.favorites', $sortArray[$sort])}}'; return false"
+                            {{($sortActive == $sortArray[$sort]) ? 'checked': ""}}>
+                        <label class="form-label" for="sort-{{$sort}}" style="font-size: 1.5em">Sorteren op {{$sortArray[$sort]}}</label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     <div class="col-4">
         @if($products)

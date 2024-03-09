@@ -54,7 +54,7 @@
                 @auth
                     <nav class="d-flex justify-content-end">
                         <div class="nav-item ms-3 mt-1 dropdown">
-                                <button class="btn dropdown-toggle" style="font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle text-uppercase" style="font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -62,10 +62,10 @@
                                     <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
                                 @endif
                                 @if(Role::find(Auth::user()->role_id)->role_name === "customer")
-                                        <li><a href="{{route('customer.favorite')}}"
+                                        <li><a href="{{route('customer.favorites')}}"
                                                class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a>
                                         </li>
-                                        <li><a href="{{route('customer.favorite')}}"
+                                        <li><a href="{{route('customer.purchases')}}"
                                                class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a>
                                         </li>
                                 @endif
