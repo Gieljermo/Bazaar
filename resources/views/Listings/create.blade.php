@@ -4,19 +4,34 @@
 
 @section('content')
 <div class="d-flex justify-content-center">
-    <form method="POST" action="{{Route('listings.store')}}" class="mt-4 w-25">
+    <form method="POST" action="{{Route('listings.store')}}" class="mt-4 w-25" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="product[name]">
                 Product Naam
             </label>
-            <input class="form-control border-black" name="product[name]" type="text" placeholder="Product Naam"/>
+            <input class="form-control border-black" name="product[name]" required type="text" placeholder="Product Naam"/>
+            @error('product.name')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="product[description]">
                 Product Omschrijving
             </label>
             <textarea class="form-control border-black" name="product[description]" required placeholder="Product Naam"></textarea>
+            @error('product.description')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror            
+        </div>
+        <div class="form-group mb-4">
+            <label class="mb-2 text-uppercase fw-bold" for="listing[image]">
+                Afbeelding
+            </label>
+            <input class="form-control border-black" required name="listing[image]" type="file"/>
+            @error('listing.image')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror  
         </div>
         <div class="form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="product[description]">
@@ -28,12 +43,18 @@
                 <option value="bidding">Bieden</option>
                 <option value="rental">Verhuur</option>
             </select>
+            @error('listing.type')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror  
         </div>
         <div id="set" class="d-none price form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="listing[price]">
                 Product Prijs
             </label>
-            <input class="form-control border-black" name="listing[price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+            <input class="form-control border-black" required name="listing[price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+            @error('listing.price')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror  
         </div>
         <div id="bidding" class="d-none price form-group mb-4">
             <div class="mb-3">
@@ -42,12 +63,18 @@
                         Bieden vanaf
                     </label>
                     <input class="form-control border-black" name="listing[bid-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+                    @error('listing.bid-price')
+                        <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+                    @enderror  
                 </div>
                 <div class="mb-3">
                     <label class="mb-2 text-uppercase fw-bold" for="listing[bid-until]">
                         Bieden tot datum en tijd
                     </label>
-                    <input class="form-control border-black" name="listing[bid-until]" type="datetime-local"/>
+                    <input class="form-control border-black" required name="listing[bid-until]" type="datetime-local"/>
+                    @error('listing.bid_until')
+                        <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+                    @enderror  
                 </div>
             </div>
         </div>
@@ -55,13 +82,10 @@
             <label class="mb-2 text-uppercase fw-bold" for="listing[rent-price]">
                 Huurprijs
             </label>
-            <input class="form-control border-black" name="listing[rent-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
-        </div>
-        <div class="form-group mb-4">
-            <label class="mb-2 text-uppercase fw-bold" for="listing[amount]">
-                Aantal te koop
-            </label>
-            <input class="form-control border-black" name="listing[amount]" type="number" min='1' required placeholder="0"/>
+            <input class="form-control border-black" required name="listing[rent-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+            @error('listing.rent-price')
+                <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+            @enderror  
         </div>
         <div>
             <input type="submit" value="Advertentie plaatsen"/>

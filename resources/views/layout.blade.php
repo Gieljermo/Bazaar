@@ -23,6 +23,9 @@
                     <div class="nav-item me-2">
                         <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
                     </div>
+                    <div class="nav-item me-2">
+                        <a class="nav-link text-uppercase" href="{{Route('listings.index')}}">Advertenties</a>
+                    </div>
                     <div class="ms-auto d-flex">
                         <div class="nav-item me-2">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>

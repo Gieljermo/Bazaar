@@ -11,16 +11,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon; 
-
+use Illuminate\Support\Facades\Storage;
 
 class ListingController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'delete']);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $listings = Listing::Where('purchase_id', null)->get();
+        $listings = Listing::Where('ended', 0)->get();
         return view("Listings.index", [
             "listings" => $listings,
         ]);
@@ -39,15 +44,22 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validated = $request->validate([
             'product.name' => 'required|string',
             'product.description' => 'string',
             'listing.price' => 'sometimes|required|numeric',
             'listing.bid-until' => 'sometimes|required',
             'listing.rent-price' => 'sometimes|required|numeric',
-            'listing.amount' => 'required',
             'listing.type' => 'required',
         ]);
+
+
+        $imagePath;
+        if($request->file('listing.image')){
+            $imagePath = $request->file('listing.image')->store('listings', 'public');
+        }
 
         $product = Product::create([
             'product_name' => $request->input('product.name'),
@@ -58,6 +70,7 @@ class ListingController extends Controller
         $listing->product_id = $product->id;
         $listing->user_id = Auth::user()->id;
         $listing->type = $request->input('listing.type');
+        $listing->image = $imagePath;
 
         if ($request->has('listing.bid-price')) {
             $listing->price_from = $request->input('listing.bid-price');
@@ -68,7 +81,6 @@ class ListingController extends Controller
             $listing->price = $request->input('listing.rent-price');
         }
 
-        $listing->amount = $request->input('listing.amount');
         $listing->save();
 
         return redirect()->route('listings.index')->with('message', 'Advertentie succesvol toegevoegd.');
@@ -79,6 +91,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+
         return view('Listings.show', [
             'listing' => $listing,
         ]);
@@ -111,16 +124,12 @@ class ListingController extends Controller
     public function bid(Request $request){
 
         $listing = Listing::where('id', $request->listing)->first();
-        $highestBid = $listing->highestBid()->price;
+        $highestBid = $listing->highestBid() ? $listing->highestBid()->price : 0;
 
         $validated = $request->validate([
             'bod' => "required|numeric|gt:$highestBid",
         ]);
 
-
-        if (Carbon::now()->gt(Carbon::parse($listing->bid_until))) {
-            return back()->with('error', 'Deze veiling is afgelopen');
-        }
 
         Bid::create([
             'user_id' => Auth::user()->id,
@@ -155,11 +164,14 @@ class ListingController extends Controller
             'rent_until' => "required|date",
         ]);
 
+        $rent_from = Carbon::parse($request->rent_from);
+        $rent_until = Carbon::parse($request->rent_until);
+
         Rental::create([
             'user_id' => Auth::user()->id,
             'listing_id' => $request->listing,
-            'from' => Carbon::now(),
-            'until' => $request->bid
+            'from' => $rent_from,
+            'until' => $rent_until
         ]);
 
         return redirect()->route('listings.index');

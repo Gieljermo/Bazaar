@@ -33,4 +33,8 @@ class Listing extends Model
     {
         return $this->bids()->first();
     }
+
+    public function getImageUrl(){
+        return url('storage/'. $this->image);
+    }
 }

@@ -7,26 +7,26 @@
         {{ session('error') }}
     </div>
 @endif
-<div class="d-flex justify-content-around flex-row g-5 w-50">
+<div class="d-flex justify-content-center flex-row g-5">
     <div class="left">
-        <img href="#" alt="placeholder image">
+        <img src="{{$listing->getImageUrl()}}" alt="placeholder image">
     </div>
     <div class="right">
         <h1>{{$listing->product->product_name}}</h1>
         <p>{{$listing->product->description}}</p>
         @if ($listing->type == "bidding")
             <p>Bieden vanaf: &euro;{{isset($listing->price_from) ? $listing->price_from : 0}}</p>
-            <div>
+            <div class="d-flex gap-3">
                 <p>Veiling loopt: </p>
                 <p id="timer"></p>
             </div>
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     @foreach ($listing->bids as $bid)
-                        <div class="d-flex flex-row">
+                        <div class="d-flex flex-row gap-3">
                             <p>{{$bid->date}}</p>
                             <p>{{$bid->user->name}} {{$bid->user->lastname}}</p>
-                            <p>{{$bid->price}}</p>
+                            <p>&euro;{{$bid->price}}</p>
                         </div>
                     @endforeach
                 </div>
@@ -34,11 +34,15 @@
             <form method="POST" action="{{Route('listing.bid')}}">
                 @csrf
                 <input type="hidden" name="listing" value="{{$listing->id}}"/>
-                <input class="form-control border-black" name="bod" type="text" placeholder="0,00"/>
+                <div class="form-group mb-4">
+                    <input class="form-control border-black" name="bod" type="text" placeholder="0,00"/>
+                </div>
                 @error('bod')
                     <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
                 @enderror
-                <input class="btn btn-primary" type="submit" value="Bod plaatsen" required/>
+                <div class="form-group mb-4">
+                    <input class="btn btn-primary" type="submit" value="Bod plaatsen" required/>
+                </div>
             </form>
         @elseif ($listing->type == "rental")
             <form method="POST" action="{{Route('listing.rent')}}">
@@ -46,11 +50,11 @@
                 <input type="hidden" name="listing" value="{{$listing->id}}"/>
                 <div class="form-group mb-4">
                     <label for="rent_from">Start datum</label>
-                    <input class="form-control datepicker" type="date" name="rent_from"/>
+                    <input class="form-control datepicker" type="text" name="rent_from"/>
                 </div>
                 <div class="form-group mb-4">
                     <label for="rent_until">Eind datum</label>
-                    <input class="form-control datepicker" type="date" name="rent_until"/>
+                    <input class="form-control datepicker" type="text" name="rent_until"/>
                 </div>
                 <div class="form-group mb-4">
                     <input class="btn btn-primary" type="submit" value="Product Huren"/>
@@ -96,15 +100,14 @@
     }, 1000);
 
     var occupiedDates = @json($listing->rentals);
-
+</script>
+<script>
     $(function() {
         function disableDates(date) {
             for (var i = 0; i < occupiedDates.length; i++) {
                 var start = new Date(occupiedDates[i].from);
                 var end = new Date(occupiedDates[i].until);
 
-                console.log(start);
-                console.log(end);
                 if (date >= start && date <= end) {
                     return [false];
                 }

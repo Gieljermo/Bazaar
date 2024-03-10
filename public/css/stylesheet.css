@@ -3,3 +3,36 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #aaa;
+    color: #333;
+}
+
+/* Customize the header */
+.ui-datepicker .ui-datepicker-header {
+    background: #f7f7f7;
+    color: #444;
+    border-bottom: 1px solid #aaa;
+}
+
+/* Style the prev/next buttons */
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+    cursor: pointer;
+}
+
+/* Style the days of the week */
+.ui-datepicker .ui-datepicker-week-col {
+    color: #666;
+}
+
+/* Highlight the selected and today dates */
+.ui-datepicker .ui-datepicker-today {
+    background: #e9e9e9;
+}
+.ui-datepicker .ui-state-active, .ui-datepicker .ui-state-highlight {
+    background: blue;
+    color: #fff;
+}
