@@ -1,5 +1,5 @@
 @extends('layout', [
-    'title' => 'Welkom op ons website'
+  'title' => 'Bazaar'
 ])
 
 @section('content')

@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Model\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +64,12 @@ class UserSeeder extends Seeder
                 'role_id' => 3,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
+        ]);
+
+        DB::table('contracts')->insert([
+            'user_id' => 4,
+            'file' => null,
+            'accepted' => 0
         ]);
     }
 }

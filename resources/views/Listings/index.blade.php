@@ -1,6 +1,8 @@
 @extends('layout', [
-    'title' => 'Advertenties'
+    'title' => 'Advertenties',
+    'heading' => 'Advertenties'
 ])
+
 @section('content')
     @foreach ($listings as $listing)
         <div class="card" style="width: 18rem;">

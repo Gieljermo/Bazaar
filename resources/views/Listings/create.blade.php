@@ -1,5 +1,6 @@
 @extends('layout', [
-    'title' => 'Advertentie plaatsen'
+    'title' => 'Advertentie plaatsen',
+    'heading' => 'Advertentie plaatsen'
 ])
 
 @section('content')

@@ -36,7 +36,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return view("Listings.create");
+        return view("Listings.create", ['title' =>  'listing']);
     }
 
     /**

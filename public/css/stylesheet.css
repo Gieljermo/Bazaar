@@ -4,7 +4,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-
 .ui-datepicker {
     background: #fff;
     border: 1px solid #aaa;
@@ -36,3 +35,4 @@ input::-webkit-inner-spin-button {
     background: blue;
     color: #fff;
 }
+

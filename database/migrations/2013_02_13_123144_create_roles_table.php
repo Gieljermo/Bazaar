@@ -19,9 +19,9 @@ return new class extends Migration
         });
 
         $roles = [
-            'standaard gebruiker',
-            'particulier gebruiker',
-            'zakelijke adverteerder',
+            'customer',
+            'proprietary',
+            'commercial',
             'admin'
         ];
 

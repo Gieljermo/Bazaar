@@ -2,7 +2,9 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Contract;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -35,7 +37,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'lastname' => $input['lastname'],
             'street' => $input['street'],
@@ -48,5 +50,13 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
+        if((Role::find($user->role_id))->role_name === "commercial"){
+            Contract::create([
+                'user_id' => $user->id,
+                'accepted' => false
+            ]);
+        }
+
+        return $user;
     }
 }
