@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
     <title>{{$title}}</title>
 </head>
+@php
+    use App\Models\Role;
+@endphp
 <body class="m-1">
     <div class="container m-0 mw-100">
         <div class="row pb-2 border-bottom border-primary">
@@ -40,6 +43,21 @@
                         @endguest
 
                         @auth()
+                            
+                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                <div class="nav-item me-2">
+                                    <div>
+                                        <a href="{{route('commercial.contract')}}" class="text-uppercase nav-link" style="text-decoration: none">Contract</a>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="nav-item me-2">
+                                <div>
+                                    <a class="nav-link text-uppercase" href="{{ route('users.edit', Auth::user()->id) }}">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                </div>
+                            </div>
                             <div class="nav-item me-2">
                                 <form id="logout_page" action="{{route('logout')}}" method="post">
                                     @csrf
@@ -49,13 +67,6 @@
                                 </a>
                             </div>
                         @endauth
-                        <div class="col text-end">
-                            @auth()
-                                <div class="mt-1 me-lg-5">
-                                    <span class="" style="font-size: 1.5em">{{Auth::user()->name}}</span>
-                                </div>
-                            @endauth
-                        </div>
                     </div>
                 </div>
             </div>
