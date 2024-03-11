@@ -98,7 +98,7 @@ class UserController extends Controller
 
         return redirect()->route('users.edit', ['user' => $user])
             ->with('success_message', 'Api token gegenereerd bewaar deze goed.')
-            ->with('token', $token);
+            ->with('token', "token: ".$token);
     }
 
     public function getAll(){
