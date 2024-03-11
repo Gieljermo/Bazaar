@@ -33,9 +33,8 @@
                         </form>
                         {{-- al wel favoriet --}}
                         <form action="">
-
+                            <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
                         </form>
-                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
                     </div>
                 </div>
             </div>
