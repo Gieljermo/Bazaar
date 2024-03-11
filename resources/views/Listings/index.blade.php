@@ -25,9 +25,17 @@
                     <a href="{{Route('listings.show', $listing->id)}}" class="btn btn-primary"> Advertentie bekijken</a>
 
                     <div class="d-flex w-100 justify-content-end">                
-                        {{-- CHECK OF PRODUCT AL FAVORIET IS --}}
-                        {{-- <a href="{{Route('listings.favorite', $listing->id)}}"> <i style="font-size: 24px" class="bi bi-heart"></i></a> --}}
-                        {{-- <a href="{{Route('listings.unfoavorite', $listing->id)}}"> <i style="font-size: 24px" class="bi bi-heart-fill"></i></a> --}}
+                        {{-- CHECK OF PRODUCT AL FAVORIET IS OF NIET (IF ELSE) --}}
+                        {{-- geen favoriet --}}
+                        <form action="">
+                            @csrf
+                            <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
+                        </form>
+                        {{-- al wel favoriet --}}
+                        <form action="">
+
+                        </form>
+                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
                     </div>
                 </div>
             </div>

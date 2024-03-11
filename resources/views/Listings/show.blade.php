@@ -12,7 +12,19 @@
         <img src="{{$listing->getImageUrl()}}" alt="placeholder image">
     </div>
     <div class="right">
-        <h1>{{$listing->product->product_name}}</h1>
+        <div class="d-flex">
+            <h1>{{$listing->product->product_name}}</h1>
+            {{-- CHECK OF PRODUCT AL FAVORIET IS OF NIET (IF ELSE) --}}
+            {{-- geen favoriet --}}
+            <form class="d-flex" action="">
+                @csrf
+                <button class="icon-button"><i style="font-size: 32px" class="bi bi-heart"></i></button>
+            </form>
+            {{-- al wel favoriet --}}
+            <form class="d-flex" action="">
+                <button class="icon-button"><i style="font-size: 32px" class="bi bi-heart-fill"></i></button>
+            </form>
+        </div>
         <p>{{$listing->product->description}}</p>
         <p>Aangeboden door: {{$listing->user->name}} {{$listing->user->lastname}}</p>
         @if ($listing->type == "bidding")
