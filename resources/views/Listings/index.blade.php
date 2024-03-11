@@ -13,7 +13,7 @@
         <div class="col-3">
             <form id="filterForm" action="{{ route('listings.index') }}" method="GET">
                 <div class="d-flex flex-column">
-                    <label>Filter by Type:</label>
+                    <label>Filter op Type:</label>
                     <select class="w-25" name="type" id="type" onchange="this.form.submit()">
                         <option value="" >Geen filter</option>
                         <option value="bidding" @if(request('type')=='bidding') selected @endif>Veiling</option>
@@ -23,7 +23,7 @@
                 </div>
             
                 <fieldset class="d-flex flex-column">
-                    <legend>Sort by:</legend>
+                    <legend>Sorteren:</legend>
                     <label>
                         <input checked type="radio" name="sort" value="" onchange="this.form.submit()">
                         Geen filter
@@ -31,12 +31,12 @@
 
                     <label>
                         <input type="radio" @if(request('sort')=='price_asc') checked @endif name="sort" value="price_asc" onchange="this.form.submit()">
-                        Price (Low to High)
+                        Prijs (Laag naar Hoog)
                     </label>
             
                     <label>
                         <input type="radio" @if(request('sort')=='price_desc') checked @endif name="sort" value="price_desc" onchange="this.form.submit()">
-                        Price (High to Low)
+                        Price (Hoog naar Laag)
                     </label>
                 </fieldset>
             </form>      
