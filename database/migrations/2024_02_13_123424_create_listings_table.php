@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('price_from')->nullable();
             $table->dateTime('bid_until')->nullable();
             $table->boolean('ended')->default(false);
-            $table->string('image');
+            $table->string('image')->nullable();
         });
     }
 

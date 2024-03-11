@@ -21,8 +21,7 @@ class ProductFactory extends Factory
     {
         return [
             'product_name' => fake()->word(),
-            'description' => "Dit beschrijving is een template voor dit product",
-            'price' => fake()->numberBetween($min = 100, $max = 1500)
+            'description' => "Dit beschrijving is een template voor dit product"
         ];
     }
 }

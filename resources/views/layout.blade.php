@@ -34,6 +34,14 @@
                         <div class="nav-item me-2 ">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
+                        @guest()
+                            <div class="nav-item me-2">
+                                <a class="nav-link text-uppercase" href="/register">register</a>
+                            </div>
+                            <div class="nav-item me-2">
+                                <a class="nav-link text-uppercase" href="/login">login</a>
+                            </div>
+                        @endguest
                         @auth
                             <nav class="d-flex justify-content-end">
                                 <div class="nav-item me-2 dropdown">
