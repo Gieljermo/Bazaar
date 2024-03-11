@@ -30,9 +30,8 @@
                 </span>
             @endif
         </div>
-        <form action="{{Route('user.getKey', $user->id)}}" method="POST">
+        <form class="mt-3" action="{{Route('user.getKey', $user->id)}}" method="POST">
             @csrf
-            <input value="{{$user->tokens()->first()->token}}" readonly type="text"/>
             <input type="submit" class="btn btn-primary" value="API Key ophalen">
         </form>
         <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-3">

@@ -51,8 +51,8 @@ class UserController extends Controller
         return view('auth.profile',
             [
                 'heading' => 'Welkom '. Auth::user()->name,
-                'user' => $user
-
+                'user' => $user,
+                'token' => $user->tokens()->first()
             ]
         );
     }
@@ -94,10 +94,10 @@ class UserController extends Controller
     public function getKey($userId){
         $user = User::Where('id', $userId)->first();
 
-        $user->createToken("api_token");
+        $token = $user->createToken("api_key")->plainTextToken;
 
         return redirect()->route('users.edit', ['user' => $user])
-            ->with('success_message', 'Api key opgehaald');
+            ->with('success_message', 'Api token gegenereerd');
     }
 
     public function getAll(){
