@@ -45,10 +45,10 @@
                         @auth
                             <nav class="d-flex justify-content-end">
                                 <div class="nav-item me-2 dropdown">
-                                        <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                             {{ Auth::user()->name }}
                                         </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
                                             <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
                                         @endif
