@@ -97,7 +97,8 @@ class UserController extends Controller
         $token = $user->createToken("api_key")->plainTextToken;
 
         return redirect()->route('users.edit', ['user' => $user])
-            ->with('success_message', 'Api token gegenereerd');
+            ->with('success_message', 'Api token gegenereerd bewaar deze goed.')
+            ->with('token', $token);
     }
 
     public function getAll(){

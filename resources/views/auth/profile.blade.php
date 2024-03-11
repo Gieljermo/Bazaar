@@ -25,13 +25,18 @@
             @endif
 
             @if(session('error_message'))
-                <span class="alert alert-danger">
+                <span class="alert alert-succes">
                     {{session('error_message')}}
                 </span>
             @endif
         </div>
         <form class="mt-3" action="{{Route('user.getKey', $user->id)}}" method="POST">
             @csrf
+            @if(session('token'))
+                <span class="alert alert-danger">
+                    {{session('token')}}
+                </span>
+            @endif
             <input type="submit" class="btn btn-primary" value="API Key ophalen">
         </form>
         <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-3">
