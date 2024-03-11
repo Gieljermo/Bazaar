@@ -15,7 +15,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $fillable = ['product_name', 'description', 'price', 'amount'];
+    protected $fillable = ['product_name', 'description'];
 
     protected static function newFactory(): Factory
     {

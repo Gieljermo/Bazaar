@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->string('description');
-            $table->string('price');
-            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }

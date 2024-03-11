@@ -54,3 +54,10 @@ Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], fun
 
 
 Route::resource('listings', ListingController::class);
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/listings/bid', [ListingController::class, 'bid'])->name('listing.bid');
+    Route::post('/listings/buy', [ListingController::class, 'buy'])->name('listing.buy');
+    Route::post('/listings/rent', [ListingController::class, 'rent'])->name('listing.rent');
+});
+

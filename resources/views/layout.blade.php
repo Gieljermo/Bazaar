@@ -7,12 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/vader/jquery-ui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
     <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
     <title>{{$title}}</title>
 </head>
-
 @php
     use App\Models\Role;
 @endphp
@@ -23,6 +26,9 @@
                 <div class="nav">
                     <div class="nav-item me-2">
                         <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
+                    </div>
+                    <div class="nav-item me-2">
+                        <a class="nav-link text-uppercase" href="{{Route('listings.index')}}">Advertenties</a>
                     </div>
                     <div class="ms-auto d-flex">
                         <div class="nav-item me-2 ">
@@ -56,12 +62,14 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col">
-            
-            </div> --}}
         </div>
-        <div class="row ">
-            <h1 class="text-center text-uppercase mt-4">{{$heading}}</h1>
+        <div class="row justify-content-center">
+            @if(session('listing_error'))
+                <div class="alert alert-danger">
+                    {{ session('listing_error') }}
+                </div>
+            @endif
+            <h1 class="text-center text-uppercase mt-4">{{$title}}</h1>
             @yield('content')
         </div>
     </div>

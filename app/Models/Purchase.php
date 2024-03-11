@@ -10,6 +10,10 @@ class Purchase extends Model
     use HasFactory;
 
     protected $table = 'purchases';
+  
+    public $timestamps = false;
+
+    protected $fillable = ['user_id', 'date'];
 
     public function user()
     {

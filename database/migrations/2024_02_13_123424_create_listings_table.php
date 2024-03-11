@@ -23,6 +23,11 @@ return new class extends Migration
             $table->unsignedBigInteger('bidding_id')->nullable();
             $table->foreign('bidding_id')->references('id')->on('biddings');
             $table->timestamps();
+            $table->decimal('price')->nullable();;
+            $table->decimal('price_from')->nullable();
+            $table->dateTime('bid_until')->nullable();
+            $table->boolean('ended')->default(false);
+            $table->string('image');
         });
     }
 
