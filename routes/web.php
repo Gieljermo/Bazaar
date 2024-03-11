@@ -49,6 +49,7 @@ Route::middleware('role:customer,proprietary,commercial')->group(function (){
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
     Route::resources(['users' => UserController::class]);
+    Route::post('/user/{id}/getKey', [UserController::class, 'getKey'])->name('user.getKey');
 });
 
 

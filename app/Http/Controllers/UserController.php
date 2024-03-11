@@ -51,7 +51,8 @@ class UserController extends Controller
         return view('auth.profile',
             [
                 'heading' => 'Welkom '. Auth::user()->name,
-                'user' => $user
+                'user' => $user,
+                'token' => $user->tokens()->first()
             ]
         );
     }
@@ -88,5 +89,19 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getKey($userId){
+        $user = User::Where('id', $userId)->first();
+
+        $token = $user->createToken("api_key")->plainTextToken;
+
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('success_message', 'Api token gegenereerd bewaar deze goed.')
+            ->with('token', "token: ".$token);
+    }
+
+    public function getAll(){
+        return response(User::All());
     }
 }
