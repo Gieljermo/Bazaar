@@ -23,9 +23,28 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listings = Listing::Where('ended', 0)->paginate(2);
+
+        $query = Listing::where('ended', 0);
+
+        if ($request->has('type') && !empty($request->type)) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->has('sort') && !empty($request->sort)) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('price');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+            }
+        }
+
+        // Paginate the final query
+        $listings = $query->simplePaginate(12);
         return view("Listings.index", [
             "listings" => $listings,
         ]);
