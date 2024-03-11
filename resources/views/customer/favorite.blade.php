@@ -39,7 +39,7 @@
             @foreach($favorites as $favorite)
                 <a href="" style="text-decoration: none; color: black">
                     <div class="p-4 ps-3 pe-3 m-2 border border-dark border-1 rounded">
-                        <p style="float: right">€{{ $favorite->listing->product->price }},00</p>
+                        <p style="float: right">€{{ $favorite->listing->price }}</p>
                         <h4 class="text-uppercase">{{ $favorite->listing->product->product_name }}</h4>
                         <p style="font-size: 1.2em">{{ $favorite->listing->product->description }}</p>
                         <a href="{{ route('customer.delete.favorite', $favorite->listing->id) }}" class="text-uppercase" style="float: right">Verwijderen</a>
