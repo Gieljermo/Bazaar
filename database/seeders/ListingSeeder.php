@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class ListingSeeder extends Seeder
 {
+
+
     /**
      * Run the database seeds.
      */
@@ -49,7 +51,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => 1,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 1203
             ],
             [
                 'id' => 2,
@@ -57,7 +60,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 4,
                 'type' => 'set',
                 'purchase_id' => 2,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 50
             ],
             [
                 'id' => 3,
@@ -65,7 +69,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 4,
                 'type' => 'rental',
                 'purchase_id' => 3,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 50
             ],
             [
                 'id' => 4,
@@ -73,7 +78,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 3,
                 'type' => 'bidding',
                 'purchase_id' => 4,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 250
             ],
             [
                 'id' => 5,
@@ -81,7 +87,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 3,
                 'type' => 'bidding',
                 'purchase_id' => 5,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 400
             ],
             [
                 'id' => 6,
@@ -89,7 +96,8 @@ class ListingSeeder extends Seeder
                 'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => null,
-                'bidding_id' => null
+                'bidding_id' => null,
+                'price' => 320
             ],
         ]);
 
