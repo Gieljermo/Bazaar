@@ -20,42 +20,40 @@ class CustomerController extends Controller
         //
     }
 
-    public function addFavoriteProduct($productId){
-        try {
-            $favorite = new Favorite();
+    public function addFavoriteProduct($listingId){
 
-            $favorite->user_id = Auth::user()->id;
-            $favorite->product_id = $productId;
+        $favorite = new Favorite();
 
-            $favorite->save();
+        $favorite->user_id = Auth::user()->id;
+        $favorite->listing_id = $listingId;
 
-            return redirect()->back();
-        }
-        catch (\Exception $e){
-            return redirect()->back();
-        }
+        $favorite->save();
+
+        return redirect()->back();
     }
 
     public function getFavoriteProducts(){
 
-        $products = Favorite::where('user_id', Auth::user()->id)
-            ->with('product')
-            ->simplePaginate(4);
+        $favorites = Favorite::where('favorites.user_id', Auth::user()->id)
+        ->with('listing.product')
+        ->simplePaginate(4);
+
 
         return view('customer.favorite', [
             'heading' => 'Favorieten van '.Auth::user()->name.' '.Auth::user()->lastname,
             'sorts' => $this->sort,
             'sortActive' => 'standard',
         ],
-            compact('products')
+            compact('favorites')
         );
     }
 
     public function sortFavoriteProducts($sort){
 
-        $products = Favorite::select('favorites.*')->where('user_id', Auth::user()->id)
-            ->with('product')
-            ->join('products', 'favorites.product_id', '=', 'products.id')
+        $favorites = Favorite::select('favorites.*')->where('favorites.user_id', Auth::user()->id)
+            ->with('listing.product')
+            ->join('listings', 'favorites.listing_id', '=', 'listings.id')
+            ->join('products', 'listings.product_id', '=', 'products.id')
             ->orderBy('product_name', $sort)
             ->simplePaginate(4);
 
@@ -64,18 +62,21 @@ class CustomerController extends Controller
             'sorts' => $this->sort,
             'sortActive' => $sort
         ],
-            compact('products')
+            compact('favorites')
         );
     }
 
-    public function removeFavoriteProducts($prodcutId){
-        $favorite = Favorite::where('product_id', $prodcutId)->first();
+    public function removeFavoriteProducts($listingId){
+        $favorite = Favorite::where([
+            ['listing_id', $listingId],
+            ['user_id', Auth::user()->id]
+        ])->first();
 
         if($favorite){
             $favorite->delete();
         }
 
-        return redirect()->route('customer.favorite');
+        return redirect()->route('customer.favorites');
     }
 
     public function getPurchaseHistory(){

@@ -13,18 +13,18 @@
 @section('content')
     <div class="col ms-5 mt-5">
         <div>
-            <h3 class="text-uppercase">Het lijst sorteren</h3>
+            <h3 class="text-uppercase">Sorteer de lijst</h3>
             <div class="form-group">
                 <div>
                     <input type="radio" id="sort-standard" onclick="javascript:window.location.href='{{route('customer.purchases')}}'; return false"
                         {{($sortActive == 'standard') ? 'checked': ""}}>
-                    <label class="form-label" for="sort-standard" style="font-size: 1.5em">Ongedaan maken</label>
+                    <label class="form-label" for="sort-standard" style="font-size: 1.5em">Maak ongedaan</label>
                 </div>
                 @foreach($sorts as $sort)
                     <div>
                         <input type="radio" id="sort-{{$sort}}" onclick="javascript:window.location.href='{{route('customer.sort.purchases', $sortArray[$sort])}}'; return false"
                             {{($sortActive == $sortArray[$sort]) ? 'checked': ""}}>
-                        <label class="form-label" for="sort-{{$sort}}" style="font-size: 1.5em">Sorteren op {{$sortArray[$sort]}}</label>
+                        <label class="form-label" for="sort-{{$sort}}" style="font-size: 1.5em">{{($sortArray[$sort] === 'asc') ? 'Oplopend naam sorteren ': 'Aflopend naam sorteren '}}</label>
                     </div>
                 @endforeach
             </div>
@@ -46,10 +46,6 @@
         <div class="page-link mt-3 ms-2">
             {{$purchases->links()}}
         </div>
-        @else
-            <div class="text-center">
-                <h2>Je heb geen favorieten toegevoegd</h2>
-            </div>
         @endif
     </div>
     <div class="col">

@@ -17,27 +17,27 @@ class FavoriteSeeder extends Seeder
         DB::table('favorites')->insert([
             [
                 'user_id' => 2,
-                'product_id' => 1
+                'listing_id' => 1
             ],
             [
                 'user_id' => 2,
-                'product_id' => 5
+                'listing_id' => 2
             ],
             [
                 'user_id' => 2,
-                'product_id' => 10
+                'listing_id' => 3
             ],
             [
                 'user_id' => 2,
-                'product_id' => 20
+                'listing_id' => 4
             ],
             [
                 'user_id' => 2,
-                'product_id' => 13
+                'listing_id' => 5
             ],
             [
                 'user_id' => 2,
-                'product_id' => 17
+                'listing_id' => 6
             ],
         ]);
     }

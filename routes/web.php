@@ -38,7 +38,7 @@ Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.accept.contract');
 });
 
-Route::middleware('role:customer')->group(function (){
+Route::middleware('role:customer,proprietary,commercial')->group(function (){
     Route::get('/customer/favorites', [CustomerController::class, 'getFavoriteProducts'])->name('customer.favorites');
     Route::get('/customer/favorites/{sort}', [CustomerController::class, 'sortFavoriteProducts'])->name('customer.sort.favorites');
     Route::get('/customer/add/favorite/{id}', [CustomerController::class, 'addFavoriteProduct'])->name('customer.add.favorite');

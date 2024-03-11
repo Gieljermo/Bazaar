@@ -19,6 +19,11 @@ class Listing extends Model
         return $this->belongsTo(Purchase::class, 'purchase_id');
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

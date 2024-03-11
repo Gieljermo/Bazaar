@@ -61,15 +61,15 @@
                                 @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
                                     <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
                                 @endif
-                                @if(Role::find(Auth::user()->role_id)->role_name === "customer")
-                                        <li><a href="{{route('customer.favorites')}}"
-                                               class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a>
-                                        </li>
-                                        <li><a href="{{route('customer.purchases')}}"
-                                               class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a>
-                                        </li>
-                                @endif
-                                <li><a class="text-uppercase dropdown-item"  href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
+                                    <li><a href="{{route('customer.favorites')}}"
+                                           class="text-uppercase dropdown-item"
+                                           style="text-decoration: none">Favorieten</a>
+                                    </li>
+                                    <li><a href="{{route('customer.purchases')}}"
+                                           class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a>
+                                    </li>
+                                    <li><a class="text-uppercase dropdown-item"
+                                           href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
                             </ul>
                         </div>
                     </nav>

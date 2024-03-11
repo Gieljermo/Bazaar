@@ -22,10 +22,6 @@ class Product extends Model
         return ProductFactory::new();
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
 
     public function listings()
     {

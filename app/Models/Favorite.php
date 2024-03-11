@@ -9,9 +9,9 @@ class Favorite extends Model
 {
     use HasFactory;
 
-    public function product()
+    public function listing()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Listing::class, 'listing_id');
     }
 
     public function user()
