@@ -31,7 +31,11 @@
         </div>
     </div>
     <div class="col-4">
-        @if($favorites)
+        @if($favorites->isEmpty())
+            <div class="text-center me-5">
+                <h3>Er zijn geen favorieten toegevoegd.</h3>
+            </div>
+        @else
             @foreach($favorites as $favorite)
                 <a href="" style="text-decoration: none; color: black">
                     <div class="p-4 ps-3 pe-3 m-2 border border-dark border-1 rounded">
@@ -42,9 +46,9 @@
                     </div>
                 </a>
             @endforeach
-        <div class="page-link mt-3 ms-2">
-            {{$favorites->links()}}
-        </div>
+            <div class="page-link mt-3 ms-2">
+                {{ $favorites->links() }}
+            </div>
         @endif
     </div>
     <div class="col">

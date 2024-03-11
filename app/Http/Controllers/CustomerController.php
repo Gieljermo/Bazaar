@@ -76,7 +76,7 @@ class CustomerController extends Controller
             $favorite->delete();
         }
 
-        return redirect()->route('customer.favorites');
+        return redirect()->back();
     }
 
     public function getPurchaseHistory(){

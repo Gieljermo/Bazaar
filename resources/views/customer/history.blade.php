@@ -31,7 +31,11 @@
         </div>
     </div>
     <div class="col-4">
-        @if($purchases)
+        @if($purchases->isEmpty())
+            <div class="text-center me-5">
+                <h3>Er zijn geen bestelling gemaakt.</h3>
+            </div>
+        @else
             @foreach($purchases as $purchase)
                 @foreach($purchase->listings as $listing)
                     <a href="" style="text-decoration: none; color: black">
@@ -43,9 +47,9 @@
                     </a>
                 @endforeach
             @endforeach
-        <div class="page-link mt-3 ms-2">
-            {{$purchases->links()}}
-        </div>
+            <div class="page-link mt-3 ms-2">
+                {{$purchases->links()}}
+            </div>
         @endif
     </div>
     <div class="col">
