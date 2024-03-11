@@ -30,6 +30,11 @@
                 </span>
             @endif
         </div>
+        <form action="{{Route('user.getKey', $user->id)}}" method="POST">
+            @csrf
+            <input value="{{$user->tokens()->first()->token}}" readonly type="text"/>
+            <input type="submit" class="btn btn-primary" value="API Key ophalen">
+        </form>
         <form action="{{route('users.update', $user->id)}}" method="POST" class="mt-3">
             @csrf
             @method('PUT')
@@ -101,17 +106,17 @@
             </div>
         </form>
         <div class="mt-3">
-                @if((Role::find($user->role_id))->role_name === 'commercial'
-                    && (Role::find(Auth::user()->role_id))->role_name === 'admin' )
-                <form action="{{route('admin.upload', $user)}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label class="mb-2" for="upload-contract">Upload de contract voor zakelijk adverteerder</label>
-                        <input type="file" id="upload-contract" name="contract">
-                        <button type="submit" class="btn btn-dark text-uppercase">Upload</button>
-                    </div>
-                </form>
-                @endif
+            @if((Role::find($user->role_id))->role_name === 'commercial'
+                && (Role::find(Auth::user()->role_id))->role_name === 'admin' )
+            <form action="{{route('admin.upload', $user)}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label class="mb-2" for="upload-contract">Upload de contract voor zakelijk adverteerder</label>
+                    <input type="file" id="upload-contract" name="contract">
+                    <button type="submit" class="btn btn-dark text-uppercase">Upload</button>
+                </div>
+            </form>
+            @endif
         </div>
     </div>
     <div class="col">

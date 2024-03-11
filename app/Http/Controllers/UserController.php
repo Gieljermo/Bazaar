@@ -52,6 +52,7 @@ class UserController extends Controller
             [
                 'heading' => 'Welkom '. Auth::user()->name,
                 'user' => $user
+
             ]
         );
     }
@@ -88,5 +89,18 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getKey($userId){
+        $user = User::Where('id', $userId)->first();
+
+        $user->createToken("api_token");
+
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('success_message', 'Api key opgehaald');
+    }
+
+    public function getAll(){
+        return response(User::All());
     }
 }
