@@ -25,7 +25,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listings = Listing::Where('ended', 0)->get();
+        $listings = Listing::Where('ended', 0)->paginate(2);
         return view("Listings.index", [
             "listings" => $listings,
         ]);

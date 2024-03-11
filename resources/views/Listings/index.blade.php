@@ -5,7 +5,7 @@
 
 @section('content')
     @if(session('message'))
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endif
@@ -40,5 +40,8 @@
             </div>
         </div>
         @endforeach
+    </div>
+    <div class="page-link mt-3 ms-2 w-50">
+        {{$listings->links()}}
     </div>
 @endsection
