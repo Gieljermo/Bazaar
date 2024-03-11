@@ -36,6 +36,9 @@ class ListingController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role_id == 1){
+            return back()->with('listing_error', 'Je moet een adverteerders account hebben om advertenties te kunnen plaatsen.');
+        }
         return view("Listings.create", ['title' =>  'listing']);
     }
 

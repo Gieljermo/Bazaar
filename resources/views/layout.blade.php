@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/vader/jquery-ui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
     <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
@@ -72,6 +73,11 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            @if(session('listing_error'))
+                <div class="alert alert-danger">
+                    {{ session('listing_error') }}
+                </div>
+            @endif
             <h1 class="text-center text-uppercase mt-4">{{$title}}</h1>
             @yield('content')
         </div>
