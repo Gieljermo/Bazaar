@@ -12,8 +12,20 @@ class Listing extends Model
 
     public $timestamps = false;
 
+    protected $table = 'listings';
+      
     protected $fillable = ['product_id', 'user_id', 'type', 'purchase_id', 'price', 'price_from', 'amount'];
 
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+      
     public function product()
     {
         return $this->belongsTo(Product::class);

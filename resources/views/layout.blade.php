@@ -22,7 +22,7 @@
 <body class="m-1">
     <div class="container m-0 mw-100">
         <div class="row pb-2 border-bottom border-primary">
-            <div class="col">
+            <div class="col mt-1">
                 <div class="nav">
                     <div class="nav-item me-2">
                         <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
@@ -31,7 +31,7 @@
                         <a class="nav-link text-uppercase" href="{{Route('listings.index')}}">Advertenties</a>
                     </div>
                     <div class="ms-auto d-flex">
-                        <div class="nav-item me-2">
+                        <div class="nav-item me-2 ">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
                         @guest()
@@ -42,31 +42,30 @@
                                 <a class="nav-link text-uppercase" href="/login">login</a>
                             </div>
                         @endguest
-
-                        @auth()
-                            
-                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
-                                <div class="nav-item me-2">
-                                    <div>
-                                        <a href="{{route('commercial.contract')}}" class="text-uppercase nav-link" style="text-decoration: none">Contract</a>
-                                    </div>
+                        @auth
+                            <nav class="d-flex justify-content-end">
+                                <div class="nav-item me-2 dropdown">
+                                        <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ Auth::user()->name }}
+                                        </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                            <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
+                                        @endif
+                                        <li><a href="{{route('customer.favorites')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a></li>
+                                        <li><a href="{{route('customer.purchases')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a></li>
+                                        <li><a class="text-uppercase dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
+                                        <li>
+                                            <form id="logout_page" action="{{route('logout')}}" method="post">
+                                                @csrf
+                                            </form>
+                                            <a class="text-uppercase dropdown-item" href="javascript:document.getElementById('logout_page').submit()">
+                                                uitloggen
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            @endif
-                            <div class="nav-item me-2">
-                                <div>
-                                    <a class="nav-link text-uppercase" href="{{ route('users.edit', Auth::user()->id) }}">
-                                        {{ Auth::user()->name }}
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="nav-item me-2">
-                                <form id="logout_page" action="{{route('logout')}}" method="post">
-                                    @csrf
-                                </form>
-                                <a class="nav-link text-uppercase" href="javascript:document.getElementById('logout_page').submit()">
-                                    uitloggen
-                                </a>
-                            </div>
+                            </nav>
                         @endauth
                     </div>
                 </div>

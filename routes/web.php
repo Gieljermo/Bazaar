@@ -38,6 +38,15 @@ Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.accept.contract');
 });
 
+Route::middleware('role:customer,proprietary,commercial')->group(function (){
+    Route::get('/customer/favorites', [CustomerController::class, 'getFavoriteProducts'])->name('customer.favorites');
+    Route::get('/customer/favorites/{sort}', [CustomerController::class, 'sortFavoriteProducts'])->name('customer.sort.favorites');
+    Route::get('/customer/add/favorite/{id}', [CustomerController::class, 'addFavoriteProduct'])->name('customer.add.favorite');
+    Route::get('/customer/delete/favorite/{id}', [CustomerController::class, 'removeFavoriteProducts'])->name('customer.delete.favorite');
+    Route::get('/customer/purchases', [CustomerController::class, 'getPurchaseHistory'])->name('customer.purchases');
+    Route::get('/customer/purchases/{sort}', [CustomerController::class, 'sortPurchasedProducts'])->name('customer.sort.purchases');
+});
+
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
     Route::resources(['users' => UserController::class]);
 });

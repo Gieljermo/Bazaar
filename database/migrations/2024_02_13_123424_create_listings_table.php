@@ -20,12 +20,14 @@ return new class extends Migration
             $table->string('type');
             $table->unsignedBigInteger('purchase_id')->nullable();
             $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->unsignedBigInteger('bidding_id')->nullable();
+            $table->foreign('bidding_id')->references('id')->on('biddings');
             $table->timestamps();
             $table->decimal('price')->nullable();;
             $table->decimal('price_from')->nullable();
             $table->dateTime('bid_until')->nullable();
             $table->boolean('ended')->default(false);
-            $table->string('image');
+            $table->string('image')->nullable();
         });
     }
 
