@@ -21,6 +21,11 @@ return new class extends Migration
             $table->unsignedBigInteger('purchase_id')->nullable();
             $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->timestamps();
+            $table->decimal('price')->nullable();;
+            $table->decimal('price_from')->nullable();
+            $table->dateTime('bid_until')->nullable();
+            $table->boolean('ended')->default(false);
+            $table->string('image');
         });
     }
 
