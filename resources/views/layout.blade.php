@@ -28,53 +28,37 @@
                         <div class="nav-item me-2 ">
                             <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
+                        @auth
+                            <nav class="d-flex justify-content-end">
+                                <div class="nav-item me-2 dropdown">
+                                        <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ Auth::user()->name }}
+                                        </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                            <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
+                                        @endif
+                                        <li><a href="{{route('customer.favorites')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a></li>
+                                        <li><a href="{{route('customer.purchases')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a></li>
+                                        <li><a class="text-uppercase dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
+                                        <li>
+                                            <form id="logout_page" action="{{route('logout')}}" method="post">
+                                                @csrf
+                                            </form>
+                                            <a class="text-uppercase dropdown-item" href="javascript:document.getElementById('logout_page').submit()">
+                                                uitloggen
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        @endauth
                     </div>
-                    @guest()
-                        <div class="nav-item me-2 ">
-                            <a class="nav-link text-uppercase" href="/register">registeren</a>
-                        </div>
-                        <div class="nav-item me-2 ">
-                            <a class="nav-link text-uppercase" href="/login">login</a>
-                        </div>
-                    @endguest
-
-                    @auth()
-                        <div class="nav-item me-2 ">
-                            <form id="logout_page" action="{{route('logout')}}" method="post">
-                                @csrf
-                            </form>
-                            <a class="nav-link text-uppercase" href="javascript:document.getElementById('logout_page').submit()">
-                                uitloggen
-                            </a>
-                        </div>
-                    @endauth
                 </div>
             </div>
-            <div class="col">
-                @auth
-                    <nav class="d-flex justify-content-end">
-                        <div class="nav-item ms-3 mt-1 dropdown">
-                                <button class="btn dropdown-toggle text-uppercase" style="font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
-                                    <li><a href="{{route('commercial.contract')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Contract</a></li>
-                                @endif
-                                    <li><a href="{{route('customer.favorites')}}"
-                                           class="text-uppercase dropdown-item"
-                                           style="text-decoration: none">Favorieten</a>
-                                    </li>
-                                    <li><a href="{{route('customer.purchases')}}"
-                                           class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a>
-                                    </li>
-                                    <li><a class="text-uppercase dropdown-item"
-                                           href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                @endauth
-            </div>
+            {{-- <div class="col">
+            
+            </div> --}}
         </div>
         <div class="row ">
             <h1 class="text-center text-uppercase mt-4">{{$heading}}</h1>
