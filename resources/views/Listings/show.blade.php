@@ -14,6 +14,7 @@
     <div class="right">
         <h1>{{$listing->product->product_name}}</h1>
         <p>{{$listing->product->description}}</p>
+        <p>Aangeboden door: {{$listing->user->name}} {{$listing->user->lastname}}</p>
         @if ($listing->type == "bidding")
             <p>Bieden vanaf: &euro;{{isset($listing->price_from) ? $listing->price_from : 0}}</p>
             <div class="d-flex gap-3">
