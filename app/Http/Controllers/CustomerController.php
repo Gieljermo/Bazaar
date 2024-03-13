@@ -35,7 +35,7 @@ class CustomerController extends Controller
     public function getFavoriteProducts(){
 
         $favorites = Favorite::where('favorites.user_id', Auth::user()->id)
-        ->with('listing.product')
+        ->has('listing.product')
         ->simplePaginate(4);
 
 
@@ -51,7 +51,7 @@ class CustomerController extends Controller
     public function sortFavoriteProducts($sort){
 
         $favorites = Favorite::select('favorites.*')->where('favorites.user_id', Auth::user()->id)
-            ->with('listing.product')
+            ->has('listing.product')
             ->join('listings', 'favorites.listing_id', '=', 'listings.id')
             ->join('products', 'listings.product_id', '=', 'products.id')
             ->orderBy('product_name', $sort)
@@ -80,8 +80,8 @@ class CustomerController extends Controller
     }
 
     public function getPurchaseHistory(){
-        $purchases = Purchase::where('purchases.user_id', Auth::user()->id)
-            ->with('listings.product')
+        $purchases = Purchase::select('*')->where('purchases.user_id', Auth::user()->id)
+            ->has('listings.product')
             ->simplePaginate(4);
 
         return view('customer.history', [
@@ -94,7 +94,7 @@ class CustomerController extends Controller
 
     public function sortPurchasedProducts($sort){
         $purchases = Purchase::select('purchases.*')->where('purchases.user_id', Auth::user()->id)
-            ->with('listings.product')
+            ->has('listings.product')
             ->join('listings', 'purchases.id', '=', 'listings.purchase_id')
             ->join('products', 'products.id', '=', 'listings.product_id')
             ->orderBy('products.product_name', $sort)
