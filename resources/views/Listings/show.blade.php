@@ -14,17 +14,25 @@
     <div class="right">
         <div class="d-flex">
             <h1>{{$listing->product->product_name}}</h1>
+            @auth
                 @if(!$favorite->isEmpty())
-                <form action="{{route('customer.delete.favorite', $listing->id)}}">
-                    @csrf
-                    <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
-                </form>
+                    <form action="{{route('customer.delete.favorite', $listing->id)}}">
+                        @csrf
+                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
+                    </form>
                 @else
+                    <form action="{{route('customer.add.favorite', $listing->id)}}">
+                        @csrf
+                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
+                    </form>
+                @endif
+            @endauth
+            @guest
                 <form action="{{route('customer.add.favorite', $listing->id)}}">
                     @csrf
                     <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
                 </form>
-                @endif
+            @endguest
         </div>
         <p>{{$listing->product->description}}</p>
         <p>Aangeboden door: {{$listing->user->name}} {{$listing->user->lastname}}</p>
