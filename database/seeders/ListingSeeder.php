@@ -50,7 +50,7 @@ class ListingSeeder extends Seeder
                 'product_id' => 1,
                 'user_id' => 3,
                 'type' => 'set',
-                'purchase_id' => null,
+                'purchase_id' => 1,
                 'bidding_id' => null,
                 'price' => 1203
             ],
@@ -59,7 +59,7 @@ class ListingSeeder extends Seeder
                 'product_id' => 4,
                 'user_id' => 4,
                 'type' => 'set',
-                'purchase_id' => null,
+                'purchase_id' => 2,
                 'bidding_id' => null,
                 'price' => 50
             ],
