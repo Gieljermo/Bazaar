@@ -99,6 +99,24 @@ class ListingSeeder extends Seeder
                 'bidding_id' => null,
                 'price' => 320
             ],
+            [
+                'id' => 7,
+                'product_id' => 19,
+                'user_id' => 4,
+                'type' => 'bidding',
+                'purchase_id' => null,
+                'bidding_id' => null,
+                'price' => 140
+            ],
+            [
+                'id' => 8,
+                'product_id' => 16,
+                'user_id' => 3,
+                'type' => 'set',
+                'purchase_id' => null,
+                'bidding_id' => null,
+                'price' => 29
+            ]
         ]);
 
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use App\Models\Listing;
 use App\Models\Bid;
 use App\Models\Rental;
@@ -10,7 +11,7 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Carbon; 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ListingController extends Controller
@@ -27,9 +28,15 @@ class ListingController extends Controller
     {
 
         $query = Listing::where('ended', 0);
+        $favorites = null;
+
+        if(Auth::check()){
+            $favorites =  Favorite::where('user_id', Auth::user()->id)->get();
+        }
 
         if ($request->has('type') && !empty($request->type)) {
             $query->where('type', $request->type);
+
         }
 
         if ($request->has('sort') && !empty($request->sort)) {
@@ -42,11 +49,11 @@ class ListingController extends Controller
                     break;
             }
         }
-
         // Paginate the final query
         $listings = $query->simplePaginate(12);
         return view("Listings.index", [
             "listings" => $listings,
+            'favorites' => $favorites
         ]);
     }
 
@@ -113,9 +120,18 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        $favorite = null;
+
+        if(Auth::check()){
+            $favorite =  Favorite::where([
+                [ 'user_id', Auth::user()->id],
+                ['listing_id', $listing->id ]
+            ])->get();
+        }
 
         return view('Listings.show', [
             'listing' => $listing,
+            'favorite' => $favorite
         ]);
     }
 

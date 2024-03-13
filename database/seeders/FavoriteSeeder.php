@@ -38,7 +38,7 @@ class FavoriteSeeder extends Seeder
             [
                 'user_id' => 2,
                 'listing_id' => 6
-            ],
+            ]
         ]);
     }
 }
