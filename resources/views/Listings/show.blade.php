@@ -14,16 +14,17 @@
     <div class="right">
         <div class="d-flex">
             <h1>{{$listing->product->product_name}}</h1>
-            {{-- CHECK OF PRODUCT AL FAVORIET IS OF NIET (IF ELSE) --}}
-            {{-- geen favoriet --}}
-            <form class="d-flex" action="">
-                @csrf
-                <button class="icon-button"><i style="font-size: 32px" class="bi bi-heart"></i></button>
-            </form>
-            {{-- al wel favoriet --}}
-            <form class="d-flex" action="">
-                <button class="icon-button"><i style="font-size: 32px" class="bi bi-heart-fill"></i></button>
-            </form>
+                @if(!$favorite->isEmpty())
+                <form action="{{route('customer.delete.favorite', $listing->id)}}">
+                    @csrf
+                    <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
+                </form>
+                @else
+                <form action="{{route('customer.add.favorite', $listing->id)}}">
+                    @csrf
+                    <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
+                </form>
+                @endif
         </div>
         <p>{{$listing->product->description}}</p>
         <p>Aangeboden door: {{$listing->user->name}} {{$listing->user->lastname}}</p>
@@ -91,20 +92,20 @@
     var x = setInterval(function() {
         // Get today's date and time
         var now = new Date().getTime();
-        
+
         // Find the distance between now and the count down date
         var distance = countDownDate - now;
-        
+
         // Time calculations for days, hours, minutes and seconds
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
+
         // Display the result in the element with id="timer"
         document.getElementById("timer").innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
-        
+
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);
