@@ -24,7 +24,6 @@ use App\Http\Controllers\ListingController;
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::post('/logout', [MainController::class, 'logout'])->name('logout')->middleware('auth');
 
-
 Route::middleware('role:admin')->group(function (){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/{role_name}', [AdminController::class, 'filterUsers'])->name('admin.filter');
@@ -51,8 +50,6 @@ Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], fun
     Route::resources(['users' => UserController::class]);
     Route::post('/user/{id}/getKey', [UserController::class, 'getKey'])->name('user.getKey');
 });
-
-
 
 Route::resource('listings', ListingController::class);
 

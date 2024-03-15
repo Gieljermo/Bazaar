@@ -36,7 +36,7 @@
                         </div>
                         @guest()
                             <div class="nav-item me-2">
-                                <a class="nav-link text-uppercase" href="/register">register</a>
+                                <a class="nav-link text-uppercase" href="/register">registeren</a>
                             </div>
                             <div class="nav-item me-2">
                                 <a class="nav-link text-uppercase" href="/login">login</a>

@@ -56,7 +56,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'product_id' => 4,
+                'product_id' => 2,
                 'user_id' => 4,
                 'type' => 'set',
                 'purchase_id' => 2,
@@ -74,7 +74,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'product_id' => 10,
+                'product_id' => 4,
                 'user_id' => 3,
                 'type' => 'bidding',
                 'purchase_id' => 4,
@@ -83,7 +83,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'product_id' => 15,
+                'product_id' => 5,
                 'user_id' => 3,
                 'type' => 'bidding',
                 'purchase_id' => 5,
@@ -92,7 +92,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'product_id' => 18,
+                'product_id' => 6,
                 'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => null,
@@ -101,7 +101,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 7,
-                'product_id' => 19,
+                'product_id' => 7,
                 'user_id' => 4,
                 'type' => 'bidding',
                 'purchase_id' => null,
@@ -110,7 +110,7 @@ class ListingSeeder extends Seeder
             ],
             [
                 'id' => 8,
-                'product_id' => 16,
+                'product_id' => 8,
                 'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => null,
