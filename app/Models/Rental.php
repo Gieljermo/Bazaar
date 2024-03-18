@@ -12,4 +12,14 @@ class Rental extends Model
     public $timestamps = false;
 
     protected $fillable = ['user_id', 'listing_id', 'from', 'until'];
+
+    protected $casts = [
+        'from' => 'datetime',
+        'until' => 'datetime',
+    ];
+
+    public function listing()
+    {
+        return $this->belongsTo(Listing::class);
+    }
 }
