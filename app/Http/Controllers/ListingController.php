@@ -9,6 +9,7 @@ use App\Models\Rental;
 use App\Models\Purchase;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -124,14 +125,28 @@ class ListingController extends Controller
 
         if(Auth::check()){
             $favorite =  Favorite::where([
-                [ 'user_id', Auth::user()->id],
+                ['user_id', Auth::user()->id],
                 ['listing_id', $listing->id ]
+            ])->get();
+        }
+
+        $reviewsOfThisProduct = Review::where('listing_id', $listing->id)
+            ->with('reviewer')
+            ->get();
+
+        $hasRented = null;
+        if(Auth::check()){
+            $hasRented = Rental::where([
+                'user_id' => Auth::user()->id,
+                'listing_id' => $listing->id
             ])->get();
         }
 
         return view('Listings.show', [
             'listing' => $listing,
-            'favorite' => $favorite
+            'favorite' => $favorite,
+            'reviews' => $reviewsOfThisProduct,
+            'hasRented' => $hasRented
         ]);
     }
 

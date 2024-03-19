@@ -13,7 +13,7 @@ class Listing extends Model
     public $timestamps = false;
 
     protected $table = 'listings';
-      
+
     protected $fillable = ['product_id', 'user_id', 'type', 'purchase_id', 'price', 'price_from', 'amount'];
 
     public function purchase()
@@ -25,7 +25,7 @@ class Listing extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-      
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -49,6 +49,10 @@ class Listing extends Model
     public function highestBid()
     {
         return $this->bids()->first();
+    }
+
+    public function reviews(){
+        $this->hasMany(Review::class);
     }
 
     public function getImageUrl(){

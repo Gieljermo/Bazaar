@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\Review;
 use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
@@ -108,4 +109,20 @@ class CustomerController extends Controller
             compact('purchases')
         );
     }
+
+    public function createReview(Request $request){
+        $review = new Review();
+        $review->reviewer_id = Auth::user()->id;
+
+        ($request['advertiser'] != null) ? $review->advertiser_id = $request['advertiser']
+            : $review->listing_id = $request['listing'];
+
+        $review->text =$request['review'];
+        $review->rating = $request['rating'];
+
+        $review->save();
+
+        return redirect()->back();
+    }
+
 }

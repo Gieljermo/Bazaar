@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProductsSeeder::class,
             ListingSeeder::class,
-            FavoriteSeeder::class,
+            /*FavoriteSeeder::class,*/
         ]);
     }
 }

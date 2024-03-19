@@ -45,7 +45,7 @@ class ListingSeeder extends Seeder
         ]);
 
         DB::table('listings')->insert([
-            [
+            /*[
                 'id' => 1,
                 'product_id' => 1,
                 'user_id' => 3,
@@ -62,7 +62,7 @@ class ListingSeeder extends Seeder
                 'purchase_id' => 2,
                 'bidding_id' => null,
                 'price' => 50
-            ],
+            ],*/
             [
                 'id' => 3,
                 'product_id' => 3,
@@ -72,7 +72,7 @@ class ListingSeeder extends Seeder
                 'bidding_id' => null,
                 'price' => 50
             ],
-            [
+           /* [
                 'id' => 4,
                 'product_id' => 10,
                 'user_id' => 3,
@@ -116,7 +116,7 @@ class ListingSeeder extends Seeder
                 'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 29
-            ]
+            ]*/
         ]);
 
     }

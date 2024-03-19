@@ -82,6 +82,75 @@
                     <input class="btn btn-primary" type="submit" value="Product Huren"/>
                 </div>
             </form>
+            @auth()
+                @if(!$hasRented->isEmpty())
+                    <form action="{{route('customer.write.review',$listing->id)}}">
+                        <div>
+                            <h5 class="text-uppercase">Geef een review voor dit product</h5>
+                        </div>
+                        <div class="">
+                            <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(4)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(5)"><i class="fa fa-star star"></i></span>
+                            <input hidden name="rating" id="rating" type="text">
+                            <input hidden name="listing" id="rating" type="text" value="{{$listing->id}}">
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <label for="review" >Beschrijf jouw review:</label>
+                            <textarea class=form-control" id="review" name="review" required></textarea>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input class="btn btn-primary" type="submit" value="Plaats review"/>
+                        </div>
+                    </form>
+                    <script>
+                        let stars = document.getElementsByClassName('star');
+                        let rating = document.getElementById('rating');
+                        function rate(n){
+                            remove()
+                            for(let i = 0; i < n; i++){
+                                stars[i].classList.add('text-warning')
+                            }
+                            rating.value = n;
+                        }
+                        function remove() {
+                            let i = 0;
+                            while (i < 5){
+                                if(stars[i].classList.contains('text-warning')){
+                                    stars[i].classList.remove('text-warning')
+                                }
+                                i++
+                            }
+                        }
+                    </script>
+                @endif
+            @endauth
+            <div class="review mt-3 p-2" style="max-height:25vh; overflow-y: scroll; ">
+                @foreach($reviews as $review)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-10">
+                                    <p>
+                                        <span class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
+                                        @for($i = $review->rating; $i > 0; $i--)
+                                         <span class="float-end"><i class="text-warning fa fa-star"></i></span>
+                                        @endfor
+                                    </p>
+                                    <div class="clearfix mb-2"></div>
+                                    <p>
+                                       {{$review->text}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         @else
             <p>&euro;{{$listing->price}}</p>
             <form method="POST" action="{{Route('listing.buy')}}">

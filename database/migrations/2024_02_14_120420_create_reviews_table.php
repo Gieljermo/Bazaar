@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('listing_id')->nullable();
+            $table->foreign('listing_id')->references('id')->on('listings');
             $table->unsignedBigInteger('advertiser_id')->nullable();
             $table->foreign('advertiser_id')->references('id')->on('users');
             $table->string('text')->nullable();
