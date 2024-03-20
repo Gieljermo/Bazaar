@@ -37,4 +37,31 @@ input::-webkit-inner-spin-button {
 }
 
 
+/*homepage style*/
+.image-card{
+    transform: skew(-3deg);
+    box-shadow: -10px -10px 0px 0px rgba(255, 255, 255);
+    background-repeat: no-repeat; background-size: cover;
+    background-position: center; min-height: 15em;
+    position: relative
+}
 
+.pr-text{
+    position: absolute;
+    top: 70%;
+    background-color: #1a202c;
+    max-width: 50%
+}
+
+.ad-card{
+    background-color: black; transform: skew(-3deg);
+    box-shadow: -10px -10px 0px 5px rgba(255, 255, 255);
+    position: relative
+}
+
+.ad-text{
+    font-size: 4em;
+    color: white;
+    transform: skew(-3deg);
+}
+/*end home style*/
