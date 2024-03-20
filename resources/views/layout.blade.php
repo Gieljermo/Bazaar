@@ -54,6 +54,7 @@
                                         @endif
                                         <li><a href="{{route('customer.favorites')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a></li>
                                         <li><a href="{{route('customer.purchases')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a></li>
+                                        <li><a href="{{route('customer.calendar')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Kalender</a></li>
                                         <li><a class="text-uppercase dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
                                         <li>
                                             <form id="logout_page" action="{{route('logout')}}" method="post">
