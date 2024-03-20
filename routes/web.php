@@ -46,7 +46,7 @@ Route::middleware('role:customer,proprietary,commercial')->group(function (){
     Route::get('/customer/delete/favorite/{id}', [CustomerController::class, 'removeFavoriteProducts'])->name('customer.delete.favorite');
     Route::get('/customer/purchases', [CustomerController::class, 'getPurchaseHistory'])->name('customer.purchases');
     Route::get('/customer/purchases/{sort}', [CustomerController::class, 'sortPurchasedProducts'])->name('customer.sort.purchases');
-    Route::get('/customer/calendar', [CalendarController::class, 'index'])->name('customer.calendar');
+    Route::get('/customer/calendar/{month?}', [CalendarController::class, 'index'])->name('customer.calendar');
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){

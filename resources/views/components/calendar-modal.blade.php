@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="{{$type}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,11 @@
             </div>
             <div class="modal-body">
                 @foreach ($rentData as $data)
-                    <p class="p-1">{{$data->from->format('H:i')}} - {{$data->listing->product->product_name}}</p>
+                    @if($type == "from")
+                        <p class="modal-text">{{$data->from->format('H:i')}} - {{$data->listing->product->product_name}}</p>    
+                    @elseif ($type == 'until')
+                        <p class="modal-text">{{$data->until->format('H:i')}} - {{$data->listing->product->product_name}}</p>  
+                    @endif
                 @endforeach
             </div>
             <div class="modal-footer">

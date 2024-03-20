@@ -11,7 +11,7 @@ class CalendarModal extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $rentData = [])
+    public function __construct(public $rentData = [], public string $type)
     {
 
     }
