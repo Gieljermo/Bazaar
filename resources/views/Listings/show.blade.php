@@ -7,6 +7,7 @@
         {{ session('error') }}
     </div>
 @endif
+
 <div class="d-flex justify-content-center flex-row g-5">
     <div class="left">
         <img src="{{$listing->getImageUrl()}}" alt="placeholder image">

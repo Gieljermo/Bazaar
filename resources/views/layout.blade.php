@@ -14,7 +14,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
-    <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
+    <link rel="stylesheet" href="{{asset('/css/stylesheet.css')}}">
     <title>{{$title}}</title>
 </head>
 @php
