@@ -17,7 +17,7 @@ class ListingSeeder extends Seeder
     public function run(): void
     {
         DB::table('purchases')->insert([
-            [
+            /*[
                 'id' => 1,
                 'user_id' => 2,
                 'date' => Carbon::now()->format('Y-m-d H:i:s')
@@ -41,20 +41,21 @@ class ListingSeeder extends Seeder
                 'id' => 5,
                 'user_id' => 2,
                 'date' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
+            ],*/
         ]);
 
         DB::table('listings')->insert([
-            /*[
+
+            [
                 'id' => 1,
                 'product_id' => 1,
                 'user_id' => 3,
                 'type' => 'set',
-                'purchase_id' => 1,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 1203
             ],
-            [
+            /*[
                 'id' => 2,
                 'product_id' => 4,
                 'user_id' => 4,
@@ -68,7 +69,7 @@ class ListingSeeder extends Seeder
                 'product_id' => 3,
                 'user_id' => 4,
                 'type' => 'rental',
-                'purchase_id' => 3,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 50
             ],

@@ -45,7 +45,7 @@ Route::middleware('role:customer,proprietary,commercial')->group(function (){
     Route::get('/customer/delete/favorite/{id}', [CustomerController::class, 'removeFavoriteProducts'])->name('customer.delete.favorite');
     Route::get('/customer/purchases', [CustomerController::class, 'getPurchaseHistory'])->name('customer.purchases');
     Route::get('/customer/purchases/{sort}', [CustomerController::class, 'sortPurchasedProducts'])->name('customer.sort.purchases');
-    Route::get('/customer/review/', [CustomerController::class, 'createReview'])->name('customer.write.review');
+    Route::post('/customer/review/', [CustomerController::class, 'createReview'])->name('customer.write.review');
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){

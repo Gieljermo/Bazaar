@@ -37,7 +37,93 @@
         </div>
         <p>{{$listing->product->description}}</p>
         <p>Aangeboden door: {{$listing->user->name}} {{$listing->user->lastname}}</p>
-        @if ($listing->type == "bidding")
+        <div>
+            <h5>Beoordeling voor de adverteerder</h5>
+            @if($rating != null)
+                @for($i = 0; $i < $rating; $i++)
+                    <span><i class="fa fa-star text-warning"></i></span>
+                @endfor
+                @for($i = (5 - $rating); $i > 0; $i--)
+                    <span><i class="fa fa-star"></i></span>
+                @endfor
+            @else
+                @for($i = 0; $i < 5; $i++)
+                    <span><i class="fa fa-star"></i></span>
+                @endfor
+            @endif
+        </div>
+        <p>
+            <a class="text-uppercase" style="color:#0D6EFD; text-decoration: underline;text-underline: #0D6EFD; cursor: pointer; font-size: 18px;"
+               data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Ervaringen
+            </a>
+        </p>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        @if($hasPurchased != null )
+                            <form action="{{route('customer.write.review')}}" method="post">
+                                @csrf
+                                <div>
+                                    <h5 class="text-uppercase">Geef een review voor dit product</h5>
+                                </div>
+                                <div class="">
+                                    <span onclick="rate('star',1)"><i class="fa fa-star star"></i></span>
+                                    <span onclick="rate('star',2)"><i class="fa fa-star star"></i></span>
+                                    <span onclick="rate('star',3)"><i class="fa fa-star star"></i></span>
+                                    <span onclick="rate('star',4)"><i class="fa fa-star star"></i></span>
+                                    <span onclick="rate('star',5)"><i class="fa fa-star star"></i></span>
+                                    <input hidden name="rating" id="rating_star" type="text" required>
+                                    <input hidden name="advertiser" id="advertiser" type="text" value="{{$listing->user->id}}"
+                                           required>
+                                </div>
+                                <div class="form-group d-flex flex-column">
+                                    <label for="review">Beschrijf jouw review:</label>
+                                    <textarea class=form-control" id="review" name="review" required></textarea>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input class="btn btn-primary" type="submit" value="Plaats review"/>
+                                </div>
+                            </form>
+                        @else
+                            <div>
+                                <h5 class="text-center text-uppercase text-decoration-underline">Koop het product om de adverteerde te beoordelen</h5>
+                            </div>
+                        @endif
+                        @if(!$advertiserReviews->isEmpty())
+                            <div class="review mt-3 p-2" style="max-height:25vh; overflow-y: scroll; ">
+                                @foreach($advertiserReviews as $review)
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p>
+                                                        <span
+                                                            class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
+                                                        @for($i = $review->rating; $i > 0; $i--)
+                                                            <span class="float-end"><i
+                                                                    class="text-warning fa fa-star"></i></span>
+                                                        @endfor
+                                                    </p>
+                                                    <div class="clearfix mb-2"></div>
+                                                    <p>
+                                                        {{$review->text}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @if ($listing->type == "bidding")
             <p>Bieden vanaf: &euro;{{isset($listing->price_from) ? $listing->price_from : 0}}</p>
             <div class="d-flex gap-3">
                 <p>Veiling loopt: </p>
@@ -85,73 +171,56 @@
             </form>
             @auth()
                 @if(!$hasRented->isEmpty())
-                    <form action="{{route('customer.write.review',$listing->id)}}">
+                    <form action="{{route('customer.write.review')}}" method="POST">
+                        @csrf
                         <div>
                             <h5 class="text-uppercase">Geef een review voor dit product</h5>
                         </div>
-                        <div class="">
-                            <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
-                            <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
-                            <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
-                            <span onclick="rate(4)"><i class="fa fa-star star"></i></span>
-                            <span onclick="rate(5)"><i class="fa fa-star star"></i></span>
-                            <input hidden name="rating" id="rating" type="text">
-                            <input hidden name="listing" id="rating" type="text" value="{{$listing->id}}">
+                        <div>
+                            <span onclick="rate('star_product', 1)"><i class="fa fa-star star_product"></i></span>
+                            <span onclick="rate('star_product', 2)"><i class="fa fa-star star_product"></i></span>
+                            <span onclick="rate('star_product', 3)"><i class="fa fa-star star_product"></i></span>
+                            <span onclick="rate('star_product', 4)"><i class="fa fa-star star_product"></i></span>
+                            <span onclick="rate('star_product', 5)"><i class="fa fa-star star_product"></i></span>
+                            <input hidden name="rating" id="rating_star_product" type="text" >
+                            <input hidden name="listing" id="listing" type="text" value="{{$listing->id}}" required>
                         </div>
                         <div class="form-group d-flex flex-column">
-                            <label for="review" >Beschrijf jouw review:</label>
-                            <textarea class=form-control" id="review" name="review" required></textarea>
+                            <label for="review">Beschrijf jouw review:</label>
+                            <textarea class="form-control" id="review" name="review" required></textarea>
                         </div>
                         <div class="form-group mt-3">
                             <input class="btn btn-primary" type="submit" value="Plaats review"/>
                         </div>
                     </form>
-                    <script>
-                        let stars = document.getElementsByClassName('star');
-                        let rating = document.getElementById('rating');
-                        function rate(n){
-                            remove()
-                            for(let i = 0; i < n; i++){
-                                stars[i].classList.add('text-warning')
-                            }
-                            rating.value = n;
-                        }
-                        function remove() {
-                            let i = 0;
-                            while (i < 5){
-                                if(stars[i].classList.contains('text-warning')){
-                                    stars[i].classList.remove('text-warning')
-                                }
-                                i++
-                            }
-                        }
-                    </script>
                 @endif
             @endauth
-            <div class="review mt-3 p-2" style="max-height:25vh; overflow-y: scroll; ">
-                @foreach($reviews as $review)
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1">
-                                </div>
-                                <div class="col-md-10">
-                                    <p>
-                                        <span class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
-                                        @for($i = $review->rating; $i > 0; $i--)
-                                         <span class="float-end"><i class="text-warning fa fa-star"></i></span>
-                                        @endfor
-                                    </p>
-                                    <div class="clearfix mb-2"></div>
-                                    <p>
-                                       {{$review->text}}
-                                    </p>
+            @if(!$rentalReviews->isEmpty())
+                <div class="review mt-3 p-2" style="max-height:25vh; overflow-y: scroll; ">
+                    @foreach($rentalReviews as $review)
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>
+                                            <span class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
+                                            @for($i = $review->rating; $i > 0; $i--)
+                                                <span class="float-end"><i class="text-warning fa fa-star"></i></span>
+                                            @endfor
+                                        </p>
+                                        <div class="clearfix mb-2"></div>
+                                        <p>
+                                            {{$review->text}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @endif
         @else
             <p>&euro;{{$listing->price}}</p>
             <form method="POST" action="{{Route('listing.buy')}}">
@@ -162,6 +231,27 @@
         @endif
     </div>
 </div>
+<script>
+    function rate(classname, n){
+        let rating = document.getElementById('rating_' + classname);
+        let stars = document.getElementsByClassName(classname);
+        remove(classname)
+        for(let i = 0; i < n; i++){
+            stars[i].classList.add('text-warning')
+        }
+        rating.value = n;
+    }
+    function remove(classname) {
+        let stars = document.getElementsByClassName(classname);
+        let i = 0;
+        while (i < 5){
+            if(stars[i].classList.contains('text-warning')){
+                stars[i].classList.remove('text-warning')
+            }
+            i++
+        }
+    }
+</script>
 <script>
     // Set the date we're counting down to
     var countDownDate = new Date("{{ $listing->bid_until }}").getTime();

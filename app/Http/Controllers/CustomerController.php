@@ -111,6 +111,7 @@ class CustomerController extends Controller
     }
 
     public function createReview(Request $request){
+
         $review = new Review();
         $review->reviewer_id = Auth::user()->id;
 

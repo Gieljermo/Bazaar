@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\isEmpty;
 
 class ListingController extends Controller
 {
@@ -130,23 +131,51 @@ class ListingController extends Controller
             ])->get();
         }
 
-        $reviewsOfThisProduct = Review::where('listing_id', $listing->id)
+        $reviewsOfThisProduct = null;
+        $reviewsOfAdvertiser = null;
+        $averageRating = null;
+
+        $reviewsOfAdvertiser = Review::where('advertiser_id', $listing->user->id)
             ->with('reviewer')
             ->get();
+        foreach ($reviewsOfAdvertiser as $review){
+            $averageRating += $review->rating;
+        }
+        if($averageRating != 0){
+            $averageRating= round($averageRating / count($reviewsOfAdvertiser));
+        }
+
+        if($listing->type == 'rental'){
+            $reviewsOfThisProduct = Review::where('listing_id', $listing->id)
+                ->with('reviewer')
+                ->get();
+        }
 
         $hasRented = null;
+        $hasPurchased = null;
         if(Auth::check()){
             $hasRented = Rental::where([
                 'user_id' => Auth::user()->id,
                 'listing_id' => $listing->id
             ])->get();
+
+            $purchaseIds = Purchase::select('id')->where('user_id', Auth::user()->id)->get();
+            foreach ($purchaseIds as $purchaseId){
+                $hasPurchased = Listing::where([
+                    'id' => $listing->id,
+                    'purchase_id' => $purchaseId->id
+                ]);
+            }
         }
 
         return view('Listings.show', [
             'listing' => $listing,
             'favorite' => $favorite,
-            'reviews' => $reviewsOfThisProduct,
-            'hasRented' => $hasRented
+            'rentalReviews' => $reviewsOfThisProduct,
+            'advertiserReviews' => $reviewsOfAdvertiser,
+            'rating' => $averageRating,
+            'hasRented' => $hasRented,
+            'hasPurchased' => $hasPurchased
         ]);
     }
 
