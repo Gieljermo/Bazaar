@@ -29,7 +29,7 @@ class CheckAuctions implements ShouldQueue
      */
     public function handle(): void
     {   
-        $endedAuctions = Listing::Where('bid_until', '<', Carbon::now())
+        $endedAuctions = Listing::Where('bid_until', '>', Carbon::now())
             ->where('ended', 0)->get();
 
         foreach($endedAuctions as $auction){
