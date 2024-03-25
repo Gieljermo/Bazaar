@@ -129,7 +129,8 @@
         }
 
         $(".datepicker").datepicker({
-            beforeShowDay: disableDates
+            beforeShowDay: disableDates,
+            minDate: 0
         });
     });
 </script>
