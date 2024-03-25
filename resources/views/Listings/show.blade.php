@@ -62,35 +62,6 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
-                        @if($hasPurchased != null )
-                            <form action="{{route('customer.write.review')}}" method="post">
-                                @csrf
-                                <div>
-                                    <h5 class="text-uppercase">Geef een review voor dit product</h5>
-                                </div>
-                                <div class="">
-                                    <span onclick="rate('star',1)"><i class="fa fa-star star"></i></span>
-                                    <span onclick="rate('star',2)"><i class="fa fa-star star"></i></span>
-                                    <span onclick="rate('star',3)"><i class="fa fa-star star"></i></span>
-                                    <span onclick="rate('star',4)"><i class="fa fa-star star"></i></span>
-                                    <span onclick="rate('star',5)"><i class="fa fa-star star"></i></span>
-                                    <input hidden name="rating" id="rating_star" type="text" required>
-                                    <input hidden name="advertiser" id="advertiser" type="text" value="{{$listing->user->id}}"
-                                           required>
-                                </div>
-                                <div class="form-group d-flex flex-column">
-                                    <label for="review">Beschrijf jouw review:</label>
-                                    <textarea class=form-control" id="review" name="review" required></textarea>
-                                </div>
-                                <div class="form-group mt-3">
-                                    <input class="btn btn-primary" type="submit" value="Plaats review"/>
-                                </div>
-                            </form>
-                        @else
-                            <div>
-                                <h5 class="text-center text-uppercase text-decoration-underline">Koop het product om de adverteerde te beoordelen</h5>
-                            </div>
-                        @endif
                         @if(!$advertiserReviews->isEmpty())
                             <div class="review mt-3 p-2" style="max-height:25vh; overflow-y: scroll; ">
                                 @foreach($advertiserReviews as $review)
@@ -117,6 +88,10 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            </div>
+                        @else
+                            <div>
+                                <h5>Er zijn nog een beoordeling voor deze adverteerder</h5>
                             </div>
                         @endif
                     </div>
@@ -177,12 +152,12 @@
                             <h5 class="text-uppercase">Geef een review voor dit product</h5>
                         </div>
                         <div>
-                            <span onclick="rate('star_product', 1)"><i class="fa fa-star star_product"></i></span>
-                            <span onclick="rate('star_product', 2)"><i class="fa fa-star star_product"></i></span>
-                            <span onclick="rate('star_product', 3)"><i class="fa fa-star star_product"></i></span>
-                            <span onclick="rate('star_product', 4)"><i class="fa fa-star star_product"></i></span>
-                            <span onclick="rate('star_product', 5)"><i class="fa fa-star star_product"></i></span>
-                            <input hidden name="rating" id="rating_star_product" type="text" >
+                            <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(4)"><i class="fa fa-star star"></i></span>
+                            <span onclick="rate(5)"><i class="fa fa-star star"></i></span>
+                            <input hidden name="rating" id="rating" type="text" required>
                             <input hidden name="listing" id="listing" type="text" value="{{$listing->id}}" required>
                         </div>
                         <div class="form-group d-flex flex-column">
@@ -220,6 +195,10 @@
                         </div>
                     @endforeach
                 </div>
+            @else
+                <div>
+                    <h5 class="text-uppercase">Er zijn nog een beoordelingen voor dit product</h5>
+                </div>
             @endif
         @else
             <p>&euro;{{$listing->price}}</p>
@@ -232,17 +211,17 @@
     </div>
 </div>
 <script>
-    function rate(classname, n){
-        let rating = document.getElementById('rating_' + classname);
-        let stars = document.getElementsByClassName(classname);
-        remove(classname)
+    let rating = document.getElementById('rating');
+    let stars = document.getElementsByClassName('star');
+    function rate( n){
+        remove()
         for(let i = 0; i < n; i++){
             stars[i].classList.add('text-warning')
         }
         rating.value = n;
     }
-    function remove(classname) {
-        let stars = document.getElementsByClassName(classname);
+    function remove() {
+        let stars = document.getElementsByClassName('star');
         let i = 0;
         while (i < 5){
             if(stars[i].classList.contains('text-warning')){

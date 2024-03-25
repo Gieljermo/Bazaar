@@ -85,10 +85,13 @@ class CustomerController extends Controller
             ->has('listings.product')
             ->simplePaginate(4);
 
+        $reviews = Review::where('reviewer_id', Auth::user()->id)->get();
+
         return view('customer.history', [
             'heading' => 'Bestelling van '.Auth::user()->name.' '.Auth::user()->lastname,
             'sorts' => $this->sort,
             'sortActive' => 'standard',
+            'reviews' => $reviews
         ],
             compact('purchases'));
     }
@@ -101,10 +104,13 @@ class CustomerController extends Controller
             ->orderBy('products.product_name', $sort)
             ->simplePaginate(4);
 
+        $reviews = Review::where('reviewer_id', Auth::user()->id)->get();
+
         return view('customer.history', [
             'heading' => 'Bestelling van '.Auth::user()->name.' '.Auth::user()->lastname,
             'sorts' => $this->sort,
-            'sortActive' => $sort
+            'sortActive' => $sort,
+            'reviews' => $reviews
         ],
             compact('purchases')
         );
@@ -115,8 +121,14 @@ class CustomerController extends Controller
         $review = new Review();
         $review->reviewer_id = Auth::user()->id;
 
-        ($request['advertiser'] != null) ? $review->advertiser_id = $request['advertiser']
-            : $review->listing_id = $request['listing'];
+        if($request['advertiser'] != null){
+            $review->advertiser_id = $request['advertiser'];
+            $review->listing_id = $request['listing'];
+        }
+        else{
+            $review->listing_id = $request['listing'];
+        }
+
 
         $review->text =$request['review'];
         $review->rating = $request['rating'];

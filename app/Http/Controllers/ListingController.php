@@ -138,6 +138,7 @@ class ListingController extends Controller
         $reviewsOfAdvertiser = Review::where('advertiser_id', $listing->user->id)
             ->with('reviewer')
             ->get();
+
         foreach ($reviewsOfAdvertiser as $review){
             $averageRating += $review->rating;
         }
