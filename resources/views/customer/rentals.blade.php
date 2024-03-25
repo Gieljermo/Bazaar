@@ -41,9 +41,9 @@
                     @endforeach
                 @elseif(count($day['rentalStart']) > 1)
                     <div class="calendar-item calendar-item-start">
-                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#fromModal">Meerdere producten bekijken...</p>
+                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#hiredModal">Meerdere producten bekijken...</p>
                     </div>
-                    <x-calendar-modal id="fromModal" title="Ophalen gehuurde producten" :rentData="$day['rentalStart']"></x-calendar-modal>
+                    <x-calendar-modal id="hiredModal" title="Ophalen gehuurde producten" type='hired'  :rentData="$day['rentalStart']"></x-calendar-modal>
                 @endif
 
                 @if(count($day['rentalEnd']) == 1)
@@ -54,36 +54,37 @@
                     @endforeach
                 @elseif(count($day['rentalEnd']) > 1)
                     <div class="calendar-item calendar-item-end">
-                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#untilModal">Meerdere producten bekijken...</p>
+                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#hiredModal">Meerdere producten bekijken...</p>
                     </div>
-                    <x-calendar-modal id="untilModal" title="Ophalen gehuurde producten" :rentData="$day['rentalEnd']"></x-calendar-modal>
+                    <x-calendar-modal id="hiredModal" title="Ophalen gehuurde producten" type='hired' :rentData="$day['rentalEnd']"></x-calendar-modal>
                 @endif
                 
                 {{-- VERHUURDE PRODCUTEN --}}
                 @if(count($day['listingStart']) == 1)
-                    @foreach ($day['listingStart'] as $listingStart)
+                    @foreach ($day['listingStart'] as $ownRentalStart)
+
                         <div class="calendar-item calendar-item-own-start">
-                            <p class="p-1">{{$listingStart->listing->user->name}} {{$listingStart->listing->user->lastname}} - {{$listingStart->listing->product->product_name}}</p>
+                            <p class="p-1">{{$ownRentalStart->user->name}} {{$ownRentalStart->user->lastname}} - {{$ownRentalStart->listing->product->product_name}}</p>
                         </div>
                     @endforeach
                 @elseif(count($day['listingStart']) > 1)
                     <div class="calendar-item calendar-item-own-start">
-                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#fromModal">Meerdere producten bekijken...</p>
+                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#rentedModal">Meerdere producten bekijken...</p>
                     </div>
-                    <x-calendar-modal id="fromModal" title="Ophalen gehuurde producten" :rentData="$day['listingStart']"></x-calendar-modal>
+                    <x-calendar-modal id="rentedModal" title="Ophalen gehuurde producten" type='rented'  :rentData="$day['listingStart']"></x-calendar-modal>
                 @endif
 
                 @if(count($day['listingEnd']) == 1)
-                    @foreach ($day['listingEnd'] as $listingEnd)
+                    @foreach ($day['listingEnd'] as $ownRentalEnd)
                         <div class="calendar-item calendar-item-own-end">
-                            <p class="p-1">{{$listingEnd->listing->user->name}} {{$listingEnd->listing->user->lastname}} - {{$listingEnd->listing->product->product_name}}</p>
+                            <p class="p-1">{{$ownRentalEnd->user->name}} {{$ownRentalEnd->user->lastname}} - {{$ownRentalEnd->listing->product->product_name}}</p>
                         </div>
                     @endforeach
                 @elseif(count($day['listingEnd']) > 1)
                     <div class="calendar-item calendar-item-own-end">
-                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#untilModal">Meerdere producten bekijken...</p>
+                        <p class="p-1" href="#" data-bs-toggle="modal" data-bs-target="#rentedModal">Meerdere producten bekijken...</p>
                     </div>
-                    <x-calendar-modal id="untilModal" title="Ophalen gehuurde producten"  :rentData="$day['listingEnd']"></x-calendar-modal>
+                    <x-calendar-modal id="rentedModal" title="Ophalen gehuurde producten" type='rented'   :rentData="$day['listingEnd']"></x-calendar-modal>
                 @endif
             </div>
         @endforeach

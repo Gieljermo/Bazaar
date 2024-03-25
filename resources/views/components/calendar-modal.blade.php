@@ -9,12 +9,16 @@
             </div>
             <div class="modal-body">
                 @foreach ($rentData as $data)
-                    <p class="modal-text">{{$data->listing->user->name}} {{$data->listing->user->lastname}} - {{$data->listing->product->product_name}}</p>    
+                    @if($type == "rented")
+                        <p class="modal-text">{{$data->user->name}} {{$data->user->lastname}} - {{$data->listing->product->product_name}}</p>       
+                    @elseif ($type == 'hired')
+                        <p class="modal-text">{{$data->listing->user->name}} {{$data->listing->user->lastname}} - {{$data->listing->product->product_name}}</p>    
+                    @endif
                 @endforeach
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>  
+    </div>
 </div>
