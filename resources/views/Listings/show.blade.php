@@ -7,7 +7,7 @@
         {{ session('error') }}
     </div>
 @endif
-<div class="d-flex justify-content-center flex-row g-5">
+<div class="listing-container d-flex justify-content-center flex-row g-5">
     <div class="left">
         <img src="{{$listing->getImageUrl()}}" alt="placeholder image">
     </div>
@@ -90,6 +90,9 @@
                 <input class="btn btn-primary" type="submit" value="Product Kopen"/>
             </form>
         @endif
+        <div class='mt-4'>
+            {!! QrCode::size(200)->generate(url()->current()) !!}
+        </div>
     </div>
 </div>
 <script>
