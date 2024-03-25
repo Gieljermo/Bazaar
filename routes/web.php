@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProprietaryController;
 use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\CalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware('role:customer,proprietary,commercial')->group(function (){
     Route::get('/customer/delete/favorite/{id}', [CustomerController::class, 'removeFavoriteProducts'])->name('customer.delete.favorite');
     Route::get('/customer/purchases', [CustomerController::class, 'getPurchaseHistory'])->name('customer.purchases');
     Route::get('/customer/purchases/{sort}', [CustomerController::class, 'sortPurchasedProducts'])->name('customer.sort.purchases');
+    Route::get('/customer/calendar/{month?}', [CalendarController::class, 'index'])->name('customer.calendar');
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
