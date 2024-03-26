@@ -38,7 +38,7 @@
         @else
             @foreach($purchases as $purchase)
                 @foreach($purchase->listings as $listing)
-                    <a href="{{Route('listings.show', $listing->id)}}" style="text-decoration: none; color: black">
+                    <div style="text-decoration: none; color: black">
                         <div class="p-4 ps-3 pe-3 m-2 border border-dark border-1 rounded">
                             <p style="float: right">€{{ $listing->price }}</p>
                             <h4 class="text-uppercase">{{ $listing->product->product_name }}</h4>
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             @endforeach
             <div class="page-link mt-3 ms-2">
