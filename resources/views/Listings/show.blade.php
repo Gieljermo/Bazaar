@@ -196,8 +196,8 @@
                     @endforeach
                 </div>
             @else
-                <div>
-                    <h5 class="text-uppercase">Er zijn nog een beoordelingen voor dit product</h5>
+                <div class="mt-2">
+                    <h5 class="text-uppercase">Er zijn nog geen beoordelingen voor dit product</h5>
                 </div>
             @endif
         @else
