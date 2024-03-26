@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
-    <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
+    <link rel="stylesheet" href="{{asset('css/stylesheet.css')}}">
     <title>{{$title}}</title>
 </head>
 @php
@@ -36,7 +36,7 @@
                         </div>
                         @guest()
                             <div class="nav-item me-2">
-                                <a class="nav-link text-uppercase" href="/register">register</a>
+                                <a class="nav-link text-uppercase" href="/register">registeren</a>
                             </div>
                             <div class="nav-item me-2">
                                 <a class="nav-link text-uppercase" href="/login">login</a>

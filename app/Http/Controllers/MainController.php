@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,11 +13,14 @@ class MainController extends Controller
      */
     public function index()
     {
-        //
         if (Auth::check() && Auth::user()->role_id === 4){
             return redirect()->route('admin.index');
         }
-        return view('index', ['heading' => 'Welkom bij de Bazaar']);
+
+        $latestAdvertisements = Listing::with('product')->orderByDesc('id')->take(3)->get();
+
+        return view('index', ['heading' => 'Welkom bij de Bazaar'],
+            compact('latestAdvertisements'));
     }
 
     public function logout(Request $request){
