@@ -29,7 +29,7 @@ class ListingController extends Controller
     public function index(Request $request)
     {
 
-        $query = Listing::where('ended', 0);
+        $query = Listing::where('ended', 0)->where('purchase_id', null);
         $favorites = null;
 
         if(Auth::check()){
