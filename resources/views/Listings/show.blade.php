@@ -91,7 +91,7 @@
                             </div>
                         @else
                             <div>
-                                <h5>Er zijn nog een beoordeling voor deze adverteerder</h5>
+                                <h5>Er zijn nog geen beoordeling voor deze adverteerder</h5>
                             </div>
                         @endif
                     </div>
