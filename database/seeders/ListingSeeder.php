@@ -17,7 +17,7 @@ class ListingSeeder extends Seeder
     public function run(): void
     {
         DB::table('purchases')->insert([
-            [
+            /*[
                 'id' => 1,
                 'user_id' => 2,
                 'date' => Carbon::now()->format('Y-m-d H:i:s')
@@ -41,25 +41,26 @@ class ListingSeeder extends Seeder
                 'id' => 5,
                 'user_id' => 2,
                 'date' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
+            ],*/
         ]);
 
         DB::table('listings')->insert([
+
             [
                 'id' => 1,
                 'product_id' => 1,
                 'user_id' => 3,
                 'type' => 'set',
-                'purchase_id' => 1,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 1203
             ],
             [
                 'id' => 2,
                 'product_id' => 4,
-                'user_id' => 4,
+                'user_id' => 3,
                 'type' => 'set',
-                'purchase_id' => 2,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 50
             ],
@@ -68,11 +69,11 @@ class ListingSeeder extends Seeder
                 'product_id' => 3,
                 'user_id' => 4,
                 'type' => 'rental',
-                'purchase_id' => 3,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 50
             ],
-            [
+           /* [
                 'id' => 4,
                 'product_id' => 10,
                 'user_id' => 3,
@@ -93,7 +94,7 @@ class ListingSeeder extends Seeder
             [
                 'id' => 6,
                 'product_id' => 18,
-                'user_id' => 3,
+                'user_id' => 4,
                 'type' => 'set',
                 'purchase_id' => null,
                 'bidding_id' => null,
@@ -103,7 +104,7 @@ class ListingSeeder extends Seeder
                 'id' => 7,
                 'product_id' => 19,
                 'user_id' => 4,
-                'type' => 'bidding',
+                'type' => 'set',
                 'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 140
@@ -116,7 +117,7 @@ class ListingSeeder extends Seeder
                 'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 29
-            ]
+            ]*/
         ]);
 
     }
