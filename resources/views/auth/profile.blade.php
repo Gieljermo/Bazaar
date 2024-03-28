@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="col">
-
+        @include('partials.sidebar')
     </div>
     <div class="col">
         <div class="mt-1">

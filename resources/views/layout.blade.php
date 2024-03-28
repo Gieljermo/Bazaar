@@ -79,7 +79,7 @@
                     {{ session('listing_error') }}
                 </div>
             @endif
-            <h1 class="text-center text-uppercase mt-4">{{$title}}</h1>
+            <h1 class="text-center text-uppercase mt-4">{{$heading}}</h1>
             @yield('content')
         </div>
     </div>

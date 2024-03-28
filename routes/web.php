@@ -10,6 +10,7 @@ use App\Http\Controllers\ProprietaryController;
 use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\PageSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,6 @@ use App\Http\Controllers\CalendarController;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->name('home');
 Route::post('/logout', [MainController::class, 'logout'])->name('logout')->middleware('auth');
 
 
@@ -37,6 +37,8 @@ Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial/contract', [CommercialController::class, 'getContract'])->name('commercial.contract');
     Route::get('/commercial/contract/download/{id}',[CommercialController::class, 'downloadContract'])->name('commercial.download.contract');
     Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.accept.contract');
+    Route::get('/commercial/page-settings/{id}', [PageSettingsController::class, 'index'])->name('commercial.page-settings');
+    Route::post('/commercial/page-settings/{id}', [PageSettingsController::class, 'store'])->name('commercial.page-settings.store');
 });
 
 Route::middleware('role:customer,proprietary,commercial')->group(function (){
@@ -65,4 +67,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/listings/buy', [ListingController::class, 'buy'])->name('listing.buy');
     Route::post('/listings/rent', [ListingController::class, 'rent'])->name('listing.rent');
 });
+
+Route::get('/{customUrl?}', [MainController::class, 'index'])->name('home');
 
