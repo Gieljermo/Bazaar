@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use App\Models\Listing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -49,4 +50,21 @@ class CommercialController extends Controller
         }
     }
 
+    public function convertDataToJson(Request $request,$id)
+    {
+
+        $data =  Listing::where([
+            ['user_id', $id],
+            ['purchase_id', null],
+        ])->with('product')->get();
+
+        $jsonData = $data->toJson(JSON_PRETTY_PRINT);
+
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Content-Disposition' => 'attachment; filename="advertisements.json"',
+        ];
+
+        return Response::make($jsonData, 200, $headers);
+    }
 }

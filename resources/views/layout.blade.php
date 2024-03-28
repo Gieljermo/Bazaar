@@ -11,13 +11,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/vader/jquery-ui.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('scripts')
-    <link rel="stylesheet" href="{{asset('~/css/stylesheet')}}">
+    <link rel="stylesheet" href="{{asset('/css/stylesheet.css')}}">
     <title>{{$title}}</title>
 </head>
 @php
     use App\Models\Role;
+    use App\Models\Contract;
 @endphp
 <body class="m-1">
     <div class="container m-0 mw-100">
@@ -43,6 +45,36 @@
                             </div>
                         @endguest
                         @auth
+                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
+                                @php  $contract = Contract::where('user_id', Auth::user()->id)->first(); @endphp
+                                @if($contract->accepted === 1)
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        Launch demo modal
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
                             <nav class="d-flex justify-content-end">
                                 <div class="nav-item me-2 dropdown">
                                         <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

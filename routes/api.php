@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommercialController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,3 +19,8 @@ use App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->get('/test', function () {
     return response()->json(['message' => 'You are authenticated']);
 });
+
+
+
+
+Route::post('advertisements/{id}', [CommercialController::class, 'convertDataToJson'])->name('commercial.advertisements');
