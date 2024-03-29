@@ -52,27 +52,14 @@ class CommercialController extends Controller
         }
     }
 
-    public function convertDataToJson($id)
+    public function dataToJson(Request $request)
     {
-        $user = User::find($id);
-        $token = $user->tokens()->where('name', 'api_key')->first();
-        dd($token);
-        if($tokenExits){
-            $data =  Listing::where([
-                ['user_id', $id],
+            $data = Listing::where([
+                ['user_id', $request->user()->id],
                 ['purchase_id', null],
             ])->with('product')->get();
 
-            $jsonData = $data->toJson(JSON_PRETTY_PRINT);
 
-            $headers = [
-                'Content-Type' => 'application/json',
-                'Content-Disposition' => 'attachment; filename="advertisements.json"',
-            ];
-
-            return Response::make($jsonData, 200, $headers);
-        }
-
-        return redirect()->back()->with('message', 'De token klopt niet');
+            return response()->json($data);
     }
 }

@@ -45,37 +45,6 @@
                             </div>
                         @endguest
                         @auth
-                            @if (session('message'))
-                                <div class="alert alert-success mt-2">
-                                    <li>
-                                        {{ session('message') }}
-                                    </li>
-                                </div>
-                            @endif
-                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
-                                @php  $contract = Contract::where('user_id', Auth::user()->id)->first(); @endphp
-                                @if($contract->accepted === 1)
-                                    <button type="button" class="btn btn-primary text-uppercase" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Exporteer ads
-                                    </button>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <form action="{{route('commercial.advertisements', Auth::user()->id)}}" method="get">
-                                                        <button class="btn btn-primary" type="submit">Exporteer</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endif
                             <nav class="d-flex justify-content-end">
                                 <div class="nav-item me-2 dropdown">
                                         <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
