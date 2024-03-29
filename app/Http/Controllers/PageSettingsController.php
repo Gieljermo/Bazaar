@@ -15,6 +15,7 @@ class PageSettingsController extends Controller
         $settings = PageSetting::where('user_id', $user->id)->first();
 
         return view('commercial.page-settings', [
+            'heading' => 'landingpagina instellingen',
             'settings' => $settings
         ]);
     }
@@ -22,7 +23,7 @@ class PageSettingsController extends Controller
     public function store(Request $request, $id){
 
         $validated = $request->validate([
-            'home_url' => 'string|required'
+            'home_url' => 'string|required|alpha:ascii'
         ]);
 
         $user = User::where('id', $id)->first();
