@@ -23,4 +23,6 @@ Route::middleware('auth:sanctum')->get('/test', function () {
 
 
 
-Route::post('advertisements/{id}', [CommercialController::class, 'convertDataToJson'])->name('commercial.advertisements');
+Route::get('advertisements/{id}', [CommercialController::class, 'convertDataToJson'])
+    ->middleware('auth:sanctum')
+    ->name('commercial.advertisements');

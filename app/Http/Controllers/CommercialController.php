@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Contract;
 use App\Models\Listing;
+use App\Models\Token;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,21 +52,27 @@ class CommercialController extends Controller
         }
     }
 
-    public function convertDataToJson(Request $request,$id)
+    public function convertDataToJson($id)
     {
+        $user = User::find($id);
+        $token = $user->tokens()->where('name', 'api_key')->first();
 
-        $data =  Listing::where([
-            ['user_id', $id],
-            ['purchase_id', null],
-        ])->with('product')->get();
+        if($token){
+            $data =  Listing::where([
+                ['user_id', $id],
+                ['purchase_id', null],
+            ])->with('product')->get();
 
-        $jsonData = $data->toJson(JSON_PRETTY_PRINT);
+            $jsonData = $data->toJson(JSON_PRETTY_PRINT);
 
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Content-Disposition' => 'attachment; filename="advertisements.json"',
-        ];
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Content-Disposition' => 'attachment; filename="advertisements.json"',
+            ];
 
-        return Response::make($jsonData, 200, $headers);
+            return Response::make($jsonData, 200, $headers);
+        }
+
+        return redirect()->back()->with('message', 'De token klopt niet');
     }
 }

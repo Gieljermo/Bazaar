@@ -45,31 +45,32 @@
                             </div>
                         @endguest
                         @auth
+                            @if (session('message'))
+                                <div class="alert alert-success mt-2">
+                                    <li>
+                                        {{ session('message') }}
+                                    </li>
+                                </div>
+                            @endif
                             @if(Role::find(Auth::user()->role_id)->role_name === "commercial")
                                 @php  $contract = Contract::where('user_id', Auth::user()->id)->first(); @endphp
                                 @if($contract->accepted === 1)
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                        Launch demo modal
+                                    <button type="button" class="btn btn-primary text-uppercase" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Exporteer ads
                                     </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
                                                 <div class="modal-body">
-                                                    ...
+                                                    <form action="{{route('commercial.advertisements', Auth::user()->id)}}" method="get">
+                                                        <button class="btn btn-primary" type="submit">Exporteer</button>
+                                                    </form>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
                                             </div>
                                         </div>
                                     </div>
