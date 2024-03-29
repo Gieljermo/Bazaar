@@ -56,8 +56,8 @@ class CommercialController extends Controller
     {
         $user = User::find($id);
         $token = $user->tokens()->where('name', 'api_key')->first();
-
-        if($token){
+        dd($token);
+        if($tokenExits){
             $data =  Listing::where([
                 ['user_id', $id],
                 ['purchase_id', null],
