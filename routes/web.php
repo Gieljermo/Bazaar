@@ -50,17 +50,19 @@ Route::middleware('role:customer,proprietary,commercial')->group(function (){
     Route::get('/customer/purchases/{sort}', [CustomerController::class, 'sortPurchasedProducts'])->name('customer.sort.purchases');
     Route::post('/customer/review/', [CustomerController::class, 'createReview'])->name('customer.write.review');
     Route::get('/customer/calendar/{month?}', [CalendarController::class, 'index'])->name('customer.calendar');
-
 });
 
 Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], function (){
     Route::resources(['users' => UserController::class]);
     Route::post('/user/{id}/getKey', [UserController::class, 'getKey'])->name('user.getKey');
+    Route::get("/listings/products", [ListingController::class, "showAdvertiserListings"])->name('advert.listings');
+    Route::get('/listings/products/export-csv', [ListingController::class, 'exportToCsvFile'])->name('advert.export.csv');
+    Route::post('/listings/products/upload-csv', [ListingController::class, 'uploadCsvFile'])->name('advert.upload.csv');
+
 });
 
 
-
-Route::resource('listings', ListingController::class);
+Route::resource ('listings', ListingController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/listings/bid', [ListingController::class, 'bid'])->name('listing.bid');

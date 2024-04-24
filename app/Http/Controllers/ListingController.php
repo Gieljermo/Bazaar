@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use function PHPUnit\Framework\isEmpty;
 
 class ListingController extends Controller
@@ -75,8 +76,6 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $validated = $request->validate([
             'product.name' => 'required|string',
             'product.description' => 'string',
@@ -142,6 +141,7 @@ class ListingController extends Controller
         foreach ($reviewsOfAdvertiser as $review){
             $averageRating += $review->rating;
         }
+
         if($averageRating != 0){
             $averageRating= round($averageRating / count($reviewsOfAdvertiser));
         }
@@ -176,7 +176,7 @@ class ListingController extends Controller
             'advertiserReviews' => $reviewsOfAdvertiser,
             'rating' => $averageRating,
             'hasRented' => $hasRented,
-            'hasPurchased' => $hasPurchased
+            'hasPurchased' => $hasPurchased,
         ]);
     }
 
@@ -186,6 +186,13 @@ class ListingController extends Controller
     public function edit(Listing $listing)
     {
         //
+        $listingProduct = Listing::where("id", $listing->id)->with("product")->first();
+
+        return view("Listings.listing_edit", [
+            'listing' => $listingProduct,
+            'heading' => "Wijzig product: " . $listingProduct->product->product_name
+        ]);
+
     }
 
     /**
@@ -194,6 +201,9 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         //
+        $listingProduct = Listing::find($listing);
+        dd($listingProduct);
+
     }
 
     /**
@@ -202,6 +212,23 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         //
+         $listing = Listing::find($listing->id);
+
+         if ($listing){
+             $product = $listing->product;
+
+             $listing->delete();
+
+             if($product){
+                 $product->delete();
+             }
+             return back()->with("success", "Het product is verwijderd");
+         }
+         else{
+             return back()->with("failed", "Het product kon niet verwijderd worden");
+         }
+
+
     }
 
     public function bid(Request $request){
@@ -258,5 +285,83 @@ class ListingController extends Controller
         ]);
 
         return redirect()->route('listings.index');
+    }
+
+    public function showAdvertiserListings(Request $request){
+        $listings= Listing::where("user_id", Auth::user()->id)
+            ->with("product");
+
+        if ($request->type != null){
+            $listings->where("type", $request->type);
+        }
+
+        if($request->sort != null && $request->has('sort')){
+            $listings = $listings->orderby('price', $request->sort);
+        }
+
+        $listings = $listings->simplePaginate(10);
+        return view("Listings.listing_list", [
+            'listings' => $listings
+        ]);
+    }
+
+    public function uploadCsvFile(Request $request){
+        $file = $request->file('csv_file');
+        $fileContents = file($file->getPathname());
+        foreach ($fileContents as $line) {
+            $getCsv = str_getcsv($line);
+            $data = [];
+
+            foreach ($getCsv as $csvItem) {
+                $data[] = explode(",", $csvItem);
+            }
+
+            $product = Product::create([
+                'product_name' => $data[0][0],
+                'description' => $data[0][1],
+            ]);
+
+            Listing::create([
+                "product_id" => $product->id,
+                "user_id" => Auth::user()->id,
+                "type" => $data[0][2],
+                "price" => $data[0][3]
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'CSV file imported successfully.');
+    }
+
+    public function exportToCsvFile(){
+
+        $listings = Listing::where("user_id",Auth::user()->id)->with("product")->get();
+
+        $fileName = "export_product_".Auth::user()->name.".csv";
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
+        ];
+
+        $handle = fopen('php://output', 'w');
+        fputcsv($handle, [
+            "product_name",
+            "description",
+            "type",
+            "price"
+        ]);
+
+        foreach ($listings as $listing) {
+            fputcsv($handle, [
+                $listing->product->product_name,
+                $listing->product->description,
+                $listing->type,
+                $listing->price
+            ]);
+        }
+
+        fclose($handle);
+
+        return Response::make('', 200, $headers);
     }
 }

@@ -62,39 +62,48 @@ class ListingSeeder extends Seeder
                 'type' => 'set',
                 'purchase_id' => null,
                 'bidding_id' => null,
-                'price' => 50
+                'price' => 12
             ],
             [
                 'id' => 3,
                 'product_id' => 3,
-                'user_id' => 4,
+                'user_id' => 3,
+                'type' => 'rental',
+                'purchase_id' => null,
+                'bidding_id' => null,
+                'price' => 300
+            ],
+            [
+                'id' => 4,
+                'product_id' => 16,
+                'user_id' => 3,
                 'type' => 'rental',
                 'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 50
             ],
-           /* [
-                'id' => 4,
+           [
+                'id' => 5,
                 'product_id' => 10,
                 'user_id' => 3,
                 'type' => 'bidding',
-                'purchase_id' => 4,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 250
             ],
             [
-                'id' => 5,
+                'id' => 6,
                 'product_id' => 15,
                 'user_id' => 3,
                 'type' => 'bidding',
-                'purchase_id' => 5,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 400
             ],
-            [
+           /* [
                 'id' => 6,
                 'product_id' => 18,
-                'user_id' => 4,
+                'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => null,
                 'bidding_id' => null,
@@ -103,7 +112,7 @@ class ListingSeeder extends Seeder
             [
                 'id' => 7,
                 'product_id' => 19,
-                'user_id' => 4,
+                'user_id' => 3,
                 'type' => 'set',
                 'purchase_id' => null,
                 'bidding_id' => null,

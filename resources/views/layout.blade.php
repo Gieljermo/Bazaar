@@ -55,6 +55,9 @@
                                         @endif
                                         <li><a href="{{route('customer.favorites')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Favorieten</a></li>
                                         <li><a href="{{route('customer.purchases')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Bestellingen</a></li>
+                                            @if(Role::find(Auth::user()->role_id)->role_name === "commercial" || Role::find(Auth::user()->role_id)->role_name === "proprietary")
+                                                <li><a href="{{route("advert.listings")}}" class="text-uppercase dropdown-item" style="text-decoration: none">Lijst producten</a></li>
+                                            @endif
                                         <li><a href="{{route('customer.calendar')}}" class="text-uppercase dropdown-item" style="text-decoration: none">Kalender</a></li>
                                         <li><a class="text-uppercase dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">Profiel</a></li>
                                         <li>

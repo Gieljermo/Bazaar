@@ -1,5 +1,6 @@
 @extends('layout', [
-    'title' => ''
+    'title' => '',
+    'heading' => ''
 ])
 @section('content')
 @if(session('error'))

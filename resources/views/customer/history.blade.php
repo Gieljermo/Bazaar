@@ -128,7 +128,7 @@
     <script>
         let rating = document.getElementById('rating');
         let stars = document.getElementsByClassName('star');
-        function rate( n){
+        function rate(n){
             remove()
             for(let i = 0; i < n; i++){
                 stars[i].classList.add('text-warning')
