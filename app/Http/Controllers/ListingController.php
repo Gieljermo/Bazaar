@@ -201,8 +201,35 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         //
-        $listingProduct = Listing::find($listing);
-        dd($listingProduct);
+        $currentListing = Listing::find($listing->id);
+
+        if ($currentListing){
+            if ($request->has('listing.bid-price')) {
+                $listing->price_from = $request->input('listing.bid-price');
+                $listing->bid_until = $request->input('listing.bid-until');
+            } else if ($request->has('listing.price')) {
+                $listing->price = $request->input('listing.price');
+            } else if ($request->has('listing.rent-price')) {
+                $listing->price = $request->input('listing.rent-price');
+            }
+
+            if($request->file('listing.image') != null) $listing->image = $request->file('listing.image')->store('listings', 'public');
+
+
+            $product = Product::find($currentListing->product_id);
+            if($product){
+                $product->product_name = $request->input('product.name');
+                $product->description = $request->input('product.description');
+
+                $product->save();
+            }
+
+            $listing->save();
+            return back()->with("success", "Het product is verwijderd");
+        }
+        else{
+            return back()->with("failed", "Het product kon niet worden geupdate");
+        }
 
     }
 
@@ -325,7 +352,7 @@ class ListingController extends Controller
                 "product_id" => $product->id,
                 "user_id" => Auth::user()->id,
                 "type" => $data[0][2],
-                "price" => $data[0][3]
+                ($data[0][2] == "bidding") ? "price_from" : "price" => $data[0][3],
             ]);
         }
 

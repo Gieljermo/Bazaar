@@ -3,8 +3,15 @@
 ])
 
 @section("content")
+    @if (session('success'))
+        <div class="alert alert-success w-25">
+            <li>
+                {{ session('success') }}
+            </li>
+        </div>
+    @endif
     <div class="d-flex justify-content-center">
-        <form method="POST" action="{{Route('listings.update', $listing->id)}}" class="mt-4 w-25" enctype="multipart/form-data">
+        <form method="POST" action="{{Route('listings.update', $listing->id)}}" class="mt-1 w-25" enctype="multipart/form-data">
             @csrf
             @method("PATCH")
             <div class="form-group mb-4">
@@ -29,7 +36,7 @@
                 <label class="mb-2 text-uppercase fw-bold" for="listing[image]">
                     Afbeelding
                 </label>
-                <input class="form-control border-black" required name="listing[image]" type="file" value="{{$listing->getImageUrl()}}"/>
+                <input class="form-control border-black" name="listing[image]" type="file"/>
                 @error('listing.image')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
                 @enderror

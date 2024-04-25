@@ -89,7 +89,7 @@ class ListingSeeder extends Seeder
                 'type' => 'bidding',
                 'purchase_id' => null,
                 'bidding_id' => null,
-                'price' => 250
+                'price_from' => 230
             ],
             [
                 'id' => 6,
@@ -98,7 +98,7 @@ class ListingSeeder extends Seeder
                 'type' => 'bidding',
                 'purchase_id' => null,
                 'bidding_id' => null,
-                'price' => 400
+                'price_from' => 443
             ],
            /* [
                 'id' => 6,

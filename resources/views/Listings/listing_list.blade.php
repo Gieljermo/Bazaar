@@ -75,7 +75,7 @@
                     <tr>
                         <th scope="row">{{$countRow++}}</th>
                         <td>{{$listing->product->product_name}}</td>
-                        <td>{{$listing->price}}</td>
+                        <td>{{ ($listing->type == "bidding") ? $listing->price_from : $listing->price}}</td>
                         <td>{{$listing->product->description}}</td>
                         <td>{{$typeProduct[$listing ->type] ?? ""}}</td>
                         <td>
@@ -107,7 +107,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-uppercase" for="">Upload een CSV </label>
-                    <input class="btn-primary mt-2 form-control" type="file" name="csv_file">
+                    <input class="btn-primary mt-2 form-control" type="file" accept=".csv" name="csv_file">
                     <button class="btn btn-secondary mt-2" type="submit">Upload CSV</button>
                 </div>
             </form>
