@@ -21,7 +21,7 @@ class ProductFactory extends Factory
     {
         return [
             'product_name' => fake()->word(),
-            'description' => "Dit beschrijving is een template voor dit product"
+            'description' => 'Dit beschrijving is een template voor dit product'
         ];
     }
 }

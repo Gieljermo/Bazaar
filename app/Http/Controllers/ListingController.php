@@ -356,7 +356,7 @@ class ListingController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'CSV file imported successfully.');
+        return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
     }
 
     public function exportToCsvFile(){
@@ -371,12 +371,6 @@ class ListingController extends Controller
         ];
 
         $handle = fopen('php://output', 'w');
-        fputcsv($handle, [
-            "product_name",
-            "description",
-            "type",
-            "price"
-        ]);
 
         foreach ($listings as $listing) {
             fputcsv($handle, [
