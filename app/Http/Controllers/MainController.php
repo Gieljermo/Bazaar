@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PageSetting;
+use App\Models\PageComponent;
 
 class MainController extends Controller
 {
@@ -24,9 +25,12 @@ class MainController extends Controller
             return view('index', ['heading' => 'Welkom bij de Bazaar']);
         } else {
             $settings = PageSetting::where('url', $customUrl)->first();
+            $components = PageComponent::where('user_id', $settings->user->id)->get();
+
             return view('commercial.custom-landing', [
                 'heading' => 'pagina van '.$settings->user->name,
-                'settings' => $settings
+                'settings' => $settings,
+                'components' => $components
             ]);
         }
     }

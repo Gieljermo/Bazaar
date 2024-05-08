@@ -203,6 +203,8 @@ class ListingController extends Controller
     {
         //
     }
+    
+
 
     public function bid(Request $request){
 
@@ -258,5 +260,11 @@ class ListingController extends Controller
         ]);
 
         return redirect()->route('listings.index');
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $searchResults = Product::search($request->input('query'))->get();
+        return response()->json($searchResults);
     }
 }

@@ -6,10 +6,11 @@ use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     public $timestamps = false;
 
@@ -26,5 +27,13 @@ class Product extends Model
     public function listings()
     {
         return $this->hasMany(Listing::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => (int) $this->id,
+            'product_name' => $this->product_name
+        ];
     }
 }
