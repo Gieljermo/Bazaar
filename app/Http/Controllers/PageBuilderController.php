@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\PageComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Listing;
+use App\Models\ComponentProduct;
 
 class PageBuilderController extends Controller
 {
     public function index(){
 
         $components = PageComponent::where('user_id', Auth::user()->id)->get();
-        // $listings = Listing::where('user_id', Auth::user()->id)->get();
-        $listings = Listing::All();
+        $listings = Listing::where('user_id', Auth::user()->id)->get();
 
         return view('commercial.page-builder', [
             'heading' => 'landingpagina bouwer',
@@ -28,13 +28,28 @@ class PageBuilderController extends Controller
 
 
         foreach($request->input('component') as $component){
-            PageComponent::Create([
-                'user_id' => Auth::user()->id,
-                'header' => $component['header'],
-                'text' => $component['text'],
-            ]);
+
+
+            $newComponent = PageComponent::updateOrCreate(
+                [
+                    'user_id' => Auth::user()->id,
+                    'header' => $component['header']
+                ],
+                [
+                    'text' => $component['text']
+                ]
+            );
+
+            $productIds = $component['product'] ?? null;
+            
+            $newComponent->listings()->sync($productIds);
         }
 
         return back();
+    }
+
+    public function getListingPartial(){
+        $listings = Listing::where('user_id', Auth::user()->id)->get();
+        return view('partials.page-builder.listing-list', compact('listings'))->render();
     }
 }

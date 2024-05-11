@@ -75,7 +75,7 @@ input::-webkit-inner-spin-button {
 .component-header{
     width: 100%;
     display: flex;
-    text-align: center;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -112,7 +112,7 @@ input::-webkit-inner-spin-button {
     background-color: white;
     width:100%;
     overflow: scroll;
-    height: 150px;
+    max-height: 150px;
     display: none;
 }
 
@@ -126,4 +126,12 @@ input::-webkit-inner-spin-button {
     position: absolute;
     left: -9999px;
     opacity: 0.01;
+}
+
+.component-product-container{
+    gap: 15px;
+}
+
+.component-product-container .card-container{
+    width: initial;
 }

@@ -9,12 +9,14 @@ class PageComponent extends Model
 {
     use HasFactory;
 
+    protected $table = 'page_components';
+
     protected $fillable = ['user_id', 'header', 'text'];
 
     public $timestamps = false;
 
-    public function listings(): HasMany
+    public function listings()
     {
-        return $this->hasMany(Listing::class);
+        return $this->belongsToMany(Listing::class, 'component_products', 'component_id', 'listing_id');
     }
 }
