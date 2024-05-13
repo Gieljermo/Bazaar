@@ -116,10 +116,18 @@ input::-webkit-inner-spin-button {
     display: none;
 }
 
+.listing-option .listing-image{
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+}
+
 .listing-option{
     display: flex;
     flex-direction: row;
     border-bottom: 1px black solid;
+    align-items: center;
+    gap: 20px;
 }
 
 .hidden-search {

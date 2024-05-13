@@ -29,8 +29,10 @@
                     <div class="listing-select" data-index="{{$index}}">
                         <div tabindex="0" class="form-control listing-id-container">
                             @foreach ($component->listings as $listing)
-                                <input type="hidden" name="component[{{$index}}][product][]" value="{{$listing->id}}"/>
-                                <p>{{$listing->product->product_name}}</p>
+                                <div class="selected-listing-wrapper">
+                                    <input type="hidden" name="component[{{$index}}][product][]" value="{{$listing->id}}"/>
+                                    <p data-image="{{$listing->getImageUrl()}}" data-price="{{$listing->price}}" class="selected-listing">{{$listing->product->product_name}}<i class="bi bi-x"></i></p>
+                                </div>
                             @endforeach
                             <input type="text" class="hidden-search"/>
                         </div>
@@ -44,12 +46,11 @@
                 @endphp
                 @endforeach
             </div>
-            <input type="submit" value="verzenden"/>
+            <input class="btn btn-primary" type="submit" value="verzenden"/>
         </form>
-        <button id="addComponent" class="btn btn-primary">Component toevoegen</button>
     </div>
     <div class="col">
-
+        <button id="addComponent" class="btn btn-primary">Component toevoegen</button>
     </div>
 
     <script defer>
@@ -58,7 +59,7 @@
         function UpdateSelectBoxes() {
             let searchBoxes = document.querySelectorAll('.listing-id-container');
             let inputs = document.querySelectorAll('.hidden-search');
-
+            let selectedListings = document.querySelectorAll('.selected-listing');
             
             document.removeEventListener('click', handleDocumentClick);
             document.addEventListener('click', handleDocumentClick);
@@ -75,6 +76,13 @@
                     element.addEventListener('input', function (e) {
                         searchListing(e.target.value);
                     });
+                    element.dataset.listener = 'true';
+                }
+            });
+
+            selectedListings.forEach(element => {
+                if (!element.dataset.listener) {
+                    element.addEventListener('click', addOptionToList);
                     element.dataset.listener = 'true';
                 }
             });
@@ -118,17 +126,57 @@
             let idText = document.createElement('p');
             let componentIndex = listingSelect.dataset.index;
 
+            let container = document.createElement('div');
+            container.classList.add('selected-listing-wrapper');
+
             idText.innerText = this.querySelector('.listing-name').innerText;
+
+            idText.setAttribute('data-image', this.querySelector('.listing-image').src);
+            idText.setAttribute('data-price', this.querySelector('.listing-price').innerText);
+            idText.classList.add('selected-listing');
+            
+            let icon = document.createElement('i');
+            icon.classList.add('bi', 'bi-x');
+            idText.appendChild(icon);
             
             let hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden'
             hiddenInput.name = 'component['+componentIndex+'][product][]'
             hiddenInput.value = this.dataset.id
 
-            searchbox.appendChild(idText);
-            searchbox.appendChild(hiddenInput);
+            container.appendChild(idText);
+            container.appendChild(hiddenInput);
+
+            searchbox.appendChild(container);
 
             this.remove();
+            UpdateSelectBoxes();
+        }
+
+        function addOptionToList(){
+            let listingOptionContainer = document.createElement('div');
+            listingOptionContainer.classList.add('listing-option');
+
+            let listingImage = document.createElement('img');
+            listingImage.src = this.dataset.image;
+            listingOptionContainer.appendChild(listingImage);
+            listingImage.alt = 'listing foto';
+            listingImage.classList.add("listing-image");
+
+            let listingName = document.createElement('p');
+            listingName.innerText = this.innerText;
+            console.log(listingName)
+            listingName.classList.add('listing-name')
+            listingOptionContainer.appendChild(listingName);
+
+            let listingPrice = document.createElement('p');
+            listingPrice.innerText = this.dataset.price;
+            listingOptionContainer.appendChild(listingPrice);
+            listingPrice.classList.add('listing-price');
+
+            this.closest('.listing-select').querySelector('.listing-list').appendChild(listingOptionContainer);
+            this.closest('.selected-listing-wrapper').remove();
+            updateListingOptions();
         }
         
 
