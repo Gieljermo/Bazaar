@@ -1,6 +1,6 @@
 @extends('layout', [
     'title' => 'Bazaar',
-    'heading' => 'Producten van '.Auth::user()->name. " ".Auth::user()->lastname
+    'heading' => 'Advertenties van '.Auth::user()->name. " ".Auth::user()->lastname
 ])
 @section("content")
     @php
@@ -107,7 +107,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-uppercase" for="">Upload een CSV bestand</label>
-                    <input class="btn-primary mt-2 form-control" type="file" accept=".csv" name="csv_file">
+                    <input class="btn-primary mt-2 form-control" type="file" required accept=".csv" name="csv_file">
                     <button class="btn btn-secondary mt-2" type="submit">Upload CSV</button>
                 </div>
             </form>

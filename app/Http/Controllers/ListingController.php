@@ -190,7 +190,7 @@ class ListingController extends Controller
 
         return view("Listings.listing_edit", [
             'listing' => $listingProduct,
-            'heading' => "Wijzig product: " . $listingProduct->product->product_name
+            'heading' => "Wijzig advertentie: " . $listingProduct->product->product_name
         ]);
 
     }
@@ -233,10 +233,10 @@ class ListingController extends Controller
             }
 
             $listing->save();
-            return back()->with("success", "Het product is geupdate");
+            return redirect()->route("advert.listings")->with("success", "De advertentie  is geupdate");
         }
         else{
-            return back()->with("failed", "Het product kon niet worden geupdate");
+            return  redirect()->route("advert.listings")->with("failed", "De advertentie  kon niet worden geupdate");
         }
 
     }
@@ -257,10 +257,10 @@ class ListingController extends Controller
              if($product){
                  $product->delete();
              }
-             return back()->with("success", "Het product is verwijderd");
+             return back()->with("success", "De advertentie  is verwijderd");
          }
          else{
-             return back()->with("failed", "Het product kon niet verwijderd worden");
+             return back()->with("failed", "De advertentie  kon niet verwijderd worden");
          }
 
 
@@ -369,7 +369,7 @@ class ListingController extends Controller
             return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
         }
         else{
-            return redirect()->back()->with('error', 'CSV bestand kon niet succesvol geupload worden.');
+            return redirect()->back()->with('failed', 'CSV bestand kon niet succesvol geupload worden.');
         }
 
 
