@@ -346,32 +346,27 @@ class ListingController extends Controller
             'csv_file' => 'required|file|mimes:csv'
         ]);
 
-        if ($request->file('csv_file')->isValid()){
-            $file = $request->file('csv_file');
-            $fileContents = file($file->getPathname());
+        $file = $request->file('csv_file');
 
-            foreach ($fileContents as $line) {
-                $getCsv = str_getcsv($line);
+        $fileContents = file($file->getPathname());
 
-                $product = Product::create([
-                    'product_name' => $getCsv[0],
-                    'description' => $getCsv[1],
-                ]);
+        foreach ($fileContents as $line) {
+            $getCsv = str_getcsv($line);
 
-                Listing::create([
-                    "product_id" => $product->id,
-                    "user_id" => Auth::user()->id,
-                    "type" => $getCsv[2],
-                    (($getCsv[2] == "bidding") ? "price_from" : "price") => $getCsv[3],
-                ]);
-            }
+            $product = Product::create([
+                'product_name' => $getCsv[0],
+                'description' => $getCsv[1],
+            ]);
 
-            return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
-        }
-        else{
-            return redirect()->back()->with('failed', 'CSV bestand kon niet succesvol geupload worden.');
+            Listing::create([
+                "product_id" => $product->id,
+                "user_id" => Auth::user()->id,
+                "type" => $getCsv[2],
+                (($getCsv[2] == "bidding") ? "price_from" : "price") => $getCsv[3],
+            ]);
         }
 
+        return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
 
     }
 

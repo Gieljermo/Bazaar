@@ -108,6 +108,9 @@
                 <div class="form-group">
                     <label class="text-uppercase" for="">Upload een CSV bestand</label>
                     <input class="btn-primary mt-2 form-control" type="file" required accept=".csv" name="csv_file">
+                    @error('csv_file')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    @enderror
                     <button class="btn btn-secondary mt-2" type="submit">Upload CSV</button>
                 </div>
             </form>
