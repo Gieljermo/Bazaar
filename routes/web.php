@@ -11,6 +11,7 @@ use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\PageSettingsController;
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,8 @@ Route::group(['middleware' => 'role:admin,customer,proprietary,commercial'], fun
     Route::resources(['users' => UserController::class]);
     Route::post('/user/{id}/getKey', [UserController::class, 'getKey'])->name('user.getKey');
 });
+
+Route::post('/switch-language', [LanguageController::class, 'switchLanguage'])->name('switch-language');
 
 
 

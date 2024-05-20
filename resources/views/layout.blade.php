@@ -69,6 +69,9 @@
                                 </div>
                             </nav>
                         @endauth
+                        <div>
+                            @include('partials.language-swticher')
+                        </div>
                     </div>
                 </div>
             </div>
