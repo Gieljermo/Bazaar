@@ -130,6 +130,10 @@ input::-webkit-inner-spin-button {
     gap: 20px;
 }
 
+.listing-option:hover{
+    background-color: #aaa;
+}
+
 .hidden-search {
     position: absolute;
     left: -9999px;

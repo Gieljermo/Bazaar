@@ -8,6 +8,7 @@ use App\Models\PageComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Listing;
 use App\Models\ComponentProduct;
+use App\Rules\AtLeastOneFilled;
 
 class PageBuilderController extends Controller
 {
@@ -25,11 +26,11 @@ class PageBuilderController extends Controller
 
     public function store(Request $request){
 
-
+        $validated = $request->validate([
+            'component' => ['required', new atLeastOneFilled]
+        ]);
 
         foreach($request->input('component') as $component){
-
-
             $newComponent = PageComponent::updateOrCreate(
                 [
                     'user_id' => Auth::user()->id,
@@ -45,7 +46,14 @@ class PageBuilderController extends Controller
             $newComponent->listings()->sync($productIds);
         }
 
-        return back();
+        return back()->with(['message' => 'Component succesvol aan webpagina toegevoegd']);
+    }
+
+    public function destroy(PageComponent $component){
+
+        $component->delete();
+
+        return back()->with(['message' => 'Component succesvol verwijderd']);
     }
 
     public function getListingPartial(){

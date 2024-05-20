@@ -42,6 +42,7 @@ Route::middleware('role:commercial')->group(function (){
     Route::post('/commercial/page-settings/{id}', [PageSettingsController::class, 'store'])->name('commercial.page-settings.store');
     Route::get('/commercial/page-builder/{id}', [PageBuilderController::class, 'index'])->name('commercial.page-builder');
     Route::post('/commercial/page-builder/{id}', [PageBuilderController::class, 'store'])->name('commercial.page-builder.store');
+    Route::delete('/commercial/page-builder/{component}', [PageBuilderController::class, 'destroy'])->name('commercial.page-builder.delete');
     Route::get('/commercial/page-builder/search/autocomplete', [ListingController::class, 'autocomplete']);
 });
 

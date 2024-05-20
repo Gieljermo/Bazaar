@@ -7,7 +7,7 @@ $foundFavorite = false;
         <img class="p-1 card-img-top" src="{{$listing->getImageUrl()}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{$listing->product->product_name}}</h5>
-            <p class="card-text">{{$listing->product->description}}</p>
+            <p class="card-text card-description">{{$listing->product->description}}</p>
             @if ($listing->type == "bidding")
                 <p class="card-text">Bieden tot: {{$listing->bid_until}}</p>
             @else
