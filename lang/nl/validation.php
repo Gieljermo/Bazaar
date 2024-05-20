@@ -89,7 +89,7 @@ return [
         'string'  => ':Attribute mag niet groter zijn dan :max karakters.',
         'array'   => ':Attribute mag niet meer dan :max items bevatten.',
     ],
-    'mimes'                => 'Er is een fout met deze :Attribute bestand.',
+    'mimes'                => 'Er is een fout met deze :Attribute.',
     'mimetypes'            => ':Attribute dient een bestand te zijn van het type: :values.',
     'min'                  => [
         'numeric' => ':Attribute dient minimaal :min te zijn.',
