@@ -201,6 +201,14 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         //
+        $validated = $request->validate([
+            'product.name' => 'required|string',
+            'product.description' => 'string',
+            'listing.price' => 'sometimes|required|numeric',
+            'listing.bid-until' => 'sometimes|required',
+            'listing.rent-price' => 'sometimes|required|numeric',
+        ]);
+
         $currentListing = Listing::find($listing->id);
 
         if ($currentListing){
@@ -225,7 +233,7 @@ class ListingController extends Controller
             }
 
             $listing->save();
-            return back()->with("success", "Het product is verwijderd");
+            return back()->with("success", "Het product is geupdate");
         }
         else{
             return back()->with("failed", "Het product kon niet worden geupdate");
@@ -315,6 +323,7 @@ class ListingController extends Controller
     }
 
     public function showAdvertiserListings(Request $request){
+
         $listings= Listing::where("user_id", Auth::user()->id)
             ->with("product");
 
@@ -333,30 +342,37 @@ class ListingController extends Controller
     }
 
     public function uploadCsvFile(Request $request){
-        $file = $request->file('csv_file');
-        $fileContents = file($file->getPathname());
-        foreach ($fileContents as $line) {
-            $getCsv = str_getcsv($line);
-            $data = [];
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv'
+        ]);
 
-            foreach ($getCsv as $csvItem) {
-                $data[] = explode(",", $csvItem);
+        if ($request->file('csv_file')->isValid()){
+            $file = $request->file('csv_file');
+            $fileContents = file($file->getPathname());
+
+            foreach ($fileContents as $line) {
+                $getCsv = str_getcsv($line);
+
+                $product = Product::create([
+                    'product_name' => $getCsv[0],
+                    'description' => $getCsv[1],
+                ]);
+
+                Listing::create([
+                    "product_id" => $product->id,
+                    "user_id" => Auth::user()->id,
+                    "type" => $getCsv[2],
+                    (($getCsv[2] == "bidding") ? "price_from" : "price") => $getCsv[3],
+                ]);
             }
 
-            $product = Product::create([
-                'product_name' => $data[0][0],
-                'description' => $data[0][1],
-            ]);
-
-            Listing::create([
-                "product_id" => $product->id,
-                "user_id" => Auth::user()->id,
-                "type" => $data[0][2],
-                ($data[0][2] == "bidding") ? "price_from" : "price" => $data[0][3],
-            ]);
+            return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
+        }
+        else{
+            return redirect()->back()->with('error', 'CSV bestand kon niet succesvol geupload worden.');
         }
 
-        return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
+
     }
 
     public function exportToCsvFile(){
@@ -376,6 +392,7 @@ class ListingController extends Controller
             fputcsv($handle, [
                 $listing->product->product_name,
                 $listing->product->description,
+                $listing->image,
                 $listing->type,
                 $listing->price
             ]);

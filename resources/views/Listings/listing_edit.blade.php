@@ -10,6 +10,17 @@
             </li>
         </div>
     @endif
+
+    @if (session('errors'))
+        <div class="alert alert-success w-25">
+            <li>
+                {{ session('success') }}
+            </li>
+        </div>
+    @endif
+    <div class="text-center">
+        <a href="{{route("advert.listings")}}" style="text-decoration: none" class="text-uppercase">Terug</a>
+    </div>
     <div class="d-flex justify-content-center">
         <form method="POST" action="{{Route('listings.update', $listing->id)}}" class="mt-1 w-25" enctype="multipart/form-data">
             @csrf

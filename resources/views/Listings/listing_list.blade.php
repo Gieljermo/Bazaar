@@ -99,14 +99,14 @@
                 {{$listings->links()}}
             </div>
             <div class="mt-4 ms-2">
-                <a href="{{ route('advert.export.csv') }}" class="btn btn-primary">Export to CSV</a>
+                <a href="{{ route('advert.export.csv') }}" class="btn btn-primary">Export to CSV bestand</a>
             </div>
         </div>
         <div class="col-3">
             <form class="mt-3 p-5"  action="{{route('advert.upload.csv')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label class="text-uppercase" for="">Upload een CSV </label>
+                    <label class="text-uppercase" for="">Upload een CSV bestand</label>
                     <input class="btn-primary mt-2 form-control" type="file" accept=".csv" name="csv_file">
                     <button class="btn btn-secondary mt-2" type="submit">Upload CSV</button>
                 </div>
