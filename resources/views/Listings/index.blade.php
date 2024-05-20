@@ -59,7 +59,7 @@ $foundFavorite = false;
                         @else
                             <p class="card-text">&euro;{{$listing->price}}</p>
                         @endif
-                        <a href="{{Route('listings.show', $listing->id)}}" class="btn btn-primary"> Advertentie bekijken</a>
+                        <a href="{{Route('listings.show', $listing->id)}}" id="link_{{$listing->product->id}}" class="btn btn-primary"> Advertentie bekijken</a>
 
                         <div class="d-flex w-100 justify-content-end">
                             @auth()
