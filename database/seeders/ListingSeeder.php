@@ -76,9 +76,9 @@ class ListingSeeder extends Seeder
            /* [
                 'id' => 4,
                 'product_id' => 10,
-                'user_id' => 3,
+                'user_id' => 4,
                 'type' => 'bidding',
-                'purchase_id' => 4,
+                'purchase_id' => null,
                 'bidding_id' => null,
                 'price' => 250
             ],

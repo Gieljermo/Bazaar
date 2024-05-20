@@ -19,6 +19,7 @@
 </head>
 @php
     use App\Models\Role;
+    use App\Models\Contract;
 @endphp
 <body class="m-1">
     <div class="container m-0 mw-100">
