@@ -54,7 +54,6 @@ class ReviewTest extends DuskTestCase
                 ->visitRoute('customer.purchases')
                 ->assertSee(strtoupper($listing->product->product_name))
                 ->assertSee("LAAT EEN REVIEW ACHTER VOOR DE ADVERTEERDER")
-                ->screenshot('before-click-review-link')
                 ->click('@review-link-' . $listing->id)
                 ->pause(1000)
                 ->assertSee('GEEF EEN REVIEW VOOR DEZE ADVERTEERDER')
