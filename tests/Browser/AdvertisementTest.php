@@ -173,4 +173,6 @@ class AdvertisementTest extends DuskTestCase
         Listing::where("product_id", $product->id)->delete();
         Product::find($product->id)->delete();
     }
+
+
 }

@@ -44,8 +44,8 @@
                             <h4 class="text-uppercase">{{ $listing->product->product_name }}</h4>
                             <p style="font-size: 1.2em">{{ $listing->product->description }}</p>
                             <p>
-                                <a class="text-uppercase" style="color:#0D6EFD; text-decoration: underline; cursor: pointer; font-size: 18px;"
-                                   data-bs-toggle="modal" data-bs-target="#exampleModal{{$listing->id}}">
+                                <a class="text-uppercase review-link-{{$listing->id}}" style="color:#0D6EFD; text-decoration: underline; cursor: pointer; font-size: 18px;"
+                                   data-bs-toggle="modal"  data-bs-target="#exampleModal{{$listing->id}}" dusk="review-link-{{$listing->id}}">
                                     Laat een review achter voor de adverteerder
                                 </a>
                             </p>
@@ -86,7 +86,7 @@
                                                     <div>
                                                         <h5 class="text-uppercase">Geef een review voor deze adverteerder</h5>
                                                     </div>
-                                                    <div class="">
+                                                    <div>
                                                         <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
                                                         <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
                                                         <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
@@ -101,7 +101,7 @@
                                                         <textarea class="form-control" id="review" name="review" required></textarea>
                                                     </div>
                                                     <div class="form-group mt-3">
-                                                        <input class="btn btn-primary" type="submit" value="Plaats review"/>
+                                                        <input id="submit-review" class="btn btn-primary" type="submit" value="Plaats review"/>
                                                     </div>
                                                 </form>
                                             @else
