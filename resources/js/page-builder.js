@@ -13,13 +13,13 @@ deletebuttons.forEach(element => {
 
 
 UpdateSelectBoxes();
-        
+
 function UpdateSelectBoxes() {
     let searchBoxes = document.querySelectorAll('.listing-id-container');
     let inputs = document.querySelectorAll('.hidden-search');
     let selectedListings = document.querySelectorAll('.selected-listing');
     let deletebuttons = document.querySelectorAll('.bi-trash');
-    
+
     document.removeEventListener('click', handleDocumentClick);
     document.addEventListener('click', handleDocumentClick);
 
@@ -39,7 +39,7 @@ function UpdateSelectBoxes() {
             element.addEventListener('input', function (e) {
 
                 let listingContainer = this.closest('.listing-id-container');
-    
+
                 let hiddenInputs = listingContainer.querySelectorAll('input[type="hidden"]');
                 let ids = Array.from(hiddenInputs).map(input => input.value);
 
@@ -70,7 +70,7 @@ function UpdateSelectBoxes() {
 
 function removeComponent(){
     this.closest('.component-form-group').remove();
-    
+
 }
 
 function handleDocumentClick(event) {
@@ -120,11 +120,11 @@ function handleListingOptionClick() {
     idText.setAttribute('data-image', this.querySelector('.listing-image').src);
     idText.setAttribute('data-price', this.querySelector('.listing-price').innerText);
     idText.classList.add('selected-listing');
-    
+
     let icon = document.createElement('i');
     icon.classList.add('bi', 'bi-x');
     idText.appendChild(icon);
-    
+
     let hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden'
     hiddenInput.name = 'component['+componentIndex+'][product][]'
@@ -202,7 +202,7 @@ function addComponent(){
     let titelLabel = document.createElement('label');
     titelLabel.innerText = 'Titel';
     titelLabel.classList.add('mb-2');
-    
+
 
     let titleInput = document.createElement('input');
     titleInput.name = 'component['+index+'][header]';
@@ -229,7 +229,7 @@ function addComponent(){
     let hiddenSearchContainer = document.createElement('div');
     hiddenSearchContainer.tabIndex = 0;
     hiddenSearchContainer.classList.add('form-control', 'listing-id-container')
-    
+
 
     let hiddenSearch = document.createElement('input');
     hiddenSearch.type = 'text';
@@ -240,9 +240,9 @@ function addComponent(){
 
     let listingList = document.createElement('div');
     listingList.classList.add('listing-list');
-    
 
-    fetch('http://bazaar.test/api/listing-partial', {
+
+    fetch(window.location.origin+'/api/listing-partial', {
             credentials: 'include'
         })
         .then(response => response.text())
