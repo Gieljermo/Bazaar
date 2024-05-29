@@ -166,12 +166,12 @@ return [
     */
 
     'attributes' => [
-        'name' => 'vooraam',
+        'name' => 'voornaam',
         'lastname' => 'achternaam',
         'email' => 'e-mail adres',
         'password' => 'wachtwoord',
         'password_confirmation' => 'wachtwoord bevestiging',
-        'postal_code' => 'wostcode',
+        'postal_code' => 'postcode',
         'street' => 'straat',
         'house_number' => 'huisnummer',
         // ... other attributes

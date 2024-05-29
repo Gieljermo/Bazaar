@@ -76,8 +76,6 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $validated = $request->validate([
             'product.name' => 'required|string',
             'product.description' => 'string',
@@ -106,7 +104,7 @@ class ListingController extends Controller
 
         if ($request->has('listing.bid-price')) {
             $listing->price_from = $request->input('listing.bid-price');
-            $listing->bid_until = $request->input('listing.bid-until');
+            $listing->bid_until  = $request->input('listing.bid-until');
         } else if ($request->has('listing.price')) {
             $listing->price = $request->input('listing.price');
         } else if ($request->has('listing.rent-price')) {
@@ -177,7 +175,7 @@ class ListingController extends Controller
             'advertiserReviews' => $reviewsOfAdvertiser,
             'rating' => $averageRating,
             'hasRented' => $hasRented,
-            'hasPurchased' => $hasPurchased
+            'hasPurchased' => $hasPurchased,
         ]);
     }
 
