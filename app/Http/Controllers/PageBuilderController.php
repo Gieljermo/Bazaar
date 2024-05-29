@@ -31,18 +31,22 @@ class PageBuilderController extends Controller
         ]);
 
         foreach($request->input('component') as $component){
+
+            $componentId = $component['id'] ?? null;
+
             $newComponent = PageComponent::updateOrCreate(
                 [
-                    'user_id' => Auth::user()->id,
-                    'header' => $component['header']
+                    'id' => $componentId
                 ],
                 [
+                    'user_id' => Auth::user()->id,
+                    'header' => $component['header'],
                     'text' => $component['text']
                 ]
             );
 
             $productIds = $component['product'] ?? null;
-            
+
             $newComponent->listings()->sync($productIds);
         }
 

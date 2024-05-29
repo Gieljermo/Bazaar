@@ -23,6 +23,7 @@
                 @endphp
                 @foreach ($components as $component)
                 <div class="component-form-group form-group mb-4 card">
+                    <input type="hidden" name="component[{{$index}}][id]" value="{{$component->id}}"/>
                     <i class="bi bi-trash" data-component-id="{{ $component->id }}"></i>
                     <label class="mb-2">
                         Titel
@@ -68,6 +69,6 @@
     </div>
 
     @vite(['resources/js/page-builder.js'])
-        
+
 @endsection
 
