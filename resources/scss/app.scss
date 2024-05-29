@@ -46,10 +46,29 @@
 }
 
 //listings
+
+.listing-col{
+    gap: 10px;
+}
+
 .card-container{
-    width: 25%;
+    width: calc(25% - 20px);
     margin-bottom: 20px;
 }
+
+.card-img-wrapper {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
 
 .card-description{
     overflow: hidden;
@@ -123,7 +142,7 @@
 
 .calendar-legend{
     margin: 20px;
-    
+
 }
 
 .legend-item{

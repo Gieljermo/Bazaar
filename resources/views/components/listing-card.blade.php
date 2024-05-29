@@ -2,9 +2,11 @@
 $foundFavorite = false;
 @endphp
 
-<div class="card-container  ">
-    <div class="card" style="width: 18rem;">
-        <img class="p-1 card-img-top" src="{{$listing->getImageUrl()}}" alt="Card image cap">
+<div class="card-container">
+    <div class="card">
+        <div class="card-img-wrapper">
+            <img class="p-1 card-img-top" src="{{$listing->getImageUrl()}}" alt="Card image cap">
+        </div>
         <div class="card-body">
             <h5 class="card-title">{{$listing->product->product_name}}</h5>
             <p class="card-text card-description">{{$listing->product->description}}</p>

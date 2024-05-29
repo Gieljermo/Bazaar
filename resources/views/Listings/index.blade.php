@@ -43,7 +43,7 @@
                 </fieldset>
             </form>
         </div>
-        <div class="w-50 d-flex justify-content-start flex-wrap ">
+        <div class="listing-col w-50 d-flex justify-content-start flex-wrap ">
             @foreach ($listings as $listing)
                 @include('components.listing-card', ['listing' => $listing, 'favorites' => $favorites])
             @endforeach
