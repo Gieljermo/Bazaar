@@ -22,10 +22,10 @@
             </div>
             <div class="form-group mb-3">
                 <label for="wachtwoord" class="mb-2 text-uppercase fw-bold">Wachtwoord:</label>
-                <input type="password" class="form-control border-black" id="wachtwoord" name="password"  placeholder="Wachtwoord">
+                <input type="password" class="form-control border-black" id="wachtwoord" name="password" placeholder="Wachtwoord">
             </div>
             <div class=text-center>
-                <button type="submit" class="btn btn-primary text-uppercase">Log in</button>
+                <button type="submit" id="login" name="login" class="btn btn-primary text-uppercase">Login</button>
             </div>
             @if (session('message'))
                 <div class="alert alert-success mt-2">
