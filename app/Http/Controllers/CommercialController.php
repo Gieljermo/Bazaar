@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use App\Models\Listing;
+use App\Models\Token;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,4 +52,14 @@ class CommercialController extends Controller
         }
     }
 
+    public function dataToJson(Request $request)
+    {
+            $data = Listing::where([
+                ['user_id', $request->user()->id],
+                ['purchase_id', null],
+            ])->with('product')->get();
+
+
+            return response()->json($data);
+    }
 }

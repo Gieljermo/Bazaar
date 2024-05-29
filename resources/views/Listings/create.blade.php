@@ -23,7 +23,7 @@
             <textarea class="form-control border-black" name="product[description]" required placeholder="Product Naam"></textarea>
             @error('product.description')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-            @enderror            
+            @enderror
         </div>
         <div class="form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="listing[image]">
@@ -32,7 +32,7 @@
             <input class="form-control border-black" required name="listing[image]" type="file"/>
             @error('listing.image')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-            @enderror  
+            @enderror
         </div>
         <div class="form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="product[description]">
@@ -46,7 +46,7 @@
             </select>
             @error('listing.type')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-            @enderror  
+            @enderror
         </div>
         <div id="set" class="d-none price form-group mb-4">
             <label class="mb-2 text-uppercase fw-bold" for="listing[price]">
@@ -55,7 +55,7 @@
             <input class="form-control border-black" required name="listing[price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
             @error('listing.price')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-            @enderror  
+            @enderror
         </div>
         <div id="bidding" class="d-none price form-group mb-4">
             <div class="mb-3">
@@ -63,19 +63,19 @@
                     <label class="mb-2 text-uppercase fw-bold" for="listing[bid-price]">
                         Bieden vanaf
                     </label>
-                    <input class="form-control border-black" name="listing[bid-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
+                        <input class="form-control border-black" name="listing[bid-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
                     @error('listing.bid-price')
                         <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-                    @enderror  
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="mb-2 text-uppercase fw-bold" for="listing[bid-until]">
                         Bieden tot datum en tijd
                     </label>
-                    <input class="form-control border-black" required name="listing[bid-until]" type="datetime-local"/>
+                    <input class="form-control border-black" id="bid-until" required name="listing[bid-until]" type="datetime-local"/>
                     @error('listing.bid_until')
                         <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-                    @enderror  
+                    @enderror
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
             <input class="form-control border-black" required name="listing[rent-price]" type="text" pattern="[0-9]*"  placeholder="0,00"/>
             @error('listing.rent-price')
                 <div class="alert alert-danger mt-1 p-2">{{ $message }}</div>
-            @enderror  
+            @enderror
         </div>
         <div>
             <input type="submit" value="Advertentie plaatsen"/>
