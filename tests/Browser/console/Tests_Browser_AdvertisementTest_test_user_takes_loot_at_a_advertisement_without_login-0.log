@@ -1,0 +1,26 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/bazaar.test\/storage\/ - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "source": "network",
+        "timestamp": 1716988441641
+    },
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/bazaar.test\/storage\/ - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "source": "network",
+        "timestamp": 1716988441661
+    },
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/bazaar.test\/storage\/ - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "source": "network",
+        "timestamp": 1716988441940
+    },
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/bazaar.test\/storage\/ - Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "source": "network",
+        "timestamp": 1716988442301
+    }
+]

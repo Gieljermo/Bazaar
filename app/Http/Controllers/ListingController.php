@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Log;
 
 class ListingController extends Controller
 {
@@ -201,6 +202,8 @@ class ListingController extends Controller
     {
         //
     }
+    
+
 
     public function bid(Request $request){
 
@@ -256,5 +259,24 @@ class ListingController extends Controller
         ]);
 
         return redirect()->route('listings.index');
+    }
+
+    public function autocomplete(Request $request)
+    {
+
+        
+        $searchResults = Product::search($request->input('query'))->get();
+        $productIds = $searchResults->pluck('id');
+
+        $idsArray = explode(',', $request->input('idList'));
+        
+
+        $listings = Listing::whereNotIn('id', $idsArray)
+            ->where('user_id', Auth::user()->id)
+            ->whereIn('product_id', $productIds)
+            ->get();
+
+
+        return view('partials.page-builder.listing-list', compact('listings'))->render();
     }
 }

@@ -58,4 +58,5 @@ class Listing extends Model
     public function getImageUrl(){
         return url('storage/'. $this->image);
     }
+
 }

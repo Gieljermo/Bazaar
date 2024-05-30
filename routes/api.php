@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PageBuilderController;
 use App\Http\Controllers\CommercialController;
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/test', function () {
     return response()->json(['message' => 'You are authenticated']);
 });
 
+Route::get('/listing-partial', [PageBuilderController::class, 'getListingPartial'])->middleware('web');
 
 Route::get('advertisements', [CommercialController::class, 'dataToJson'])
     ->middleware('auth:sanctum')
