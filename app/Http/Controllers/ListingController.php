@@ -10,6 +10,7 @@ use App\Models\Purchase;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Rules\CsvValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -342,12 +343,12 @@ class ListingController extends Controller
     }
 
     public function uploadCsvFile(Request $request){
+
         $request->validate([
-            'csv_file' => 'required|file|mimes:csv'
+            'csv_file' => ['required','file', new CsvValidation()]
         ]);
 
         $file = $request->file('csv_file');
-
         $fileContents = file($file->getPathname());
 
         foreach ($fileContents as $line) {
