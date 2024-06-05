@@ -171,9 +171,12 @@ return [
         'email' => 'e-mail adres',
         'password' => 'wachtwoord',
         'password_confirmation' => 'wachtwoord bevestiging',
-        'postal_code' => 'wostcode',
+        'postal_code' => 'postcode',
         'street' => 'straat',
         'house_number' => 'huisnummer',
+        'price' => 'prijs',
+        'product_name' => 'product naam',
+        'description' => 'beschrijving'
         // ... other attributes
     ],
 
