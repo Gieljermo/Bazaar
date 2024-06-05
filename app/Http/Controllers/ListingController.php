@@ -350,8 +350,13 @@ class ListingController extends Controller
 
         $file = $request->file('csv_file');
         $fileContents = file($file->getPathname());
-
+        $skipHeader = true;
         foreach ($fileContents as $line) {
+            if ($skipHeader) {
+                $skipHeader = false;
+                continue;
+            }
+
             $getCsv = str_getcsv($line);
 
             $product = Product::create([
@@ -383,12 +388,17 @@ class ListingController extends Controller
         ];
 
         $handle = fopen('php://output', 'w');
+        fputcsv($handle, [
+            'product_name',
+            'description',
+            'type',
+            'price',
+        ]);
 
         foreach ($listings as $listing) {
             fputcsv($handle, [
                 $listing->product->product_name,
                 $listing->product->description,
-                $listing->image,
                 $listing->type,
                 $listing->price
             ]);

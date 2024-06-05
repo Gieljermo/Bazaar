@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Validator;
 
 class CsvValidation implements ValidationRule
 {
@@ -15,36 +16,32 @@ class CsvValidation implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        
+        $data = array_map('str_getcsv', file($value->getRealPath()));
+        $header = array_shift($data);
+
+        $csvData = array_map(function($row) use ($header) {
+            return array_combine($header, $row);
+        }, $data);
+
+        //validate each row
         $listErrors = [];
-        $fileContents = file($value->getPathname());
+        foreach ($csvData as $key => $row) {
+            $validator = Validator::make($row, [
+                'product_name' => 'required|string',
+                'description' => 'required|string',
+                'type' => 'required|string',
+                'price' => 'required|numeric'
+            ]);
 
-        foreach ($fileContents as $lineNumber => $content){
-            $getCsv = str_getcsv($content);
-
-            if(empty($getCsv[0])){
-                $listErrors[] = "Er mist een product naam op regel " . ($lineNumber + 1);
-            }
-
-            if(empty($getCsv[1])){
-                $listErrors[] = "Er mist een product beschrijving op regel " . ($lineNumber + 1);
-            }
-
-            if(empty($getCsv[2])){
-                $listErrors[] = "Er mist een product type op regel " . ($lineNumber + 1);
-            }
-
-            if(empty($getCsv[3])){
-                $listErrors[] = "Er mist een product prijs op regel " . ($lineNumber + 1);
-            }
-
-            if($listErrors != null){
-                break;
+            if ($validator->fails()) {
+                $listErrors[$key] = $validator->errors()->all();
             }
         }
 
-        foreach ($listErrors as $error) {
-            $fail($error);
+        foreach ($listErrors as $key => $errors) {
+            foreach ($errors as $error) {
+                $fail("Row {$key}: {$error}");
+            }
         }
     }
 }
