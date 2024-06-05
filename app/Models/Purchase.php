@@ -20,8 +20,8 @@ class Purchase extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function listings()
+    public function listing()
     {
-        return $this->hasMany(Listing::class);
+        return $this->hasOne(Listing::class);
     }
 }

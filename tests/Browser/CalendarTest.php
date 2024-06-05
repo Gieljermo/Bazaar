@@ -9,8 +9,10 @@ use App\Models\Listing;
 use App\Models\Rental;
 use Illuminate\Support\Carbon;
 
+
 class CalendarTest extends DuskTestCase
 {
+    
     public function test_user_can_navigate_calendar(): void
     {
         $user = User::find(4);

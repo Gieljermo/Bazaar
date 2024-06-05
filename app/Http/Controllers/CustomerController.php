@@ -10,6 +10,7 @@ use App\Models\User;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Listing;
 
 class CustomerController extends Controller
 {
@@ -82,7 +83,6 @@ class CustomerController extends Controller
 
     public function getPurchaseHistory(){
         $purchases = Purchase::select('*')->where('purchases.user_id', Auth::user()->id)
-            ->has('listings.product')
             ->simplePaginate(4);
 
         $reviews = Review::where('reviewer_id', Auth::user()->id)->get();
