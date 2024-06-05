@@ -29,10 +29,22 @@ class ListingFactory extends Factory
         $directory = 'app/public/listings';
         $storagePath = storage_path($directory);
         $urlPath = 'listings/';
+        $minimumImages = 10;
 
         // Ensure the directory exists
         if (!File::exists($storagePath)) {
             File::makeDirectory($storagePath, 0755, true);
+        }
+
+        $images = File::files($storagePath);
+
+        // Use existing image if there are enough, otherwise create a new one
+        if (count($images) >= $minimumImages) {
+            $randomImage = $images[array_rand($images)];
+            $imageName = $randomImage->getFilename();
+            
+        } else {
+            $imageName = fake()->image(storage_path($directory), 500, 500, null, false);
         }
 
         return [
@@ -42,7 +54,7 @@ class ListingFactory extends Factory
             'purchase_id' => null,
             'bidding_id' => null,
             'price' => fake()->randomFloat(2, 10, 1000),
-            'image' => $urlPath.fake()->image(storage_path('app\public\listings'), 500, 500, null, false)
+            'image' => $urlPath . $imageName,
         ];
     }
 }

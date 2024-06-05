@@ -61,10 +61,10 @@
                         </td>
                         <td>
                             <form action="{{route('users.edit', $user)}}" method="GET" style="display:inline;">
-                                <button type="submit" class="btn btn-primary">Profiel</button>
+                                <button id="profile_{{$user->id}}" type="submit" class="btn btn-primary">Profiel</button>
                             </form>
                             @if(Role::find($user->role_id)->role_name === 'commercial')
-                                <a  class="btn btn-secondary" href="{{route('admin.export.pdf', $user)}}">Export contract</a>
+                                <a class="btn btn-secondary" href="{{route('admin.export.pdf', $user)}}">Export contract</a>
                             @endif
                         </td>
                     </tr>

@@ -89,7 +89,7 @@ class AdvertisementTest extends DuskTestCase
         });
     }
 
-    public function test_user_takes_loot_at_a_advertisement(): void
+    public function test_user_takes_look_at_a_advertisement(): void
     {
         $user = User::find(2);
 
@@ -133,7 +133,7 @@ class AdvertisementTest extends DuskTestCase
         Product::find($product->id)->delete();
     }
 
-    public function test_user_takes_loot_at_a_advertisement_without_login(): void
+    public function test_user_takes_look_at_a_advertisement_without_login(): void
     {
 
         $this->browse(function (Browser $browser) {

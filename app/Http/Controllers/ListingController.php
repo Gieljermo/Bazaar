@@ -51,9 +51,14 @@ class ListingController extends Controller
                     $query->orderBy('price', 'desc');
                     break;
             }
+        } else{
+            $query->orderBy('id', 'desc');
         }
         // Paginate the final query
         $listings = $query->simplePaginate(12);
+
+
+        
         return view("Listings.index", [
             "listings" => $listings,
             'favorites' => $favorites
