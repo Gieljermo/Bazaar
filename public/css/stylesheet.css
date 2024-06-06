@@ -141,9 +141,7 @@ input::-webkit-inner-spin-button {
 }
 
 .component-product-container{
+    justify-content: center;
     gap: 15px;
-}
-
-.component-product-container .card-container{
-    width: initial;
+    width: 80%;
 }
