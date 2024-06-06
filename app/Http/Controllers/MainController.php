@@ -23,7 +23,7 @@ class MainController extends Controller
         }
 
         if($customUrl == null){
-            return view('index', ['heading' => 'Welkom bij de Bazaar']);
+            return redirect()->route('listings.index');
         } else {
             $settings = PageSetting::where('url', $customUrl)->first();
             $components = PageComponent::where('user_id', $settings->user->id)->get();
