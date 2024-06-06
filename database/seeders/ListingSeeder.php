@@ -7,6 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Listing;
+use App\Models\User;
+use Faker\Factory as Faker;
 
 class ListingSeeder extends Seeder
 {
@@ -17,7 +19,21 @@ class ListingSeeder extends Seeder
      */
     public function run(): void
     {
-        Listing::factory()
-            ->count(30)->create();
+        $users = User::where('role_id', '!=', 4)->get();
+
+        foreach($users as $user){
+            Listing::factory()->count(3)->create([
+                'user_id' => $user->id,
+            ]);
+
+            Listing::factory()->count(3)->bidding()->create([
+                'user_id' => $user->id,
+            ]);
+
+            Listing::factory()->count(3)->rental()->create([
+                'user_id' => $user->id,
+            ]);
+
+        }
     }
 }
