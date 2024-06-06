@@ -2,10 +2,6 @@
     'title' => 'Profiel bewerken'
 ])
 
-@php
-    use App\Models\Role;
-@endphp
-
 @section('content')
     <div class="col">
         @include('partials.sidebar')

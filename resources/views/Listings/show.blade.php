@@ -15,7 +15,7 @@
     </div>
     <div class="right">
         <div class="d-flex">
-            <h1>{{$listing->product->product_name}}</h1>
+            <h1 id="product-name" >{{$listing->product->product_name}}</h1>
             @auth
                 @if(!$favorite->isEmpty())
                     <form action="{{route('customer.delete.favorite', $listing->id)}}">
@@ -206,7 +206,7 @@
             <form method="POST" action="{{Route('listing.buy')}}">
                 @csrf
                 <input type="hidden" name="listing" value="{{$listing->id}}"/>
-                <input class="btn btn-primary" type="submit" value="Product Kopen"/>
+                <input class="btn btn-primary" id="buy-product" type="submit" value="Product Kopen"/>
             </form>
         @endif
         <div class='mt-4'>
@@ -217,7 +217,7 @@
 <script>
     let rating = document.getElementById('rating');
     let stars = document.getElementsByClassName('star');
-    function rate( n){
+    function rate(n){
         remove()
         for(let i = 0; i < n; i++){
             stars[i].classList.add('text-warning')

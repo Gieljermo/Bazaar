@@ -11,6 +11,7 @@ use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\PageSettingsController;
+use App\Http\Controllers\PageBuilderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::middleware('role:commercial')->group(function (){
     Route::get('/commercial/contract/{id}', [CommercialController::class, 'acceptContract'])->name('commercial.accept.contract');
     Route::get('/commercial/page-settings/{id}', [PageSettingsController::class, 'index'])->name('commercial.page-settings');
     Route::post('/commercial/page-settings/{id}', [PageSettingsController::class, 'store'])->name('commercial.page-settings.store');
+    Route::get('/commercial/page-builder/{id}', [PageBuilderController::class, 'index'])->name('commercial.page-builder');
+    Route::post('/commercial/page-builder/{id}', [PageBuilderController::class, 'store'])->name('commercial.page-builder.store');
+    Route::delete('/commercial/page-builder/{component}', [PageBuilderController::class, 'destroy'])->name('commercial.page-builder.delete');
+    Route::get('/commercial/page-builder/search/autocomplete', [ListingController::class, 'autocomplete']);
 });
 
 Route::middleware('role:customer,proprietary,commercial')->group(function (){

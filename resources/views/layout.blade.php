@@ -19,6 +19,7 @@
 </head>
 @php
     use App\Models\Role;
+    use App\Models\Contract;
 @endphp
 <body class="m-1">
     <div class="container m-0 mw-100">
@@ -29,11 +30,11 @@
                         <a class="nav-link text-uppercase" href="{{Route('home')}}">home</a>
                     </div>
                     <div class="nav-item me-2">
-                        <a class="nav-link text-uppercase" href="{{Route('listings.index')}}">Advertenties</a>
+                        <a class="nav-link text-uppercase"  href="{{Route('listings.index')}}">Advertenties</a>
                     </div>
                     <div class="ms-auto d-flex">
                         <div class="nav-item me-2 ">
-                            <a class="btn btn-primary" href="{{Route('listings.create')}}">Plaats Advertentie</a>
+                            <a class="btn btn-primary" id="place_advertisement" href="{{Route('listings.create')}}">Plaats Advertentie</a>
                         </div>
                         @guest()
                             <div class="nav-item me-2">

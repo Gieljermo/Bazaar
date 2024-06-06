@@ -166,7 +166,7 @@ return [
     */
 
     'attributes' => [
-        'name' => 'vooraam',
+        'name' => 'voornaam',
         'lastname' => 'achternaam',
         'email' => 'e-mail adres',
         'password' => 'wachtwoord',

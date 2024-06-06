@@ -61,3 +61,89 @@ input::-webkit-inner-spin-button {
 .star, .star_product{
     font-size: 25px;
 }
+
+.settings-sidebar{
+    width: 50%;
+}
+
+#componentContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.component-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.component-form-group{
+    padding: 10px;
+}
+
+.listing-select{
+    position: relative;
+}
+
+.listing-id-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    min-height: 38px;
+}
+
+.listing-id-container p{
+    background-color: #0d6dfd91;
+    margin: 0;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.listing-id-container:focus + .listing-list{
+    display: block;
+}
+
+.listing-list{
+    position: absolute;
+    border: solid 1px black;
+    z-index: 2;
+    background-color: white;
+    width:100%;
+    overflow: scroll;
+    max-height: 150px;
+    display: none;
+}
+
+.listing-option .listing-image{
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+}
+
+.listing-option{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px black solid;
+    align-items: center;
+    gap: 20px;
+}
+
+.listing-option:hover{
+    background-color: #aaa;
+}
+
+.hidden-search {
+    position: absolute;
+    left: -9999px;
+    opacity: 0.01;
+}
+
+.component-product-container{
+    gap: 15px;
+}
+
+.component-product-container .card-container{
+    width: initial;
+}
