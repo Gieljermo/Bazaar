@@ -20,19 +20,19 @@
                 @if(!$favorite->isEmpty())
                     <form action="{{route('customer.delete.favorite', $listing->id)}}">
                         @csrf
-                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
+                        <button id="favorite_button_{{$listing->id}}" class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
                     </form>
                 @else
                     <form action="{{route('customer.add.favorite', $listing->id)}}">
                         @csrf
-                        <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
+                        <button id="favorite_button_{{$listing->id}}" class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
                     </form>
                 @endif
             @endauth
             @guest
                 <form action="{{route('customer.add.favorite', $listing->id)}}">
                     @csrf
-                    <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
+                    <button id="favorite_button_{{$listing->id}}" class="icon-button"><i style="font-size: 24px" class="bi bi-heart"></i></button>
                 </form>
             @endguest
         </div>
