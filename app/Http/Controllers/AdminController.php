@@ -56,22 +56,17 @@ class AdminController extends Controller
     }
 
     public function uploadContract(Request $request, $user){
-        try {
-            $request->validate([
-                'contract' => 'required|file|mimes:pdf|'
-            ]);
+        $request->validate([
+            'contract' => 'required|file|mimes:pdf|'
+        ]);
 
-            $file = $request->file('contract');
-            $fileData = file_get_contents($file);
+        $file = $request->file('contract');
+        $fileData = file_get_contents($file);
 
-            $contract = Contract::where('user_id', $user)->first();
-            $contract->file = $fileData;
-            $contract->save();
+        $contract = Contract::where('user_id', $user)->first();
+        $contract->file = $fileData;
+        $contract->save();
 
-            return redirect()->back()->with('success_message', 'Bestand succesvol geupload');
-        }
-        catch (\Exception $e){
-            return redirect()->back()->with('error_message', 'Bestand kon niet geupload worden');
-        }
+        return redirect()->back()->with('success_message', 'Bestand succesvol geupload');
     }
 }

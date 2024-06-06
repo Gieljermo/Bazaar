@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('type');
             $table->unsignedBigInteger('purchase_id')->nullable();
-            $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('set null');
             $table->unsignedBigInteger('bidding_id')->nullable();
-            $table->foreign('bidding_id')->references('id')->on('biddings');
+            $table->foreign('bidding_id')->references('id')->on('biddings')->onDelete('set null');
             $table->timestamps();
             $table->decimal('price')->nullable();;
             $table->decimal('price_from')->nullable();

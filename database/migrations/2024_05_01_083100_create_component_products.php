@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('listing_id');
             $table->foreign('listing_id')->references('id')->on('listings');
             $table->unsignedBigInteger('component_id');
-            $table->foreign('component_id')->references('id')->on('page_components');
+            $table->foreign('component_id')->references('id')->on('page_components')->onDelete('cascade');
 
             $table->primary(['listing_id', 'component_id']);
         });

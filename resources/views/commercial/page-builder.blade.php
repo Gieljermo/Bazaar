@@ -24,7 +24,7 @@
                 @foreach ($components as $component)
                 <div class="component-form-group form-group mb-4 card">
                     <input type="hidden" name="component[{{$index}}][id]" value="{{$component->id}}"/>
-                    <i class="bi bi-trash" data-component-id="{{ $component->id }}"></i>
+                    <i dusk='remove_{{$component->id}}' class="bi bi-trash" data-component-id="{{ $component->id }}"></i>
                     <label class="mb-2">
                         Titel
                     </label>
@@ -41,7 +41,7 @@
                             @foreach ($component->listings as $listing)
                                 <div class="selected-listing-wrapper">
                                     <input type="hidden" name="component[{{$index}}][product][]" value="{{$listing->id}}"/>
-                                    <p data-image="{{$listing->getImageUrl()}}" data-price="{{$listing->price}}" class="selected-listing">{{$listing->product->product_name}}<i class="bi bi-x"></i></p>
+                                    <p dusk="selected_listing_{{$listing->id}}" data-image="{{$listing->getImageUrl()}}" data-price="{{$listing->price}}" class="selected-listing">{{$listing->product->product_name}}<i class="bi bi-x"></i></p>
                                 </div>
                             @endforeach
                             <input type="text" class="hidden-search"/>
@@ -55,7 +55,7 @@
                 @endphp
                 @endforeach
             </div>
-            <input class="btn btn-primary" type="submit" value="verzenden"/>
+            <input dusk="saveComponents" class="btn btn-primary" type="submit" value="verzenden"/>
         </form>
         @foreach ($components as $component)
             <form class="invisible delete-form" action="{{Route('commercial.page-builder.delete', $component->id)}}" method="POST" data-component-id="{{ $component->id }}">

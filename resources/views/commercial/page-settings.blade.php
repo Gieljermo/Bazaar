@@ -24,7 +24,7 @@
                 @enderror
             </div>
             <div>
-                <button type="submit" class="btn btn-primary text-uppercase">Opslaan</button>
+                <button dusk='submit_settings' type="submit" class="btn btn-primary text-uppercase">Opslaan</button>
             </div>
         </form>
     </div>

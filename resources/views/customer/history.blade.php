@@ -37,85 +37,83 @@
             </div>
         @else
             @foreach($purchases as $purchase)
-                @foreach($purchase->listings as $listing)
-                    <div style="text-decoration: none; color: black">
-                        <div class="p-4 ps-3 pe-3 m-2 border border-dark border-1 rounded">
-                            <p style="float: right">€{{ $listing->price }}</p>
-                            <h4 class="text-uppercase">{{ $listing->product->product_name }}</h4>
-                            <p style="font-size: 1.2em">{{ $listing->product->description }}</p>
-                            <p>
-                                <a class="text-uppercase review-link-{{$listing->id}}" style="color:#0D6EFD; text-decoration: underline; cursor: pointer; font-size: 18px;"
-                                   data-bs-toggle="modal"  data-bs-target="#exampleModal{{$listing->id}}" dusk="review-link-{{$listing->id}}">
-                                    Laat een review achter voor de adverteerder
-                                </a>
-                            </p>
-                            @if(!$reviews->isEmpty())
-                                @foreach($reviews as $review)
-                                    @if($review->listing_id === $listing->id)
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-1">
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <p>
-                                                            <span class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
-                                                            @for($i = $review->rating; $i > 0; $i--)
-                                                                <span class="float-end"><i class="text-warning fa fa-star"></i></span>
-                                                            @endfor
-                                                        </p>
-                                                        <div class="clearfix mb-2"></div>
-                                                        <p>
-                                                            {{$review->text}}
-                                                        </p>
-                                                    </div>
+                <div style="text-decoration: none; color: black">
+                    <div class="p-4 ps-3 pe-3 m-2 border border-dark border-1 rounded">
+                        <p style="float: right">€{{ $purchase->listing->price }}</p>
+                        <h4 class="text-uppercase">{{ $purchase->listing->product->product_name }}</h4>
+                        <p style="font-size: 1.2em">{{ $purchase->listing->product->description }}</p>
+                        <p>
+                            <a class="text-uppercase review-link-{{$purchase->listing->id}}" style="color:#0D6EFD; text-decoration: underline; cursor: pointer; font-size: 18px;"
+                                data-bs-toggle="modal"  data-bs-target="#exampleModal{{$purchase->listing->id}}" dusk="review-link-{{$purchase->listing->id}}">
+                                Laat een review achter voor de adverteerder
+                            </a>
+                        </p>
+                        @if(!$reviews->isEmpty())
+                            @foreach($reviews as $review)
+                                @if($review->listing_id === $purchase->listing->id)
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p>
+                                                        <span class="float-start"><strong>{{$review->reviewer->name}} {{$review->reviewer->lastname}}</strong></span>
+                                                        @for($i = $review->rating; $i > 0; $i--)
+                                                            <span class="float-end"><i class="text-warning fa fa-star"></i></span>
+                                                        @endfor
+                                                    </p>
+                                                    <div class="clearfix mb-2"></div>
+                                                    <p>
+                                                        {{$review->text}}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        @break
-                                    @endif
-                                @endforeach
-                            @endif
-                            <div class="modal fade" id="exampleModal{{$listing->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$listing->id}}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            @if($reviews->isEmpty() || !$reviews->contains('listing_id', $listing->id))
-                                                <form action="{{route('customer.write.review')}}" method="post">
-                                                    @csrf
-                                                    <div>
-                                                        <h5 class="text-uppercase">Geef een review voor deze adverteerder</h5>
-                                                    </div>
-                                                    <div>
-                                                        <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
-                                                        <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
-                                                        <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
-                                                        <span onclick="rate(4)"><i class="fa fa-star star"></i></span>
-                                                        <span onclick="rate(5)"><i class="fa fa-star star"></i></span>
-                                                        <input hidden name="rating" id="rating" type="text" required>
-                                                        <input hidden name="advertiser" id="advertiser" type="text" value="{{$listing->user->id}}" required>
-                                                        <input hidden name="listing" id="listing" type="text" value="{{$listing->id}}" required>
-                                                    </div>
-                                                    <div class="form-group d-flex flex-column">
-                                                        <label for="review">Beschrijf jouw review:</label>
-                                                        <textarea class="form-control" id="review" name="review" required></textarea>
-                                                    </div>
-                                                    <div class="form-group mt-3">
-                                                        <input id="submit-review" class="btn btn-primary" type="submit" value="Plaats review"/>
-                                                    </div>
-                                                </form>
-                                            @else
+                                    </div>
+                                    @break
+                                @endif
+                            @endforeach
+                        @endif
+                        <div class="modal fade" id="exampleModal{{$purchase->listing->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$purchase->listing->id}}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @if($reviews->isEmpty() || !$reviews->contains('listing_id', $purchase->listing->id))
+                                            <form action="{{route('customer.write.review')}}" method="post">
+                                                @csrf
                                                 <div>
-                                                    <h5 class="text-uppercase">Je hebt de adverteerder beordeeld voor dit product</h5>
+                                                    <h5 class="text-uppercase">Geef een review voor deze adverteerder</h5>
                                                 </div>
-                                            @endif
-                                        </div>
+                                                <div>
+                                                    <span onclick="rate(1)"><i class="fa fa-star star"></i></span>
+                                                    <span onclick="rate(2)"><i class="fa fa-star star"></i></span>
+                                                    <span onclick="rate(3)"><i class="fa fa-star star"></i></span>
+                                                    <span onclick="rate(4)"><i class="fa fa-star star"></i></span>
+                                                    <span onclick="rate(5)"><i class="fa fa-star star"></i></span>
+                                                    <input hidden name="rating" id="rating" type="text" required>
+                                                    <input hidden name="advertiser" id="advertiser" type="text" value="{{$purchase->listing->user->id}}" required>
+                                                    <input hidden name="listing" id="listing" type="text" value="{{$purchase->listing->id}}" required>
+                                                </div>
+                                                <div class="form-group d-flex flex-column">
+                                                    <label for="review">Beschrijf jouw review:</label>
+                                                    <textarea class="form-control" id="review" name="review" required></textarea>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <input id="submit-review" class="btn btn-primary" type="submit" value="Plaats review"/>
+                                                </div>
+                                            </form>
+                                        @else
+                                            <div>
+                                                <h5 class="text-uppercase">Je hebt de adverteerder beordeeld voor dit product</h5>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
             @endforeach
             <div class="page-link mt-3 ms-2">
                 {{$purchases->links()}}

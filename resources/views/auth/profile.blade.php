@@ -119,7 +119,10 @@
                 <div class="form-group">
                     <label class="mb-2" for="upload-contract">Upload de contract voor zakelijk adverteerder</label>
                     <input type="file" id="upload-contract" name="contract">
-                    <button type="submit" class="btn btn-dark text-uppercase">Upload</button>
+                    <button id="upload_contract_{{$user->id}}" type="submit" class="btn btn-dark text-uppercase">Upload</button>
+                    @error('contract')
+                        <div id="error_contract" class="alert alert-danger mt-1 p-2">{{ $message }}</div>
+                    @enderror
                 </div>
             </form>
             @endif

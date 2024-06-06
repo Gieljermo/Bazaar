@@ -119,6 +119,7 @@ function handleListingOptionClick() {
 
     idText.setAttribute('data-image', this.querySelector('.listing-image').src);
     idText.setAttribute('data-price', this.querySelector('.listing-price').innerText);
+    idText.setAttribute('dusk', 'selected_listing_'+this.dataset.id);
     idText.classList.add('selected-listing');
 
     let icon = document.createElement('i');
