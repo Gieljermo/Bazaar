@@ -18,12 +18,21 @@ class CsvValidation implements ValidationRule
     {
         $data = array_map('str_getcsv', file($value->getRealPath()));
         $header = array_shift($data);
+        $csvData = [];
 
-        $csvData = array_map(function($row) use ($header) {
-            return array_combine($header, $row);
-        }, $data);
+        foreach ($data as $key => $row) {
+            if (count($header) != count($row)) {
+                // Identify the missing columns by comparing the header length with the row length
+                $missingColumns = array_diff($header, array_slice($header, 0, count($row)));
+                $countingRow = $key + 1;
+                $fail("Rij ($countingRow): niet alle kolommen zijn aanwezig");
+                return;
+            }
 
-        //validate each row
+            $csvData[] = array_combine($header, $row);
+        }
+
+        // Validate each row
         $listErrors = [];
         foreach ($csvData as $key => $row) {
             $validator = Validator::make($row, [
@@ -34,7 +43,7 @@ class CsvValidation implements ValidationRule
             ]);
 
             if ($validator->fails()) {
-                $listErrors[$key] = $validator->errors()->all();
+                $listErrors[$key + 1] = $validator->errors()->all();
             }
         }
 
