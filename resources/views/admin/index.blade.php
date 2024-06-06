@@ -57,7 +57,7 @@
                         <td>{{$user->lastname}}</td>
                         <td>{{$user->email}}</td>
                         <td>
-                                {{$roleDescriptions[(Role::find($user->role_id))->role_name] ?? '' }}
+                            {{$roleDescriptions[(Role::find($user->role_id))->role_name] ?? '' }}
                         </td>
                         <td>
                             <form action="{{route('users.edit', $user)}}" method="GET" style="display:inline;">

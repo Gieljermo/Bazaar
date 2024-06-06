@@ -10,10 +10,12 @@ use App\Models\Purchase;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Rules\CsvValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Log;
 
@@ -141,6 +143,7 @@ class ListingController extends Controller
         foreach ($reviewsOfAdvertiser as $review){
             $averageRating += $review->rating;
         }
+
         if($averageRating != 0){
             $averageRating= round($averageRating / count($reviewsOfAdvertiser));
         }
@@ -185,6 +188,13 @@ class ListingController extends Controller
     public function edit(Listing $listing)
     {
         //
+        $listingProduct = Listing::where("id", $listing->id)->with("product")->first();
+
+        return view("Listings.listing_edit", [
+            'listing' => $listingProduct,
+            'heading' => "Wijzig advertentie: " . $listingProduct->product->product_name
+        ]);
+
     }
 
     /**
@@ -193,6 +203,44 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         //
+        $validated = $request->validate([
+            'product.name' => 'required|string',
+            'product.description' => 'string',
+            'listing.price' => 'sometimes|required|numeric',
+            'listing.bid-until' => 'sometimes|required',
+            'listing.rent-price' => 'sometimes|required|numeric',
+        ]);
+
+        $currentListing = Listing::find($listing->id);
+
+        if ($currentListing){
+            if ($request->has('listing.bid-price')) {
+                $listing->price_from = $request->input('listing.bid-price');
+                $listing->bid_until = $request->input('listing.bid-until');
+            } else if ($request->has('listing.price')) {
+                $listing->price = $request->input('listing.price');
+            } else if ($request->has('listing.rent-price')) {
+                $listing->price = $request->input('listing.rent-price');
+            }
+
+            if($request->file('listing.image') != null) $listing->image = $request->file('listing.image')->store('listings', 'public');
+
+
+            $product = Product::find($currentListing->product_id);
+            if($product){
+                $product->product_name = $request->input('product.name');
+                $product->description = $request->input('product.description');
+
+                $product->save();
+            }
+
+            $listing->save();
+            return redirect()->route("advert.listings")->with("success", "De advertentie  is geupdate");
+        }
+        else{
+            return  redirect()->route("advert.listings")->with("failed", "De advertentie  kon niet worden geupdate");
+        }
+
     }
 
     /**
@@ -201,6 +249,23 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         //
+         $listing = Listing::find($listing->id);
+
+         if ($listing){
+             $product = $listing->product;
+
+             $listing->delete();
+
+             if($product){
+                 $product->delete();
+             }
+             return back()->with("success", "De advertentie  is verwijderd");
+         }
+         else{
+             return back()->with("failed", "De advertentie  kon niet verwijderd worden");
+         }
+
+
     }
     
 
@@ -261,6 +326,92 @@ class ListingController extends Controller
         return redirect()->route('listings.index');
     }
 
+    public function showAdvertiserListings(Request $request){
+
+        $listings= Listing::where("user_id", Auth::user()->id)
+            ->with("product");
+
+        if ($request->type != null){
+            $listings->where("type", $request->type);
+        }
+
+        if($request->sort != null && $request->has('sort')){
+            $listings = $listings->orderby('price', $request->sort);
+        }
+
+        $listings = $listings->simplePaginate(10);
+        return view("Listings.listing_list", [
+            'listings' => $listings
+        ]);
+    }
+
+    public function uploadCsvFile(Request $request){
+
+        $request->validate([
+            'csv_file' => ['required','file', new CsvValidation()]
+        ]);
+
+        $file = $request->file('csv_file');
+        $fileContents = file($file->getPathname());
+        $skipHeader = true;
+        foreach ($fileContents as $line) {
+            if ($skipHeader) {
+                $skipHeader = false;
+                continue;
+            }
+
+            $getCsv = str_getcsv($line);
+
+            $product = Product::create([
+                'product_name' => $getCsv[0],
+                'description' => $getCsv[1],
+            ]);
+
+            Listing::create([
+                "product_id" => $product->id,
+                "user_id" => Auth::user()->id,
+                "type" => $getCsv[2],
+                (($getCsv[2] == "bidding") ? "price_from" : "price") => $getCsv[3],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'CSV bestand is succesvol geupload.');
+
+    }
+
+    public function exportToCsvFile(){
+
+        $listings = Listing::where("user_id",Auth::user()->id)->with("product")->get();
+
+        $fileName = "export_product_".Auth::user()->name.".csv";
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
+        ];
+
+        $handle = fopen('php://output', 'w');
+        fputcsv($handle, [
+            'product_name',
+            'description',
+            'type',
+            'price',
+        ]);
+
+        foreach ($listings as $listing) {
+            fputcsv($handle, [
+                $listing->product->product_name,
+                $listing->product->description,
+                $listing->type,
+                $listing->price
+            ]);
+        }
+
+        fclose($handle);
+
+        return Response::make('', 200, $headers);
+    }
+  
     public function autocomplete(Request $request)
     {
 

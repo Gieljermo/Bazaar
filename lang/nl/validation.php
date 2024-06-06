@@ -89,8 +89,8 @@ return [
         'string'  => ':Attribute mag niet groter zijn dan :max karakters.',
         'array'   => ':Attribute mag niet meer dan :max items bevatten.',
     ],
-    'mimes'                => ':Attribute dient een bestand te zijn van het type: :values.',
-    'mimetypes'            => ':Attribute dient een bestand te zijn van het type: :values.',
+    'mimes'                => 'De :Attribute moet een bestand zijn van het type :values.',
+    'mimetypes'            => ':Attribute dient een bestand te zijn van het type :values.',
     'min'                  => [
         'numeric' => ':Attribute dient minimaal :min te zijn.',
         'file'    => ':Attribute dient minimaal :min kilobytes te zijn.',
@@ -174,6 +174,9 @@ return [
         'postal_code' => 'postcode',
         'street' => 'straat',
         'house_number' => 'huisnummer',
+        'price' => 'prijs',
+        'product_name' => 'product naam',
+        'description' => 'beschrijving'
         // ... other attributes
     ],
 
