@@ -57,4 +57,24 @@ class ListingFactory extends Factory
             'image' => $urlPath . $imageName,
         ];
     }
+
+    public function bidding(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'bidding',
+                'price_from' => fake()->boolean ? fake()->randomFloat(2, 0, 1000) : 0,
+                'bid_until' => fake()->dateTimeBetween('-3 hours', '+5 hours'),
+            ];
+        });
+    }
+
+    public function rental(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'rental'
+            ];
+        });
+    }
 }

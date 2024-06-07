@@ -11,7 +11,7 @@
 
 <div class="listing-container d-flex justify-content-center flex-row g-5">
     <div class="left">
-        <img src="{{$listing->getImageUrl()}}" alt="placeholder image">
+        <img id="listing-show-image" src="{{$listing->getImageUrl()}}" alt="placeholder image">
     </div>
     <div class="right">
         <div class="d-flex">

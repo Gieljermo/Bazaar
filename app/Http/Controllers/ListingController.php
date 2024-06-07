@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use function PHPUnit\Framework\isEmpty;
-use Illuminate\Support\Facades\Log;
+use App\Rules\ListingTypeLimit;
 
 class ListingController extends Controller
 {
@@ -89,7 +89,7 @@ class ListingController extends Controller
             'listing.price' => 'sometimes|required|numeric',
             'listing.bid-until' => 'sometimes|required',
             'listing.rent-price' => 'sometimes|required|numeric',
-            'listing.type' => 'required',
+            'listing.type' => ['required', new ListingTypeLimit],
         ]);
 
 
