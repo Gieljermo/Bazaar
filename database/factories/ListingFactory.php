@@ -63,7 +63,7 @@ class ListingFactory extends Factory
             return [
                 'type' => 'bidding',
                 'price_from' => fake()->boolean ? fake()->randomFloat(2, 0, 1000) : 0,
-                'bid_until' => fake()->dateTimeBetween('-3 hours', '+5 hours'),
+                'bid_until' => fake()->dateTimeBetween('+1 hours', '+5 hours', 'GMT+1'),
             ];
         });
     }
