@@ -17,10 +17,6 @@ class CustomerController extends Controller
     //
 
     private array $sort = ['sortByAsc', 'sortByDesc'];
-    public function index()
-    {
-        //
-    }
 
     public function addFavoriteProduct($listingId){
 
@@ -128,7 +124,6 @@ class CustomerController extends Controller
         else{
             $review->listing_id = $request['listing'];
         }
-
 
         $review->text =$request['review'];
         $review->rating = $request['rating'];

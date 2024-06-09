@@ -16,7 +16,6 @@ class MainController extends Controller
      */
     public function index($customUrl = null)
     {
-        
 
         if (Auth::check() && Auth::user()->role_id === 4){
             return redirect()->route('admin.index');

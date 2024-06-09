@@ -19,7 +19,7 @@ class ListingSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::where('role_id', '!=', 4)->get();
+        $users = User::where('role_id', '!=', 4)->where('role_id', '!=', 1)->get();
 
         foreach($users as $user){
             Listing::factory()->count(3)->create([

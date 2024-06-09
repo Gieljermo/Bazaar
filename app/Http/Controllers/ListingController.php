@@ -308,7 +308,7 @@ class ListingController extends Controller
         $listing->save();
 
 
-        return redirect()->route('listings.index');
+        return redirect()->route('listings.index')->with('message', 'Product gekocht. Zie aankoop in de bestel geschiedenis op uw profiel.');
     }
 
     public function rent(Request $request){
@@ -328,7 +328,7 @@ class ListingController extends Controller
             'until' => $rent_until
         ]);
 
-        return redirect()->route('listings.index');
+        return redirect()->route('listings.index')->with('message', 'Huur reservering succesvol geplaatst.');
     }
 
     public function showAdvertiserListings(Request $request){
