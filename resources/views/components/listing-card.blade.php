@@ -24,8 +24,7 @@ $foundFavorite = false;
                         @if($favorite->listing_id === $listing->id)
                             <form action="{{route('customer.delete.favorite', $listing->id)}}">
                                 @csrf
-                                <button class="icon-button"><i style="font-size: 24px"
-                                                               class="bi bi-heart-fill"></i></button>
+                                <button class="icon-button"><i style="font-size: 24px" class="bi bi-heart-fill"></i></button>
                             </form>
                             @php $foundFavorite = true @endphp
                             @break

@@ -52,7 +52,6 @@ class ListingFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'type' => 'set',
             'purchase_id' => null,
-            'bidding_id' => null,
             'price' => fake()->randomFloat(2, 10, 1000),
             'image' => $urlPath . $imageName,
         ];
