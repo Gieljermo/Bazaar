@@ -45,31 +45,6 @@ class AdvertisementTest extends DuskTestCase
         });
     }
 
-
-    /*public function test_user_make_advertisement_bidding_with_login(): void
-    {
-        $user = User::find(3);
-        $datetime = Carbon::now()->format('D-M-Y\TH:i');
-
-        $this->browse(function (Browser $browser) use ($user, $datetime) {
-            $browser->logout()->loginAs($user)
-                ->click("#place_advertisement")
-                ->type('product[name]', 'Sample Product bidding')
-                ->type('product[description]', 'This is a sample product description.')
-                ->attach('listing[image]',  storage_path('img/Alaska.jpg'))
-                ->select('listing[type]', 'bidding')
-                ->type('listing[bid-price]', '50')
-                ->clear('input[name="listing[bid-until]"]')
-                ->script("document.querySelector('input[name=\"listing[bid-until]\"]').value = '$datetime';");
-            $browser
-                ->pause(10000)
-                ->press('Advertentie plaatsen')
-                ->assertPathIs("/listings")
-                ->assertSeeIn("h1", "ADVERTENTIES")
-                ->assertSee("Advertentie succesvol toegevoegd.");
-        });
-    }*/
-
    public function test_user_make_advertisement_rental_with_login(): void
     {
         $user = User::find(3);

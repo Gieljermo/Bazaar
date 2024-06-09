@@ -42,7 +42,7 @@ class ListingFactory extends Factory
         if (count($images) >= $minimumImages) {
             $randomImage = $images[array_rand($images)];
             $imageName = $randomImage->getFilename();
-            
+
         } else {
             $imageName = fake()->image(storage_path($directory), 500, 500, null, false);
         }

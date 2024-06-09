@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class CommercialController extends Controller
 {
     //
-    public function index()
-    {
-
-    }
 
     public function getContract()
     {

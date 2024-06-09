@@ -15,7 +15,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        //
         $users = User::all()->except(Auth::id());
         $roles = Role::all()->except(Auth::user()->role_id);
 
@@ -24,10 +23,11 @@ class AdminController extends Controller
                 'users' => $users,
                 'roles' => $roles,
                 'roleActive' => 0
-            ]);
+        ]);
     }
 
     public function filterUsers($roleName){
+
         try {
             $role_id = Role::where('role_name', $roleName)->value('id');
             $users = User::whereRaw('role_id = ?', $role_id)->get();
@@ -48,6 +48,7 @@ class AdminController extends Controller
     }
 
     public function exportContractPdf($user){
+
         $chosenUser = User::find($user);
         $pdf = Pdf::loadView('admin.contract_template', [
             'user' => $chosenUser
